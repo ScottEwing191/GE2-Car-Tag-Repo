@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using CarTag.Input;
 
 
 
-namespace UnityStandardAssets.Cameras
+namespace CarTag.Cameras
 {
     public class FreeLookCam : PivotBasedCameraRig
     {
@@ -22,7 +23,7 @@ namespace UnityStandardAssets.Cameras
         [SerializeField] private float m_TiltMin = 45f;                       // The minimum value of the x axis rotation of the pivot.
         [SerializeField] private bool m_LockCursor = false;                   // Whether the cursor should be hidden and locked.
         [SerializeField] private bool m_VerticalAutoReturn = false;           // set wether or not the vertical axis should auto return
-       
+        [SerializeField] private InputManager inputManager;
 
         private float m_LookAngle;                    // The rig's y axis rotation.
         private float m_TiltAngle;                    // The pivot's x axis rotation.
@@ -47,7 +48,7 @@ namespace UnityStandardAssets.Cameras
         protected void Update()
         {
             HandleRotationMovement();
-            if (m_LockCursor && Input.GetMouseButtonUp(0))
+            if (m_LockCursor && UnityEngine.Input.GetMouseButtonUp(0))
             {
                 Cursor.lockState = m_LockCursor ? CursorLockMode.Locked : CursorLockMode.None;
                 Cursor.visible = !m_LockCursor;
@@ -76,9 +77,14 @@ namespace UnityStandardAssets.Cameras
 			return;
 
             // Read the user input --- Old System
-            var x = CrossPlatformInputManager.GetAxis("Mouse X");
-            var y = CrossPlatformInputManager.GetAxis("Mouse Y");
-            
+            //var x = CrossPlatformInputManager.GetAxis("Mouse X");
+            //var y = CrossPlatformInputManager.GetAxis("Mouse Y");
+            //print("x:" + x + "y:" + y);
+            var x = inputManager.CameraInput.CameraX;
+            var y = inputManager.CameraInput.CameraY;
+            //print("a:" + a + "b:" + b);
+
+
 
             // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
             m_LookAngle += x*m_TurnSpeed;

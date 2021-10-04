@@ -9407,8 +9407,8 @@ GameObject:
   - component: {fileID: 7364511240405986964}
   - component: {fileID: 7364511240402588134}
   - component: {fileID: 7364511240400324452}
-  - component: {fileID: 7364511240400324464}
   - component: {fileID: 7364511240400324478}
+  - component: {fileID: 6087324511421474048}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -9494,18 +9494,6 @@ MonoBehaviour:
   m_RevRangeBoundary: 1
   m_SlipLimit: 0.3
   m_BrakeTorque: 20000
---- !u!114 &7364511240400324464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7364511240405824236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96468c245ae8e0d4f8f1c7a7b8b0542e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7364511240400324478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9530,6 +9518,19 @@ MonoBehaviour:
   maxRolloffDistance: 500
   dopplerLevel: 1
   useDoppler: 1
+--- !u!114 &6087324511421474048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364511240405824236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc75228c13423934f9e8dd013c441836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 7364511240400324452}
 --- !u!1 &7364511240405824248
 GameObject:
   m_ObjectHideFlags: 0

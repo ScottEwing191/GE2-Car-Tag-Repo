@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace CarTag.Inputs
+namespace CarTag.Input
 {
     public class CarInputHandler : MonoBehaviour
     {
@@ -19,7 +19,6 @@ namespace CarTag.Inputs
 
         public void OnSteer(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<Vector2>();
-            print("Accelerate" + value);
             Steering = value.x;
         }
         public void OnAccelerate(InputAction.CallbackContext context) {
@@ -33,13 +32,6 @@ namespace CarTag.Inputs
         public void OnHandbrake(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<float>();
             Handbrake = value;
-            print("Handbrake: " + value);
-        }
-        public void OnTest(InputAction.CallbackContext context) {
-            print("Test");
-        }
-        private void OnTest(InputValue value) {
-            print("Test");
         }
     }
 }

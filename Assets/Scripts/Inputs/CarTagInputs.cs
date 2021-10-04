@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace CarTag.Inputs
+namespace CarTag.Input
 {
     public class @CarTagInputs : IInputActionCollection, IDisposable
     {
@@ -29,7 +29,7 @@ namespace CarTag.Inputs
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""Looks"",
                     ""type"": ""Value"",
                     ""id"": ""c3a236e9-85d7-4195-bde6-8224f60cc281"",
                     ""expectedControlType"": ""Vector2"",
@@ -179,7 +179,7 @@ namespace CarTag.Inputs
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
+                    ""action"": ""Looks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -190,7 +190,7 @@ namespace CarTag.Inputs
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Look"",
+                    ""action"": ""Looks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -201,6 +201,28 @@ namespace CarTag.Inputs
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""980b1ce1-b520-486c-af14-6a56ed02d4d9"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""373ec8cc-12e5-4a32-8a5d-bdd521b51967"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -657,6 +679,44 @@ namespace CarTag.Inputs
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""2363d97a-f1e7-4e6d-8bc9-e012d53ee9bf"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""a4df3a6b-e4bc-4c82-a094-bfeac35b3097"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""517cf886-2d12-49a2-a7ac-62d8f543ec17"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55940d0a-91bb-4d28-ae42-1e7bab244764"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.1,y=0.1)"",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -692,7 +752,7 @@ namespace CarTag.Inputs
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Steer = m_Player.FindAction("Steer", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_Looks = m_Player.FindAction("Looks", throwIfNotFound: true);
             m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
             m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
             m_Player_Handbrake = m_Player.FindAction("Handbrake", throwIfNotFound: true);
@@ -708,6 +768,9 @@ namespace CarTag.Inputs
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // Camera
+            m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+            m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -758,7 +821,7 @@ namespace CarTag.Inputs
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Steer;
-        private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_Looks;
         private readonly InputAction m_Player_Accelerate;
         private readonly InputAction m_Player_Brake;
         private readonly InputAction m_Player_Handbrake;
@@ -767,7 +830,7 @@ namespace CarTag.Inputs
             private @CarTagInputs m_Wrapper;
             public PlayerActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Steer => m_Wrapper.m_Player_Steer;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @Looks => m_Wrapper.m_Player_Looks;
             public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
             public InputAction @Brake => m_Wrapper.m_Player_Brake;
             public InputAction @Handbrake => m_Wrapper.m_Player_Handbrake;
@@ -783,9 +846,9 @@ namespace CarTag.Inputs
                     @Steer.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
                     @Steer.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
                     @Steer.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
-                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Looks.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
+                    @Looks.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
+                    @Looks.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
                     @Accelerate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
                     @Accelerate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
                     @Accelerate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
@@ -802,9 +865,9 @@ namespace CarTag.Inputs
                     @Steer.started += instance.OnSteer;
                     @Steer.performed += instance.OnSteer;
                     @Steer.canceled += instance.OnSteer;
-                    @Look.started += instance.OnLook;
-                    @Look.performed += instance.OnLook;
-                    @Look.canceled += instance.OnLook;
+                    @Looks.started += instance.OnLooks;
+                    @Looks.performed += instance.OnLooks;
+                    @Looks.canceled += instance.OnLooks;
                     @Accelerate.started += instance.OnAccelerate;
                     @Accelerate.performed += instance.OnAccelerate;
                     @Accelerate.canceled += instance.OnAccelerate;
@@ -923,6 +986,39 @@ namespace CarTag.Inputs
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Camera
+        private readonly InputActionMap m_Camera;
+        private ICameraActions m_CameraActionsCallbackInterface;
+        private readonly InputAction m_Camera_Look;
+        public struct CameraActions
+        {
+            private @CarTagInputs m_Wrapper;
+            public CameraActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Look => m_Wrapper.m_Camera_Look;
+            public InputActionMap Get() { return m_Wrapper.m_Camera; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+            public void SetCallbacks(ICameraActions instance)
+            {
+                if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+                {
+                    @Look.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                }
+                m_Wrapper.m_CameraActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
+                }
+            }
+        }
+        public CameraActions @Camera => new CameraActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -944,7 +1040,7 @@ namespace CarTag.Inputs
         public interface IPlayerActions
         {
             void OnSteer(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
+            void OnLooks(InputAction.CallbackContext context);
             void OnAccelerate(InputAction.CallbackContext context);
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
@@ -961,6 +1057,10 @@ namespace CarTag.Inputs
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        public interface ICameraActions
+        {
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }
