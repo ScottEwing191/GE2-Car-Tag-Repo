@@ -129,6 +129,9 @@ namespace UnityStandardAssets.Vehicles.Car
 
         public void Move(float steering, float accel, float footbrake, float handbrake)
         {
+            if (footbrake < -0) {
+                print("");
+            }
             for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;
@@ -142,6 +145,7 @@ namespace UnityStandardAssets.Vehicles.Car
             steering = Mathf.Clamp(steering, -1, 1);
             AccelInput = accel = Mathf.Clamp(accel, 0, 1);
             BrakeInput = footbrake = -1*Mathf.Clamp(footbrake, -1, 0);
+
             handbrake = Mathf.Clamp(handbrake, 0, 1);
 
             //Set the steer on the front wheels.
