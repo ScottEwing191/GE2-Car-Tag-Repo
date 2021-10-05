@@ -4,7 +4,7 @@ using UnityEngine;
 using Dreamteck.Splines;
 using Sirenix.OdinInspector;
 
-namespace CarTag.RoadGeneration
+namespace CarTag.Road
 {
     public class RoadGenerator : MonoBehaviour
     {

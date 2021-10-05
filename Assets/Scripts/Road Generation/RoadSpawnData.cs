@@ -5,7 +5,7 @@ using UnityEngine;
 //using Sirenix.Serialization;
 
 
-namespace CarTag.RoadGeneration {
+namespace CarTag.Road {
 
     public class RoadSpawnData : MonoBehaviour {
         [SerializeField] private Vector3 position;
