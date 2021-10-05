@@ -28,11 +28,15 @@ namespace CarTag.Road
         }
 
         private void LateUpdate() {
+            TryGenerateRoad();
+        }
+
+        private void TryGenerateRoad() {
             splineComputer.type = splineType;
             currentPosition = roadSpawnData.Position;
             distanceInLastFrame = Vector3.Distance(currentPosition, lastPosition);
             distanceSinceLastControlPoint += distanceInLastFrame;
-            
+
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
             /*if (roadSpawnData.GroundedThisFrame || roadSpawnData.OffGroundThisFrame) {
                 AddControlPoint();
