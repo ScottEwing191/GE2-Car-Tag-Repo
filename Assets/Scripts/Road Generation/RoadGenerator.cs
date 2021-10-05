@@ -32,7 +32,11 @@ namespace CarTag.RoadGeneration
             currentPosition = roadSpawnData.Position;
             distanceInLastFrame = Vector3.Distance(currentPosition, lastPosition);
             distanceSinceLastControlPoint += distanceInLastFrame;
-
+            
+            // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
+            /*if (roadSpawnData.GroundedThisFrame || roadSpawnData.OffGroundThisFrame) {
+                AddControlPoint();
+            }*/
             if (distanceSinceLastControlPoint >= maxDistanceBetweenControlPoints) {
                 AddControlPoint();
             }
@@ -41,10 +45,13 @@ namespace CarTag.RoadGeneration
 
         private void AddControlPoint() {
             distanceSinceLastControlPoint = 0;
-            Node node = new Node();
             SplinePoint splinePoint = new SplinePoint(roadSpawnData.Position, roadSpawnData.Position, roadSpawnData.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;
             splineComputer.SetPoint(splineComputer.pointCount, splinePoint);
+        }
+
+        private void AddCheckpoint() {
+            
         }
 
     }
