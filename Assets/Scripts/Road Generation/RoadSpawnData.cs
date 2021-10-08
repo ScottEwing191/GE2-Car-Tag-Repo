@@ -41,18 +41,18 @@ namespace CarTag.Road {
             if (rearLeftWheel.isGrounded && rearRightWheel.isGrounded) {
                 if (!IsGrounded) {
                     GroundedThisFrame = true;   // only set to true if the car was not already on the ground
-                    print("Grounded");
+                    //print("Grounded");
                 }
                 IsGrounded = true;
             }
             else {
                 if (IsGrounded) {
                     OffGroundThisFrame = true;  // only set to true if the car was on the ground previously
-                    print("Off Grounded");
+                    //print("Off Grounded");
                 }
                 IsGrounded = false;
             }
-            print("Grounded: " + IsGrounded);
+            //print("Grounded: " + IsGrounded);
         }
 
         private void SetPositionAndNormal() {
