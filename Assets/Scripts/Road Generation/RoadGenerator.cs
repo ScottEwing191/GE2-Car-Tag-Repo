@@ -8,26 +8,23 @@ namespace CarTag.Road
 {
     public class RoadGenerator : MonoBehaviour
     {
-        //[SerializeField] private Transform roadSpawnPoint;
-        [SerializeField] private RoadSpawnData roadSpawnData;
         [SerializeField] private SplineComputer splineComputer;
-
-        [SerializeField] private float maxDisplacementBetweenControlPoints = 3;
+        [SerializeField] private float maxDisplacementBetweenControlPoints = 4;
         [SerializeField] private float displacementSinceLastSplinePoint;
         [SerializeField] float pointSize = 1;
-
         [SerializeField] private Spline.Type splineType;
 
-
+        private RoadManager roadManager;
+        private RoadSpawnData roadSpawnData;
         private Vector3 currentPosition;
 
         private void Awake() {
+            roadManager = GetComponentInParent<RoadManager>();
+            roadSpawnData = roadManager.RoadSpawnData;
             currentPosition = roadSpawnData.Position;
         }
 
-        private void LateUpdate() {
-            //TryGenerateRoad();
-        }
+        
 
         // Return true if road is generated
         internal bool TryGenerateRoad() {
@@ -39,7 +36,7 @@ namespace CarTag.Road
                 AddControlPoint();
             }*/
             if (IsDisplacementTravelled()) {
-                AddControlPoint();
+                AddSplinePoint();
                 return true;
             }
             return false;
@@ -56,7 +53,7 @@ namespace CarTag.Road
             else return false;
         }
         
-        private void AddControlPoint() {
+        private void AddSplinePoint() {
             SplinePoint splinePoint = new SplinePoint(roadSpawnData.Position, roadSpawnData.Position, roadSpawnData.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;
             splineComputer.SetPoint(splineComputer.pointCount, splinePoint);

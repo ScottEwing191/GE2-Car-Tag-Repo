@@ -8,7 +8,11 @@ namespace CarTag.Checkpoints
     {
         // Not having new Queue might cause problems
         public Queue<Checkpoint> Checkpoints { get; set; }
-        internal CheckpointSpawner checkpointSpawner { get; set; }
+        public CheckpointSpawner CheckpointSpawner { get; private set; }
+
+        private void Awake() {
+            CheckpointSpawner = GetComponent<CheckpointSpawner>();
+        }
         
     }
 }
