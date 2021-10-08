@@ -11,7 +11,7 @@ namespace CarTag.Checkpoints
         public Quaternion respawnRotation { get; private set; }
         
         [SerializeField] private GameObject mesh;
-        [SerializeField] private GameObject collider;
+        [SerializeField] private GameObject checkpointTrigger;
         [SerializeField] private Transform respawnTransform;
 
         private void Awake() {
@@ -26,12 +26,12 @@ namespace CarTag.Checkpoints
 
         public void HideMeshAndCollider() {
             mesh.SetActive(false);
-            collider.SetActive(false);
+            checkpointTrigger.SetActive(false);
         }
 
         public void ShowMeshAndCollider() {
             mesh.SetActive(true);
-            collider.SetActive(true);
+            checkpointTrigger.SetActive(true);
         }
     }
 }

@@ -5219,6 +5219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointPrefab: {fileID: 1682702110}
+  spawnFrequency: 10
 --- !u!114 &1060389921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8988,6 +8989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2a59080fdcc054da265ea9eea5fc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
+  collider: {fileID: 0}
   respawnTransform: {fileID: 324024542}
 --- !u!1 &1685364757
 GameObject:

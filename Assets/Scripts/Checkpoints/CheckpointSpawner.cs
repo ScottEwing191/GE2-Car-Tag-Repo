@@ -52,13 +52,10 @@ namespace CarTag.Checkpoints
             checkpointManager.Checkpoints.Enqueue(newCP.GetComponent<Checkpoint>());    // Add new Checkpoint to queue
             testName++;
             newCP.name = "Checkpoint " +testName.ToString();
+            checkpointManager.CheckpointActivation.SetNewCheckpointVisibility(newCP.GetComponent<Checkpoint>());
         }
 
-        /*private void Update() {
-            if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame ) {
-                checkpointManager.Checkpoints.Dequeue();
-            }
-        }*/
+        
 
     }
 }
