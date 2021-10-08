@@ -33,5 +33,10 @@ namespace CarTag.Checkpoints
             mesh.SetActive(true);
             checkpointTrigger.SetActive(true);
         }
+
+        private void OnTriggerEnter(Collider other) {
+            print("Triggered");
+        }
+        
     }
 }

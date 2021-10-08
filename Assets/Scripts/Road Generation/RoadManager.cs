@@ -22,9 +22,7 @@ namespace CarTag.Road
        private void Update() {
             if (roadGenerator.TryGenerateRoad()) {
                 if (checkpointManager != null) {
-                   //checkpointManager.CheckpointSpawner.TrySpawnCheckpoint(RoadSpawnData.transform);
-                   checkpointManager.CheckpointSpawner.TrySpawnCheckpoint(roadSpawnData.transform);
-
+                    checkpointManager.StartCheckpointSpawn(roadSpawnData.transform);
                 }
             }
         }
