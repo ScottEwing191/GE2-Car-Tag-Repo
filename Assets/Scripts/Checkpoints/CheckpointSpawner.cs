@@ -14,13 +14,14 @@ namespace CarTag.Checkpoints
         Transform spawnTransform;
 
 
-        void SpawnCheckpoint(Transform spawnTransform) {
+        internal bool TrySpawnCheckpoint(Transform spawnTransform) {
             // Instantiate Checkpoint
             GameObject newCP =  Instantiate(checkpointPrefab,
                 spawnTransform.position,
                 spawnTransform.rotation,
                 checkpointManager.gameObject.transform);    // parent
             checkpointManager.Checkpoints.Enqueue(newCP.GetComponent<Checkpoint>());    // Add new Checkpoint to queue
+            return true;
         }
 
     }

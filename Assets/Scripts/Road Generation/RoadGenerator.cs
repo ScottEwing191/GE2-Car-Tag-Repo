@@ -11,52 +11,55 @@ namespace CarTag.Road
         //[SerializeField] private Transform roadSpawnPoint;
         [SerializeField] private RoadSpawnData roadSpawnData;
         [SerializeField] private SplineComputer splineComputer;
-        [SerializeField] private float maxDistanceBetweenControlPoints = 3;
-        [SerializeField] private float distanceSinceLastSplinePoints;
-        [ShowInInspector] private float distanceSinceLastControlPoint;
+
+        [SerializeField] private float maxDisplacementBetweenControlPoints = 3;
+        [SerializeField] private float displacementSinceLastSplinePoint;
         [SerializeField] float pointSize = 1;
 
         [SerializeField] private Spline.Type splineType;
 
-        private Vector3 lastPosition;
+
         private Vector3 currentPosition;
-        private float distanceInLastFrame;
 
         private void Awake() {
             currentPosition = roadSpawnData.Position;
-            lastPosition = currentPosition;
         }
 
         private void LateUpdate() {
-            TryGenerateRoad();
+            //TryGenerateRoad();
         }
 
-        private void TryGenerateRoad() {
+        // Return true if road is generated
+        internal bool TryGenerateRoad() {
             splineComputer.type = splineType;
             currentPosition = roadSpawnData.Position;
-            distanceInLastFrame = Vector3.Distance(currentPosition, lastPosition);
-            distanceSinceLastControlPoint += distanceInLastFrame;
 
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
             /*if (roadSpawnData.GroundedThisFrame || roadSpawnData.OffGroundThisFrame) {
                 AddControlPoint();
             }*/
-            if (distanceSinceLastControlPoint >= maxDistanceBetweenControlPoints) {
+            if (IsDisplacementTravelled()) {
                 AddControlPoint();
+                return true;
             }
-            lastPosition = currentPosition;
+            return false;
+            
         }
 
+        private bool IsDisplacementTravelled() {
+            Vector3 lastPoint = splineComputer.GetPoint(splineComputer.pointCount - 1).position;
+            displacementSinceLastSplinePoint = Vector3.Distance(currentPosition, lastPoint);
+            if (displacementSinceLastSplinePoint >= maxDisplacementBetweenControlPoints) {
+                displacementSinceLastSplinePoint = 0;
+                return true;
+            }
+            else return false;
+        }
+        
         private void AddControlPoint() {
-            distanceSinceLastControlPoint = 0;
             SplinePoint splinePoint = new SplinePoint(roadSpawnData.Position, roadSpawnData.Position, roadSpawnData.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;
             splineComputer.SetPoint(splineComputer.pointCount, splinePoint);
         }
-
-        private void AddCheckpoint() {
-            
-        }
-
     }
 }
