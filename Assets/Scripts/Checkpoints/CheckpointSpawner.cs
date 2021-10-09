@@ -16,6 +16,28 @@ namespace CarTag.Checkpoints {
             checkpointManager = GetComponent<CheckpointManager>();
         }
 
+
+
+        /// <summary>
+        /// Checks if a checkpoint is able spawn and then spawns it
+        /// </summary>
+        /// <param name="spawnTransform"></param>
+        /// <param name="runnerCheckpointListIndex">This is the index in the List<Queue<Checkpoint>> of the runner queue. Checkpoints do not need to be added here</param>
+        /// <returns>Returns new chekpoint script or null if no checkpoint was spawned</returns>
+        internal Checkpoint TrySpawnCheckpoint(Transform spawnTransform, int runnerCheckpointListIndex) {
+            bool canSpawn = CanCheckpointSpawn(spawnTransform);
+            if (canSpawn) {
+                var newCPScript = SpawnCheckpoint(spawnTransform, runnerCheckpointListIndex);
+                return newCPScript;
+            }
+            else {
+                return null;
+            }
+        }
+
+
+
+
         /// <summary>
         /// Checks if a checkpoint is able spawn and then spawns it
         /// </summary>
@@ -31,6 +53,7 @@ namespace CarTag.Checkpoints {
             }
         }
 
+
         private bool CanCheckpointSpawn(Transform spawnTransform) {
             pointsSinceLastCP++;
             if (pointsSinceLastCP % spawnFrequency == 0) {
@@ -40,6 +63,30 @@ namespace CarTag.Checkpoints {
             return false;
         }
         int testName = 0;
+
+        private Checkpoint SpawnCheckpoint(Transform spawnTransform, int runnerCheckpointListIndex) {
+            for (int i = 0; i < checkpointManager.ListOfQueueOfCheckpoints.Count; i++) {
+                if (i == runnerCheckpointListIndex)
+                    continue;
+            // Instantiate Checkpoint
+                GameObject newCP = Instantiate(checkpointPrefab,
+                spawnTransform.position,
+                spawnTransform.rotation,
+                checkpointManager.gameObject.transform);    // parent
+            Checkpoint newCPScript = newCP.GetComponent<Checkpoint>();
+            checkpointManager.ListOfQueueOfCheckpoints[i].Enqueue(newCPScript);    // Add new Checkpoint to queue
+
+            }
+            testName++;
+            
+            // NEED TO DECIDE WHAT TO DO NOW THAT THIS METHOD INSTANTIATE 4 CHECKPOINT OBJECTS (AND SCRIPTS) 
+            newCP.name = "Checkpoint " + testName.ToString();
+
+            
+            return newCPScript;
+        }
+
+
         /// <summary>
         /// instantiates a new checkpoint and return checkpoint skript on that new gameobject
         /// </summary>
@@ -49,7 +96,7 @@ namespace CarTag.Checkpoints {
                 spawnTransform.position,
                 spawnTransform.rotation,
                 checkpointManager.gameObject.transform);    // parent
-            Checkpoint newCPScript= newCP.GetComponent<Checkpoint>();
+            Checkpoint newCPScript = newCP.GetComponent<Checkpoint>();
             checkpointManager.Checkpoints.Enqueue(newCPScript);    // Add new Checkpoint to queue
             testName++;
             newCP.name = "Checkpoint " + testName.ToString();

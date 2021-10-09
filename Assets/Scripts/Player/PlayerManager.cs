@@ -15,8 +15,11 @@ namespace CarTag.Player {
         }
 
         private void SetupPlayers() {
+            for (int i = 0; i < players.Count; i++) {
+                players[i].InitialSetup();
+                players[i].PlayerListIndex = i;             // tell each player its position in the list
+            }
             foreach (var player in players) {
-                player.InitialSetup();
             }
         }
 

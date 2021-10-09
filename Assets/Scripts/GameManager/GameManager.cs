@@ -30,6 +30,7 @@ namespace CarTag
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
+            CheckpointManager.SetupQueues(PlayerManager.Players.Count);
         }
 
         public void ChangeRoles() {
