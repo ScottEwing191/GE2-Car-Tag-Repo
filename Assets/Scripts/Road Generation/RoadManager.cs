@@ -9,22 +9,23 @@ namespace CarTag.Road
     public class RoadManager : MonoBehaviour
     {
         [SerializeField] private CheckpointManager checkpointManager;
-        public RoadGenerator roadGenerator { get; set; }
-        [SerializeField] private RoadSpawnData roadSpawnData;
-        public RoadSpawnData RoadSpawnData {get { return roadSpawnData; }}
+        public RoadGenerator RoadGenerator { get; set; }
+        public RoadSpawnData RoadSpawnData { get; set; }
 
-
-        private void Awake() {
-            roadGenerator = GetComponentInChildren<RoadGenerator>();
+        public void InitialSetup(RoadSpawnData initialRoadSpawnData) {
+            RoadGenerator = GetComponentInChildren<RoadGenerator>();
             checkpointManager = FindObjectOfType<CheckpointManager>();
+            RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
+            RoadGenerator.InitialSetup(initialRoadSpawnData);
         }
-
        private void Update() {
-            if (roadGenerator.TryGenerateRoad()) {
+            if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated
                 if (checkpointManager != null) {
-                    checkpointManager.StartCheckpointSpawn(roadSpawnData.transform);
+                    checkpointManager.StartCheckpointSpawn(RoadSpawnData.transform);    // tell checkpoint system to try and spawn a checkpoint
                 }
             }
         }
+
+        
     }
 }

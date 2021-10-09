@@ -6,13 +6,12 @@ namespace CarTag.Checkpoints {
     /// <summary>
     /// Controls how many checkpoints are visible at once and which ones. No point in having 20 visible checkpoints when chaser can only focus on a few at a time
     /// </summary>
-    public class CheckpointActivation {
+    public class CheckpointVisibility {
         private CheckpointManager checkpointManager;
         private int visibleCheckpoints;
-        public CheckpointActivation(CheckpointManager checkpointManager, int activeAtOnce) {
+        public CheckpointVisibility(CheckpointManager checkpointManager, int activeAtOnce) {
             this.visibleCheckpoints = activeAtOnce;
             this.checkpointManager = checkpointManager;
-            Debug.Log("Constructor");
         }
 
         /// <summary>

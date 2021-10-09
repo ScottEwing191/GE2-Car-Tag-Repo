@@ -19,12 +19,14 @@ namespace CarTag.Road
         private Vector3 currentPosition;
 
         private void Awake() {
-            roadManager = GetComponentInParent<RoadManager>();
-            roadSpawnData = roadManager.RoadSpawnData;
-            currentPosition = roadSpawnData.Position;
+            
         }
 
-        
+        public void InitialSetup(RoadSpawnData data) {
+            roadManager = GetComponentInParent<RoadManager>();
+            roadSpawnData = data;
+            currentPosition = roadSpawnData.Position;
+        }
 
         // Return true if road is generated
         internal bool TryGenerateRoad() {

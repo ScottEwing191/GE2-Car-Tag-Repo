@@ -3666,7 +3666,7 @@ GameObject:
   - component: {fileID: 7364511240407755864}
   m_Layer: 0
   m_Name: ColliderBottom
-  m_TagString: Untagged
+  m_TagString: CarTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9409,6 +9409,7 @@ GameObject:
   - component: {fileID: 7364511240400324452}
   - component: {fileID: 7364511240400324478}
   - component: {fileID: 6087324511421474048}
+  - component: {fileID: 9148039125392267340}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -9531,6 +9532,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carController: {fileID: 7364511240400324452}
+--- !u!114 &9148039125392267340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364511240405824236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3580cf882e1983043b3bbf521cc141ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7364511240405824248
 GameObject:
   m_ObjectHideFlags: 0

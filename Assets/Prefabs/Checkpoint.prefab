@@ -307,6 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2863738586951803618}
   - component: {fileID: 2863738586951803613}
+  - component: {fileID: 843230025}
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Untagged
@@ -346,6 +347,22 @@ MonoBehaviour:
   mesh: {fileID: 2863738585602924881}
   checkpointTrigger: {fileID: 2863738585922668106}
   respawnTransform: {fileID: 2863738585055274275}
+--- !u!54 &843230025
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2863738586951803619}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2863738587121668130
 GameObject:
   m_ObjectHideFlags: 0
