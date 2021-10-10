@@ -6,8 +6,7 @@ using System;
 
 namespace CarTag.Checkpoints {
     public class CheckpointManager : MonoBehaviour {
-        [ShowInInspector] private Queue<Checkpoint> checkpoints = new Queue<Checkpoint>();
-        [ShowInInspector] private List<Queue<Checkpoint>> listOfQueueOfCheckpoints = new List<Queue<Checkpoint>>();
+        [ShowInInspector] private List<Queue<Checkpoint>> checkpointQueues = new List<Queue<Checkpoint>>();
         [SerializeField] private int visibleCheckpoints = 5;
         
         // Auto-implemented Properties
@@ -16,9 +15,7 @@ namespace CarTag.Checkpoints {
         public CheckpointReached CheckpointReached { get; set; }
 
         // Properties
-        public Queue<Checkpoint> Checkpoints { get { return checkpoints; } }
-        public List<Queue<Checkpoint>> ListOfQueueOfCheckpoints { get { return listOfQueueOfCheckpoints; } }
-
+        public List<Queue<Checkpoint>> CheckpointQueues { get { return checkpointQueues; } }
 
         private void Awake() {
             CheckpointSpawner = GetComponent<CheckpointSpawner>();
@@ -28,7 +25,7 @@ namespace CarTag.Checkpoints {
 
         public void SetupQueues(int numberOfQueues) {
             for (int i = 0; i < numberOfQueues; i++) {
-                listOfQueueOfCheckpoints.Add(new Queue<Checkpoint>());
+                checkpointQueues.Add(new Queue<Checkpoint>());
             }
         }
        
@@ -37,11 +34,12 @@ namespace CarTag.Checkpoints {
         /// if sucessful, tells CheckpointVisibility to set the visibility of the checkpoint appropriately
         /// </summary>
         internal void StartCheckpointSpawn(Transform roadSpawnDataTransform) {
-            //var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform);
-            var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform, GameManager.Instance.PlayerManager.CurrentRunner.PlayerListIndex);
-
+            // get the index of the current runner so that the checkpoint system knows which Queue to avoid adding checkpoints to
+            int currentRunnerIndex = GameManager.Instance.PlayerManager.CurrentRunner.PlayerListIndex;      
+            var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform, currentRunnerIndex);
             if (newCPScript != null) {
-                CheckpointVisibility.SetNewCheckpointVisibility(newCPScript);
+                CheckpointVisibility.SetNewCheckpointVisibility(newCPScript, currentRunnerIndex);
+
             }
         }
     }

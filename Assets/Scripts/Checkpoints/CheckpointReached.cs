@@ -9,11 +9,11 @@ namespace CarTag.Checkpoints {
             this.checkpointManager = checkpointManager;
         }
 
-        public void DoCheckpointReached(Checkpoint triggeredheckpoint, Collider playerTrigger) {
-            if (!CheckIfCorrectPlayer(playerTrigger)) { return; }                // Check if the correct player collided
+        public void DoCheckpointReached(Checkpoint triggeredheckpoint, Player.Player player) {
+            if (!CheckIfCorrectPlayer(player)) { return; }                // Check if the correct player collided
 
-            if (CheckIfCorrectCheckpoint(triggeredheckpoint)) {     // Check if the correct checkpoint was collided with
-                CheckpointSucessfullyReached(triggeredheckpoint);                     // Successfull Checkpoint Reached
+            if (CheckIfCorrectCheckpoint(triggeredheckpoint, player.PlayerListIndex)) {     // Check if the correct checkpoint was collided with
+                CheckpointSucessfullyReached(triggeredheckpoint, player.PlayerListIndex);                     // Successfull Checkpoint Reached
             }
             else {
                 WrongCheckpoint();                                  // Wrong checkpoint was reached
@@ -21,23 +21,22 @@ namespace CarTag.Checkpoints {
         }
 
         /// <summary>
-        /// Checks if it was the correct player who collided with the checkpoint i.e the chaser to the runner
+        /// Checks if it was the correct player who collided with the checkpoint i.e the chaser not the runner
         /// </summary>
-        private bool CheckIfCorrectPlayer(Collider playerTrigger) {
+        private bool CheckIfCorrectPlayer(Player.Player player) {
             // I HATE THIS - if the player is a child of of an a "Player" and that player has the role Runner then return true  
-            Player.Player tempPlayer = playerTrigger.GetComponentInParent<CarTag.Player.Player>();
-            if (tempPlayer != null) {
-                if (tempPlayer.PlayerRoll == Player.PlayerRoleEnum.Chaser) {
+            if (player != null) {
+                if (player.PlayerRoll == Player.PlayerRoleEnum.Chaser) {
                     return true;
                 }
             }
             return false;
         }
         /// <summary>
-        /// Checks if the checkpoint collided with is the first in the queue
+        /// Takes in the checkpoint collided with and the index of the queue to check, and determines if the checkpoint is the next item in the queue or not
         /// </summary>
-        private bool CheckIfCorrectCheckpoint(Checkpoint cp) {
-            if (checkpointManager.Checkpoints.Peek() == cp) {
+        private bool CheckIfCorrectCheckpoint(Checkpoint cp, int index) {
+            if (checkpointManager.CheckpointQueues[index].Peek() == cp) {
                 return true;
             }
             return false;
@@ -45,10 +44,11 @@ namespace CarTag.Checkpoints {
         /// <summary>
         /// Removes the checkpoint from the Queue an letts the checkpoint manager know that checkpoint was sucessfully reached
         /// </summary>
-        private void CheckpointSucessfullyReached(Checkpoint cp) {
-            checkpointManager.Checkpoints.Dequeue();        // remove checkpoint from the queue
-            cp.DestroyCheckpoint();                         // call destroy checkpoint method. May want to have animation or something later
-            checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints();
+        private void CheckpointSucessfullyReached(Checkpoint cp, int index) {
+            checkpointManager.CheckpointQueues[index].Dequeue();        // remove checkpoint from the queue
+            Debug.Log("Dequeud");
+            cp.CheckpointReached(index);                         // call destroy checkpoint method. May want to have animation or something later
+            checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(index);
         }
 
         /// <summary>

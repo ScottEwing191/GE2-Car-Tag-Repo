@@ -42,6 +42,14 @@ namespace CarTag.Player {
                 Debug.LogError("There are no Runners in the scene");
             }
         }
+        /// <summary>
+        /// Takes in a game object and returns the Player script attached to the parent (or parent's parent etc) of the object
+        /// </summary>
+        public Player GetPlayerFromGameObject(GameObject gameObject) {
+            Player playerScript = gameObject.GetComponentInParent<Player>();
+            if (playerScript != null) { return playerScript; }
+            else { return null; }
+        }
 
     }
 }

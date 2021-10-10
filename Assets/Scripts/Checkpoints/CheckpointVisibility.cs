@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,33 +10,40 @@ namespace CarTag.Checkpoints {
     public class CheckpointVisibility {
         private CheckpointManager checkpointManager;
         private int visibleCheckpoints;
-        public CheckpointVisibility(CheckpointManager checkpointManager, int activeAtOnce) {
-            this.visibleCheckpoints = activeAtOnce;
+        public CheckpointVisibility(CheckpointManager checkpointManager, int visibleAtOnce) {
+            this.visibleCheckpoints = visibleAtOnce;
             this.checkpointManager = checkpointManager;
         }
-
-        /// <summary>
-        /// When a new checkpoint is added it decides whether it should be visible or not
-        /// </summary>
-        public void SetNewCheckpointVisibility(Checkpoint checkpoint) {
-            if (checkpointManager.Checkpoints.Count > visibleCheckpoints) {
-                checkpoint.HideMeshAndCollider();
+        internal void SetNewCheckpointVisibility(Checkpoint checkpoint, int currentRunnerIndex) {
+            // For every queue in the List (except the runner queue) Check how many Checkpoints are in the queue and count is greater than the number of checkpoints which...
+            // ... should be visible at one time then hide the mesh on the checkpoint that corresponds to the current queue. So separate chaser players see different ...
+            // ... checkpoints depending on their progress
+            for (int i = 0; i < checkpointManager.CheckpointQueues.Count; i++) {
+                if (i == currentRunnerIndex) {
+                    checkpoint.HideCheckpointForPlayer(i);      // Always hide the checkpoint from the runner
+                    continue;
+                }
+                // if the current players queue has more checkpoints than the number of chekpoints which can be visible at once then hide the new checkpoint for the current player
+                if (checkpointManager.CheckpointQueues[i].Count > visibleCheckpoints) {
+                    checkpoint.HideCheckpointForPlayer(i);
+                }
             }
         }
+
         /// <summary>
         /// Makes sure that all the checkpoints which should be visible are
         /// </summary>
-        public void UpdateVisibleCheckpoints() {
-            if (checkpointManager.Checkpoints.Count == 0) { return; }
+        /// 2+ player Version
+        public void UpdateVisibleCheckpoints(int queueIndex) {
+            if (checkpointManager.CheckpointQueues[queueIndex].Count == 0) { return; }
             int loopLimit = visibleCheckpoints;
 
-            loopLimit = checkpointManager.Checkpoints.Count >= visibleCheckpoints ? visibleCheckpoints : checkpointManager.Checkpoints.Count;
+            loopLimit = checkpointManager.CheckpointQueues[queueIndex].Count >= visibleCheckpoints ? visibleCheckpoints : checkpointManager.CheckpointQueues[queueIndex].Count;
 
-            var checkpointAsArray = checkpointManager.Checkpoints.ToArray();
+            var checkpointsAsArray = checkpointManager.CheckpointQueues[queueIndex].ToArray();
             for (int i = 0; i < loopLimit; i++) {
-                checkpointAsArray[i].ShowMeshAndCollider();
+                checkpointsAsArray[i].ShowCheckpointForPlayer(queueIndex);
             }
         }
-
     }
 }
