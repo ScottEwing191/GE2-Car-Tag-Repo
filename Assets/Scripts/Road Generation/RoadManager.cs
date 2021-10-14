@@ -25,7 +25,5 @@ namespace CarTag.Road
                 }
             }
         }
-
-        
     }
 }

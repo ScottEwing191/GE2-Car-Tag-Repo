@@ -21,13 +21,6 @@ namespace CarTag.Road {
         [SerializeField] private WheelCollider rearLeftWheel;
         [SerializeField] private WheelCollider rearRightWheel;
 
-
-
-        // Start is called before the first frame update
-        void Start() {
-
-        }
-
         // Update is called once per frame
         void Update() {
             GroundedThisFrame = false;

@@ -51,5 +51,17 @@ namespace CarTag.Player {
             else { return null; }
         }
 
+        /// <summary>
+        /// Swaps the Roles of the runner and the chaser which caught the runner
+        /// </summary>
+        /// <param name="newRunner">The car which caught the runner and will now be the new runner</param>
+        /// <param name="newChaser">The car which was the old runner who got caught</param>
+        internal void SwapRoles(Player newRunner, Player newChaser) {
+            newRunner.PlayerRoll = PlayerRoleEnum.Runner;
+            newChaser.PlayerRoll = PlayerRoleEnum.Chaser;
+            CurrentRunner = newRunner;
+            GameManager.Instance.SwapRoles(CurrentRunner);
+
+        }
     }
 }

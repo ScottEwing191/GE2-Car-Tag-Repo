@@ -13,17 +13,28 @@ namespace CarTag.Player {
         [SerializeField] BoxCollider tempBoxCollider;
         private Vector3 collisionCheckCenter;       // when chaser catches the runner, collision is briefly turned off. These define the box that is used to check ...
         private Vector3 collisionCheckSize;         // ... if collision can be turned back on
-        Player player;
+        private Player player;
+        private static bool rolesSwapped = false;    // Since there are three colliders on the car it would be possible for the role swap to occur multiple...
+                                                            // ... times, which we dont want. This bool is used to make sure that the roles are swapped only once...
+                                                            // ... for each collision between cars
 
         private void Awake() {
             player = GetComponentInParent<Player>();
-            collisionCheckCenter = tempBoxCollider.center;
-            collisionCheckSize = tempBoxCollider.size;
-            Destroy(tempBoxCollider);
+            //collisionCheckCenter = tempBoxCollider.center;
+            //collisionCheckSize = tempBoxCollider.size;
         }
 
+        private void Start() {
+            Destroy(tempBoxCollider);
+            
+        }
+               
+        private void FixedUpdate() {    
+        }
         private void OnCollisionEnter(Collision collision) {
-            //print("Collision");
+            //--if the roles have already swapped (due to first collider on car) dont swap again (due to second)
+            if (rolesSwapped) { return; }
+                        
             if (player.PlayerRoll != PlayerRoleEnum.Chaser) {
                 print(transform.parent.name + " : This car is not a Chaser");
                 return;
@@ -48,7 +59,11 @@ namespace CarTag.Player {
             //Initiate roll Swap
             print(transform.parent.name + "Swap Rolls");
             print("This: " + transform.parent.name + " Collision: " + collision.gameObject.name);
-            StartCoroutine(DoRollSwapCollisionBehaviour(gameObject, collision.gameObject));
+            //StartCoroutine(DoRollSwapCollisionBehaviour(gameObject, collision.gameObject));
+
+            rolesSwapped = true;
+            // Tell the player manager to swap the roles of this player and the player which was collided with 
+            player.playerManager.SwapRoles(player, player.playerManager.GetPlayerFromGameObject(collision.gameObject));
         }
 
         private bool IsCollidingWithRunner(Collision collision) {
@@ -67,12 +82,10 @@ namespace CarTag.Player {
         // I then want the cars to phase through each other ie not collide.
         // Then when they are not inside of each other the collision can turn back on
         private IEnumerator DoRollSwapCollisionBehaviour(GameObject chaserCar, GameObject runnerCar) {
-            // IT WASNT WORKING BECAUSE THE CAR NO COLLISION LAYER WAS STILL COLLIDING WITH DEFAULT.
-            // SGOULD GET A LIST OF ALL GAME OBJECTS WHICH NEED TO BE SET TO CAR NO COLLISION LAYER
-            //
 
             yield return new WaitForSeconds(1);
             SetGameObjectListToLayer(colliderObjects, "Car No Collision");
+            yield return new WaitForSeconds(3);
             while (!CanCollisionBeTurnedOn()) {
                 yield return new WaitForFixedUpdate();
             }
@@ -86,8 +99,15 @@ namespace CarTag.Player {
         }
 
         private bool CanCollisionBeTurnedOn() {
-            Physics.CheckBox(collisionCheckCenter, collisionCheckSize / 2, Quaternion.identity, collisionBackOnCheckMask);
+            if (Physics.CheckBox(transform.position+collisionCheckCenter, collisionCheckSize / 2, Quaternion.identity, collisionBackOnCheckMask)) {
+                return false;
+            }
+            
             return true;
+        }
+
+        private void OnDrawGizmos() {
+            Gizmos.DrawCube(transform.position + collisionCheckCenter, collisionCheckSize / 2);
         }
     }
 }

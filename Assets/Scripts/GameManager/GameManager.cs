@@ -33,8 +33,12 @@ namespace CarTag
             CheckpointManager.SetupQueues(PlayerManager.Players.Count);
         }
 
-        public void ChangeRoles() {
+        
 
+        internal void SwapRoles(Player.Player currentRunner) {
+            //Update RoadManager RoadSpawnData
+            RoadManager.RoadSpawnData = currentRunner.RoadSpawnData;
+            
         }
     }
 }

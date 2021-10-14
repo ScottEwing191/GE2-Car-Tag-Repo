@@ -15,7 +15,7 @@ namespace CarTag.Road
         [SerializeField] private Spline.Type splineType;
 
         private RoadManager roadManager;
-        private RoadSpawnData roadSpawnData;
+        //private RoadSpawnData roadSpawnData;
         private Vector3 currentPosition;
 
         private void Awake() {
@@ -24,17 +24,17 @@ namespace CarTag.Road
 
         public void InitialSetup(RoadSpawnData data) {
             roadManager = GetComponentInParent<RoadManager>();
-            roadSpawnData = data;
-            currentPosition = roadSpawnData.Position;
+            //roadSpawnData = data;
+            currentPosition = roadManager.RoadSpawnData.Position;
         }
 
         // Return true if road is generated
         internal bool TryGenerateRoad() {
             splineComputer.type = splineType;
-            currentPosition = roadSpawnData.Position;
+            currentPosition = roadManager.RoadSpawnData.Position;
 
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
-            /*if (roadSpawnData.GroundedThisFrame || roadSpawnData.OffGroundThisFrame) {
+            /*if (roadManager.RoadSpawnData.GroundedThisFrame || roadManager.RoadSpawnData.OffGroundThisFrame) {
                 AddControlPoint();
             }*/
             if (IsDisplacementTravelled()) {
@@ -56,7 +56,8 @@ namespace CarTag.Road
         }
         
         private void AddSplinePoint() {
-            SplinePoint splinePoint = new SplinePoint(roadSpawnData.Position, roadSpawnData.Position, roadSpawnData.Normal, 0.5f, Color.red);
+            RoadSpawnData data = roadManager.RoadSpawnData;
+            SplinePoint splinePoint = new SplinePoint(data.Position, data.Position, data.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;
             splineComputer.SetPoint(splineComputer.pointCount, splinePoint);
         }
