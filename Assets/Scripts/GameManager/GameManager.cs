@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CarTag.Player;
+using CarTag.PlayerSpace;
 using CarTag.Road;
 using CarTag.Checkpoints;
 
@@ -33,12 +33,15 @@ namespace CarTag
             CheckpointManager.SetupQueues(PlayerManager.Players.Count);
         }
 
-        
 
-        internal void SwapRoles(Player.Player currentRunner) {
-            //Update RoadManager RoadSpawnData
-            RoadManager.RoadSpawnData = currentRunner.RoadSpawnData;
-            
+        /// <summary>
+        /// This is called when the chaser catches the runner. It Initiate the Role Swap code in various classes in the game 
+        /// </summary>
+        /// <param name="newRunner">The Player Script on the new runner (old chaser)</param>
+        /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
+        internal void ManageRoleSwap(Player newRunner, Player newChaser) {
+            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
+            RoadManager.RoadSpawnData = newRunner.RoadSpawnData;    // Update RoadManager RoadSpawnData
         }
     }
 }

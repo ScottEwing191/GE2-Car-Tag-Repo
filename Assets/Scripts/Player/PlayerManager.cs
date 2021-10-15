@@ -3,11 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CarTag.Player {
+namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
         [SerializeField] private List<Player> players = new List<Player>();
+
+        [Tooltip("This is the time that the chaser has to wait at the start of the round before they can begin driving")]
+        [SerializeField] private float initialChaserWaitTime = 3.0f;
+
+        [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
+        [SerializeField] private float chaserWaitTime = 4.0f;
         public List<Player> Players { get { return players; } }
         public Player CurrentRunner { get; set; }
+
 
         public void InitialSetup() {
             SetupPlayers();
@@ -51,17 +58,26 @@ namespace CarTag.Player {
             else { return null; }
         }
 
+        
+        public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
+            SwapRoles(newRunner, newChaser);
+            // Respawn Chasers
+            
+            // Change Chaser And Runner Car Stats
+            
+            // Turn On Collision
+            StartCoroutine(newRunner.PlayerCollision.TurnCarCollisionBackOn(chaserWaitTime));
+        }
+
         /// <summary>
         /// Swaps the Roles of the runner and the chaser which caught the runner
         /// </summary>
         /// <param name="newRunner">The car which caught the runner and will now be the new runner</param>
         /// <param name="newChaser">The car which was the old runner who got caught</param>
-        internal void SwapRoles(Player newRunner, Player newChaser) {
+        private void SwapRoles(Player newRunner, Player newChaser) {
             newRunner.PlayerRoll = PlayerRoleEnum.Runner;
             newChaser.PlayerRoll = PlayerRoleEnum.Chaser;
             CurrentRunner = newRunner;
-            GameManager.Instance.SwapRoles(CurrentRunner);
-
         }
     }
 }

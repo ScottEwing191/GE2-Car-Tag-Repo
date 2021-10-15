@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CarTrigger
   - CPMeshAndTrigger
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

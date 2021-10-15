@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace CarTag.Player {
+namespace CarTag.PlayerSpace {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
 
         // Auto-implemented properties
         public int PlayerListIndex { get; set; }                            // each player knows its own position in the PlayerManager's player list
-        public PlayerManager playerManager { get; set; }
+        public PlayerManager PlayerManager { get; set; }
+        public PlayerRespawn PlayerRespawn { get; set; }
         public PlayerCollision PlayerCollision { get; set; }
         public Road.RoadSpawnData RoadSpawnData { get; set; }
 
@@ -20,9 +21,11 @@ namespace CarTag.Player {
             set { playerRoll = value; } }     // keeps track of the current roll of the player
 
         public void InitialSetup() {
-            RoadSpawnData = GetComponentInChildren<Road.RoadSpawnData>();
+            PlayerManager = FindObjectOfType<PlayerManager>();
+            PlayerRespawn = GetComponentInChildren<PlayerRespawn>();
             PlayerCollision = GetComponentInChildren<PlayerCollision>();
-            playerManager = FindObjectOfType<PlayerManager>();
+            RoadSpawnData = GetComponentInChildren<Road.RoadSpawnData>();
+
         }
 
     }
