@@ -3475,6 +3475,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1871404951084635955, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: maxRespawnVelocity
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2748212000098630705, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: playerRoll
       value: 1
@@ -7828,6 +7832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3090ad62f76bbb84ebd444a766517918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRespawnVelocity: 25
 --- !u!1 &1532052517
 GameObject:
   m_ObjectHideFlags: 0
@@ -8503,6 +8508,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1871404951084635955, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: maxRespawnVelocity
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2748212000098630705, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: playerRoll
       value: 1
@@ -10364,6 +10373,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1871404951084635955, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: maxRespawnVelocity
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2748212000098630705, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: playerRoll
       value: 1
@@ -11408,6 +11421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1871404951084635955, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: maxRespawnVelocity
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2748212000098630705, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: playerRoll
       value: 0
