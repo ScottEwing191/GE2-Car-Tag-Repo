@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 7470792546444547670}
   - component: {fileID: 7470792546444547672}
   - component: {fileID: 7470792546444547673}
+  - component: {fileID: 6600381172846210179}
   - component: {fileID: 2748212000098630705}
   m_Layer: 0
   m_Name: Player
@@ -496,6 +497,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a4df3a6b-e4bc-4c82-a094-bfeac35b3097
     m_ActionName: Camera/Look[/DualShock4GamepadHID/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6600381172846210179}
+        m_TargetAssemblyTypeName: CarTag.Input.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnRespawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 32ea7bc5-38e4-4419-bcac-4addeaa772ff
+    m_ActionName: Player/Respawn[/DualShock4GamepadHID/buttonEast,/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -515,6 +532,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carInput: {fileID: 116646952899033602}
   cameraInput: {fileID: 7470792547062623106}
+  playerInput: {fileID: 6600381172846210179}
+--- !u!114 &6600381172846210179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470792546444547671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a340c6cc2c34942bc7fb93d784449c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2748212000098630705}
 --- !u!114 &2748212000098630705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,6 +872,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7470792546444547670}
     m_Modifications:
+    - target: {fileID: 5484395121957734449, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
+      propertyPath: collisionOnCheckMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484395121957734449, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
+      propertyPath: collisionOffCheckMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 7364511240405824236, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
       propertyPath: m_Name
       value: Car

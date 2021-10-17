@@ -66,7 +66,7 @@ namespace CarTag.PlayerSpace {
             // Change Chaser And Runner Car Stats
             
             // Turn On Collision
-            StartCoroutine(newRunner.PlayerCollision.TurnCarCollisionBackOn(chaserWaitTime));
+            StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserWaitTime));
         }
 
         /// <summary>

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CarTag.PlayerSpace {
     public class PlayerCollision : MonoBehaviour {
-        [SerializeField] private LayerMask collisionBackOnCheckMask;
+        [SerializeField] private LayerMask collisionOnCheckMask;
 
         [Tooltip("The time between the chaser colliding with the runner and the collision being turned off. (Same for all cars)")]
         [SerializeField] private float collisionDisableTime = 0.5f;
@@ -16,7 +16,7 @@ namespace CarTag.PlayerSpace {
         [Tooltip("Used to difine the collision check box for when collision between cars get turned back on after Chaser catches Runner")]
         [SerializeField] private BoxCollider tempBoxCollider;
         private Vector3 collisionCheckCenter;       // when chaser catches the runner, collision is briefly turned off. These define the box that is used to check ...
-        private Vector3 collisionCheckSize;         // ... if collision can be turned back on
+        private Vector3 collisionCheckHalfSize;         // ... if collision can be turned back on
         private Player player;
         private static bool rolesSwapped = false;   // there are 3 colliders on the car. When any 1 of them sucessfully collides with the runner then this variable...
                                                     // ... will be set to false and will stop the other two colliders from initiating a second Role Swap. Since this...
@@ -25,7 +25,9 @@ namespace CarTag.PlayerSpace {
         private void Awake() {
             player = GetComponentInParent<Player>();
             collisionCheckCenter = tempBoxCollider.center;
-            collisionCheckSize = tempBoxCollider.size;
+            collisionCheckHalfSize = tempBoxCollider.size/2;
+
+            collisionOnCheckMask = LayerMask.NameToLayer("Car Collision");
         }
 
         private void Start() {
@@ -66,39 +68,56 @@ namespace CarTag.PlayerSpace {
             return false;
         }
 
-
-        private void SetGameObjectListToLayer(List<GameObject> list, string layerName) {
-            foreach (var l in list) {
-                l.layer = LayerMask.NameToLayer(layerName);
+        /// <summary>
+        /// Set the car colliders to the given layer
+        /// </summary>
+        /// <param name="layerName"></param>
+        public void SetGameObjectListToLayer(string layerName) {
+            foreach (var c in colliderObjects) {
+                c.layer = LayerMask.NameToLayer(layerName);
             }
         }
-        IEnumerator TurnOffCollisionWithDelay(float delay) {
+
+        private IEnumerator TurnOffCollisionWithDelay(float delay) {
             if (delay!= 0) {
                 yield return new WaitForSeconds(delay);
             }
-            SetGameObjectListToLayer(colliderObjects, "Car No Collision");
-        }
-
-        private bool CanCollisionBeTurnedOn() {
-            if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckSize / 2, transform.rotation, collisionBackOnCheckMask, QueryTriggerInteraction.Ignore)) {
-                return false;
-            }
-            return true;
+            SetGameObjectListToLayer("Car No Collision");
         }
 
 
         // When the chaser collides with the player I wan the original collision to happen.
         // I then want the cars to phase through each other ie not collide.
         // Then when they are not inside of each other the collision can turn back on
-        public IEnumerator TurnCarCollisionBackOn(float delay) {
+        /// <summary>
+        /// Waits until the car will not be colliding with another car if the collision were to be turned on. Before turning the collision on.
+        /// </summary>
+        /// <param name="delay">The seconds before the method will try to turn the collision on</param>
+        /// <param name="collisionOnMask">If the car will collide with anything on this layermask the collision will not turn on</param>
+        /// 
+        public IEnumerator TurnOnCarCollision(float delay, LayerMask collisionOnMask) {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
-            while (!CanCollisionBeTurnedOn()) {
-                yield return new WaitForFixedUpdate();
+            while (CarCollisionCheck(collisionOnMask)) {
+            yield return new WaitForFixedUpdate();
             }
-            SetGameObjectListToLayer(colliderObjects, "Car Collision");
+            SetGameObjectListToLayer("Car Collision");
             rolesSwapped = false;
+        }
+        public IEnumerator TurnOnCarCollision(float delay) {
+            StartCoroutine(TurnOnCarCollision(delay, collisionOnCheckMask));
+            yield return null;
+        }
+
+        /// <summary>
+        /// Checks if the cars will be colliding with a given Layer
+        /// </summary>
+        public bool CarCollisionCheck(LayerMask mask) {
+            if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, mask, QueryTriggerInteraction.Ignore)) {
+                return true;
+            }
+            return false;
         }
     }
 }

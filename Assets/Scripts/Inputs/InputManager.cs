@@ -8,6 +8,7 @@ namespace CarTag.Input {
 
         [SerializeField] private CarInputHandler carInput;
         [SerializeField] private CameraInputHandler cameraInput;
+        [SerializeField] private PlayerInputHandler playerInput;
 
         public CarInputHandler CarInput {
             get { return carInput; }

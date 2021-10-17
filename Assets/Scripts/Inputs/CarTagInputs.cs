@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace CarTag.Input
+namespace CarTag.Inputs
 {
     public class @CarTagInputs : IInputActionCollection, IDisposable
     {
@@ -59,6 +59,14 @@ namespace CarTag.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Respawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""32ea7bc5-38e4-4419-bcac-4addeaa772ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=2)""
                 }
             ],
             ""bindings"": [
@@ -268,6 +276,39 @@ namespace CarTag.Input
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3abd254f-448d-45e4-9c6e-557c3f10f559"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2bcef4ab-c5f3-4a47-a649-56ab69be2209"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31a7d086-d31f-4147-b6a9-eec23a962ce0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Respawn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -756,6 +797,7 @@ namespace CarTag.Input
             m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
             m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
             m_Player_Handbrake = m_Player.FindAction("Handbrake", throwIfNotFound: true);
+            m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -825,6 +867,7 @@ namespace CarTag.Input
         private readonly InputAction m_Player_Accelerate;
         private readonly InputAction m_Player_Brake;
         private readonly InputAction m_Player_Handbrake;
+        private readonly InputAction m_Player_Respawn;
         public struct PlayerActions
         {
             private @CarTagInputs m_Wrapper;
@@ -834,6 +877,7 @@ namespace CarTag.Input
             public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
             public InputAction @Brake => m_Wrapper.m_Player_Brake;
             public InputAction @Handbrake => m_Wrapper.m_Player_Handbrake;
+            public InputAction @Respawn => m_Wrapper.m_Player_Respawn;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -858,6 +902,9 @@ namespace CarTag.Input
                     @Handbrake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
                     @Handbrake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
                     @Handbrake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
+                    @Respawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Respawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Respawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -877,6 +924,9 @@ namespace CarTag.Input
                     @Handbrake.started += instance.OnHandbrake;
                     @Handbrake.performed += instance.OnHandbrake;
                     @Handbrake.canceled += instance.OnHandbrake;
+                    @Respawn.started += instance.OnRespawn;
+                    @Respawn.performed += instance.OnRespawn;
+                    @Respawn.canceled += instance.OnRespawn;
                 }
             }
         }
@@ -1044,6 +1094,7 @@ namespace CarTag.Input
             void OnAccelerate(InputAction.CallbackContext context);
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
+            void OnRespawn(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
