@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace CarTag.PlayerSpace {
     public class PlayerCollision : MonoBehaviour {
+        [Tooltip("Make sure the car is not going to collide with this layer before collision is turned on")]
         [SerializeField] private LayerMask collisionOnCheckMask;
 
         [Tooltip("The time between the chaser colliding with the runner and the collision being turned off. (Same for all cars)")]
@@ -25,9 +26,9 @@ namespace CarTag.PlayerSpace {
         private void Awake() {
             player = GetComponentInParent<Player>();
             collisionCheckCenter = tempBoxCollider.center;
-            collisionCheckHalfSize = tempBoxCollider.size/2;
+            collisionCheckHalfSize = tempBoxCollider.size / 2;
 
-            collisionOnCheckMask = LayerMask.NameToLayer("Car Collision");
+            //collisionOnCheckMask = LayerMask.NameToLayer("Car Collision");
         }
 
         private void Start() {
@@ -79,7 +80,7 @@ namespace CarTag.PlayerSpace {
         }
 
         private IEnumerator TurnOffCollisionWithDelay(float delay) {
-            if (delay!= 0) {
+            if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
             SetGameObjectListToLayer("Car No Collision");
@@ -100,10 +101,10 @@ namespace CarTag.PlayerSpace {
                 yield return new WaitForSeconds(delay);
             }
             while (CarCollisionCheck(collisionOnMask)) {
-            yield return new WaitForFixedUpdate();
+                yield return new WaitForFixedUpdate();
             }
             SetGameObjectListToLayer("Car Collision");
-            rolesSwapped = false;
+            rolesSwapped = false;       //this should happen when the new nunners collision is turned on NOT just any old car
         }
         public IEnumerator TurnOnCarCollision(float delay) {
             StartCoroutine(TurnOnCarCollision(delay, collisionOnCheckMask));

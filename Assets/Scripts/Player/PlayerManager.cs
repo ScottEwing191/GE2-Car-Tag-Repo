@@ -58,13 +58,27 @@ namespace CarTag.PlayerSpace {
             else { return null; }
         }
 
-        
+
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
             SwapRoles(newRunner, newChaser);
             // Respawn Chasers
-            
+
+            if (players.Count > 2) {        // only respawn cars if there are more than two chasers (i.e. 3+ players)
+                Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
+                Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
+                for (int i = 0; i < players.Count; i++) {
+                    if (players[i] == newRunner || players[i] == newChaser) {
+                        continue;
+                    }
+                    else {
+                        players[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot);  // respawn chasers at new chaser pos & rot
+                    }
+                }
+
+            }
+
             // Change Chaser And Runner Car Stats
-            
+
             // Turn On Collision
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserWaitTime));
         }
