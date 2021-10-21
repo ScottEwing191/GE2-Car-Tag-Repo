@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CarTag.PlayerSpace {
     public class PlayerCollision : MonoBehaviour {
         [Tooltip("Make sure the car is not going to collide with this layer before collision is turned on")]
-        [SerializeField] private LayerMask collisionOnCheckMask;
+        private LayerMask collisionOnCheckMask;
 
         [Tooltip("The time between the chaser colliding with the runner and the collision being turned off. (Same for all cars)")]
         [SerializeField] private float collisionDisableTime = 0.5f;
@@ -28,7 +28,12 @@ namespace CarTag.PlayerSpace {
             collisionCheckCenter = tempBoxCollider.center;
             collisionCheckHalfSize = tempBoxCollider.size / 2;
 
-            //collisionOnCheckMask = LayerMask.NameToLayer("Car Collision");
+            //int val = LayerMask.NameToLayer("Car Collision");
+            //collisionOnCheckMask.value = Mathf.Pow(2, (float)val); 
+            collisionOnCheckMask = LayerMask.GetMask("Car Collision");
+
+
+
         }
 
         private void Start() {
@@ -100,7 +105,8 @@ namespace CarTag.PlayerSpace {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
-            while (CarCollisionCheck(collisionOnMask)) {
+            while (CarCollisionCheck()) {
+
                 yield return new WaitForFixedUpdate();
             }
             SetGameObjectListToLayer("Car Collision");
@@ -114,8 +120,24 @@ namespace CarTag.PlayerSpace {
         /// <summary>
         /// Checks if the cars will be colliding with a given Layer
         /// </summary>
-        public bool CarCollisionCheck(LayerMask mask) {
+        /*public bool CarCollisionCheck(LayerMask mask) {
             if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, mask, QueryTriggerInteraction.Ignore)) {
+                return true;
+            }
+            return false;
+        }*/
+
+        /// <summary>
+        /// Two uses:
+        ///     1.Checks if the position the car has been moved to already has car on the "Car Collider Layer" so that the game knows to put
+        ///         this car on the "Car No Collision Layer"
+        ///     2.Called each frame while this car is on the "Car No Collision" to check if this car is still inside the collider of a car on
+        ///         on the "Car Collision" layer. When this method return false the game will know that the colliders are no longer overlapping
+        ///         and this car can Safely be set the ("Car Collision) layer
+        /// </summary>
+        public bool CarCollisionCheck() {
+            //if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, mask, QueryTriggerInteraction.Ignore)) {
+            if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, collisionOnCheckMask, QueryTriggerInteraction.Ignore)) {
                 return true;
             }
             return false;

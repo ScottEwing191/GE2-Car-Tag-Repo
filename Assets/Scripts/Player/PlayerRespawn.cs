@@ -9,8 +9,6 @@ namespace CarTag.PlayerSpace
     public class PlayerRespawn : MonoBehaviour
     {
         [SerializeField] float maxRespawnVelocity = 25;
-        [SerializeField] LayerMask collisionOffCheckMask;
-        [SerializeField] LayerMask collisionOnCheckMask;
 
         private Player player;
         private Rigidbody carRb;
@@ -58,9 +56,9 @@ namespace CarTag.PlayerSpace
         //--If the car is going to collide with another car at the respawn point then turn off the car's collision and start enumerator..
         //... which will turn it back on once the cars will not collide with each other
         private void CheckCollisionWithCars() {
-            if (player.PlayerCollision.CarCollisionCheck(collisionOffCheckMask)) {
+            if (player.PlayerCollision.CarCollisionCheck()) {
                 player.PlayerCollision.SetGameObjectListToLayer("Car No Collision");                    // turn off car collision
-                StartCoroutine(player.PlayerCollision.TurnOnCarCollision(0.1f, collisionOnCheckMask));  // start enumerator to turn it back on
+                StartCoroutine(player.PlayerCollision.TurnOnCarCollision(0.1f));  // start enumerator to turn it back on
             }
         }
 
