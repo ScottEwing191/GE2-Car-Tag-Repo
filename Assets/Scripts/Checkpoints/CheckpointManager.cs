@@ -28,15 +28,18 @@ namespace CarTag.Checkpoints {
                 checkpointQueues.Add(new Queue<Checkpoint>());
             }
         }
-       
+
         /// <summary>
         /// Takes in the transform where a checkpoint it to be spawned. Tells Checkpoint Spawner to try and spawn checkpoint
         /// if sucessful, tells CheckpointVisibility to set the visibility of the checkpoint appropriately
         /// </summary>
-        internal void StartCheckpointSpawn(Transform roadSpawnDataTransform) {
+        //-- OLD --internal void StartCheckpointSpawn(Transform roadSpawnDataTransform) {
+        internal void StartCheckpointSpawn(Vector3 cpPosition, Quaternion cpRotation) {
+
             // get the index of the current runner so that the checkpoint system knows which Queue to avoid adding checkpoints to
             int currentRunnerIndex = GameManager.Instance.PlayerManager.CurrentRunner.PlayerListIndex;      
-            var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform, currentRunnerIndex);
+            //-- OLD --var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform, currentRunnerIndex);
+            var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(cpPosition, cpRotation, currentRunnerIndex);
             if (newCPScript != null) {
                 CheckpointVisibility.SetNewCheckpointVisibility(newCPScript, currentRunnerIndex);
 

@@ -2,7 +2,7 @@
     "name": "CarTagInputs",
     "maps": [
         {
-            "name": "Player",
+            "name": "Car",
             "id": "46bb6f31-112e-43a4-b9cc-bffc0859e87a",
             "actions": [
                 {
@@ -294,6 +294,82 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player",
+            "id": "b9dc8eff-16f9-49ae-91da-be3e005717a0",
+            "actions": [
+                {
+                    "name": "Respawn",
+                    "type": "Button",
+                    "id": "dd16b3e0-0d73-4be9-a6f2-fa6583e0ef92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=2)"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "be95d6a2-2059-49d5-8591-5f14fb4d3f3f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0781f63-9903-406b-869c-f335a96b6495",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "2363d97a-f1e7-4e6d-8bc9-e012d53ee9bf",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "a4df3a6b-e4bc-4c82-a094-bfeac35b3097",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "517cf886-2d12-49a2-a7ac-62d8f543ec17",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55940d0a-91bb-4d28-ae42-1e7bab244764",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.1,y=0.1)",
+                    "groups": ";Keyboard&Mouse;Touch",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -701,44 +777,6 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera",
-            "id": "2363d97a-f1e7-4e6d-8bc9-e012d53ee9bf",
-            "actions": [
-                {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "a4df3a6b-e4bc-4c82-a094-bfeac35b3097",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "517cf886-2d12-49a2-a7ac-62d8f543ec17",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "55940d0a-91bb-4d28-ae42-1e7bab244764",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=0.1,y=0.1)",
-                    "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -10,6 +10,7 @@ namespace CarTag.Road {
     public class RoadSpawnData : MonoBehaviour {
         [SerializeField] private Vector3 position;
         [SerializeField] private Vector3 normal;
+        //--Auto Properties
         public Vector3 Position { get { return position; } }
         public Vector3 Normal { get { return normal; } }
         public bool IsGrounded { get; private set; }
@@ -21,8 +22,9 @@ namespace CarTag.Road {
         [SerializeField] private WheelCollider rearLeftWheel;
         [SerializeField] private WheelCollider rearRightWheel;
 
+
         // Update is called once per frame
-        void Update() {
+        void FixedUpdate() {
             GroundedThisFrame = false;
             OffGroundThisFrame = false;
             SetIsGrounded();

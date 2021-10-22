@@ -17,7 +17,7 @@ namespace CarTag.Inputs
     ""name"": ""CarTagInputs"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Car"",
             ""id"": ""46bb6f31-112e-43a4-b9cc-bffc0859e87a"",
             ""actions"": [
                 {
@@ -309,6 +309,82 @@ namespace CarTag.Inputs
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player"",
+            ""id"": ""b9dc8eff-16f9-49ae-91da-be3e005717a0"",
+            ""actions"": [
+                {
+                    ""name"": ""Respawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd16b3e0-0d73-4be9-a6f2-fa6583e0ef92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=2)""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""be95d6a2-2059-49d5-8591-5f14fb4d3f3f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0781f63-9903-406b-869c-f335a96b6495"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""2363d97a-f1e7-4e6d-8bc9-e012d53ee9bf"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""a4df3a6b-e4bc-4c82-a094-bfeac35b3097"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""517cf886-2d12-49a2-a7ac-62d8f543ec17"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55940d0a-91bb-4d28-ae42-1e7bab244764"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.1,y=0.1)"",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -720,44 +796,6 @@ namespace CarTag.Inputs
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Camera"",
-            ""id"": ""2363d97a-f1e7-4e6d-8bc9-e012d53ee9bf"",
-            ""actions"": [
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""a4df3a6b-e4bc-4c82-a094-bfeac35b3097"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""517cf886-2d12-49a2-a7ac-62d8f543ec17"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""55940d0a-91bb-4d28-ae42-1e7bab244764"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.1,y=0.1)"",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -790,14 +828,20 @@ namespace CarTag.Inputs
         }
     ]
 }");
+            // Car
+            m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
+            m_Car_Steer = m_Car.FindAction("Steer", throwIfNotFound: true);
+            m_Car_Looks = m_Car.FindAction("Looks", throwIfNotFound: true);
+            m_Car_Accelerate = m_Car.FindAction("Accelerate", throwIfNotFound: true);
+            m_Car_Brake = m_Car.FindAction("Brake", throwIfNotFound: true);
+            m_Car_Handbrake = m_Car.FindAction("Handbrake", throwIfNotFound: true);
+            m_Car_Respawn = m_Car.FindAction("Respawn", throwIfNotFound: true);
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Steer = m_Player.FindAction("Steer", throwIfNotFound: true);
-            m_Player_Looks = m_Player.FindAction("Looks", throwIfNotFound: true);
-            m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
-            m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
-            m_Player_Handbrake = m_Player.FindAction("Handbrake", throwIfNotFound: true);
             m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
+            // Camera
+            m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+            m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -810,9 +854,6 @@ namespace CarTag.Inputs
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-            // Camera
-            m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-            m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -859,54 +900,54 @@ namespace CarTag.Inputs
             asset.Disable();
         }
 
-        // Player
-        private readonly InputActionMap m_Player;
-        private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_Steer;
-        private readonly InputAction m_Player_Looks;
-        private readonly InputAction m_Player_Accelerate;
-        private readonly InputAction m_Player_Brake;
-        private readonly InputAction m_Player_Handbrake;
-        private readonly InputAction m_Player_Respawn;
-        public struct PlayerActions
+        // Car
+        private readonly InputActionMap m_Car;
+        private ICarActions m_CarActionsCallbackInterface;
+        private readonly InputAction m_Car_Steer;
+        private readonly InputAction m_Car_Looks;
+        private readonly InputAction m_Car_Accelerate;
+        private readonly InputAction m_Car_Brake;
+        private readonly InputAction m_Car_Handbrake;
+        private readonly InputAction m_Car_Respawn;
+        public struct CarActions
         {
             private @CarTagInputs m_Wrapper;
-            public PlayerActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Steer => m_Wrapper.m_Player_Steer;
-            public InputAction @Looks => m_Wrapper.m_Player_Looks;
-            public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
-            public InputAction @Brake => m_Wrapper.m_Player_Brake;
-            public InputAction @Handbrake => m_Wrapper.m_Player_Handbrake;
-            public InputAction @Respawn => m_Wrapper.m_Player_Respawn;
-            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public CarActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Steer => m_Wrapper.m_Car_Steer;
+            public InputAction @Looks => m_Wrapper.m_Car_Looks;
+            public InputAction @Accelerate => m_Wrapper.m_Car_Accelerate;
+            public InputAction @Brake => m_Wrapper.m_Car_Brake;
+            public InputAction @Handbrake => m_Wrapper.m_Car_Handbrake;
+            public InputAction @Respawn => m_Wrapper.m_Car_Respawn;
+            public InputActionMap Get() { return m_Wrapper.m_Car; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-            public void SetCallbacks(IPlayerActions instance)
+            public static implicit operator InputActionMap(CarActions set) { return set.Get(); }
+            public void SetCallbacks(ICarActions instance)
             {
-                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                if (m_Wrapper.m_CarActionsCallbackInterface != null)
                 {
-                    @Steer.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
-                    @Steer.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
-                    @Steer.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteer;
-                    @Looks.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
-                    @Looks.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
-                    @Looks.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLooks;
-                    @Accelerate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
-                    @Accelerate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
-                    @Accelerate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
-                    @Brake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
-                    @Brake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
-                    @Brake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
-                    @Handbrake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
-                    @Handbrake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
-                    @Handbrake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandbrake;
-                    @Respawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
-                    @Respawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
-                    @Respawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Steer.started -= m_Wrapper.m_CarActionsCallbackInterface.OnSteer;
+                    @Steer.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnSteer;
+                    @Steer.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnSteer;
+                    @Looks.started -= m_Wrapper.m_CarActionsCallbackInterface.OnLooks;
+                    @Looks.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnLooks;
+                    @Looks.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnLooks;
+                    @Accelerate.started -= m_Wrapper.m_CarActionsCallbackInterface.OnAccelerate;
+                    @Accelerate.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnAccelerate;
+                    @Accelerate.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnAccelerate;
+                    @Brake.started -= m_Wrapper.m_CarActionsCallbackInterface.OnBrake;
+                    @Brake.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnBrake;
+                    @Brake.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnBrake;
+                    @Handbrake.started -= m_Wrapper.m_CarActionsCallbackInterface.OnHandbrake;
+                    @Handbrake.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnHandbrake;
+                    @Handbrake.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnHandbrake;
+                    @Respawn.started -= m_Wrapper.m_CarActionsCallbackInterface.OnRespawn;
+                    @Respawn.performed -= m_Wrapper.m_CarActionsCallbackInterface.OnRespawn;
+                    @Respawn.canceled -= m_Wrapper.m_CarActionsCallbackInterface.OnRespawn;
                 }
-                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                m_Wrapper.m_CarActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @Steer.started += instance.OnSteer;
@@ -930,7 +971,73 @@ namespace CarTag.Inputs
                 }
             }
         }
+        public CarActions @Car => new CarActions(this);
+
+        // Player
+        private readonly InputActionMap m_Player;
+        private IPlayerActions m_PlayerActionsCallbackInterface;
+        private readonly InputAction m_Player_Respawn;
+        public struct PlayerActions
+        {
+            private @CarTagInputs m_Wrapper;
+            public PlayerActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Respawn => m_Wrapper.m_Player_Respawn;
+            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerActions instance)
+            {
+                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                {
+                    @Respawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Respawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Respawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                }
+                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Respawn.started += instance.OnRespawn;
+                    @Respawn.performed += instance.OnRespawn;
+                    @Respawn.canceled += instance.OnRespawn;
+                }
+            }
+        }
         public PlayerActions @Player => new PlayerActions(this);
+
+        // Camera
+        private readonly InputActionMap m_Camera;
+        private ICameraActions m_CameraActionsCallbackInterface;
+        private readonly InputAction m_Camera_Look;
+        public struct CameraActions
+        {
+            private @CarTagInputs m_Wrapper;
+            public CameraActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Look => m_Wrapper.m_Camera_Look;
+            public InputActionMap Get() { return m_Wrapper.m_Camera; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+            public void SetCallbacks(ICameraActions instance)
+            {
+                if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+                {
+                    @Look.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                }
+                m_Wrapper.m_CameraActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
+                }
+            }
+        }
+        public CameraActions @Camera => new CameraActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1036,39 +1143,6 @@ namespace CarTag.Inputs
             }
         }
         public UIActions @UI => new UIActions(this);
-
-        // Camera
-        private readonly InputActionMap m_Camera;
-        private ICameraActions m_CameraActionsCallbackInterface;
-        private readonly InputAction m_Camera_Look;
-        public struct CameraActions
-        {
-            private @CarTagInputs m_Wrapper;
-            public CameraActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Look => m_Wrapper.m_Camera_Look;
-            public InputActionMap Get() { return m_Wrapper.m_Camera; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
-            public void SetCallbacks(ICameraActions instance)
-            {
-                if (m_Wrapper.m_CameraActionsCallbackInterface != null)
-                {
-                    @Look.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
-                    @Look.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
-                    @Look.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
-                }
-                m_Wrapper.m_CameraActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @Look.started += instance.OnLook;
-                    @Look.performed += instance.OnLook;
-                    @Look.canceled += instance.OnLook;
-                }
-            }
-        }
-        public CameraActions @Camera => new CameraActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1087,7 +1161,7 @@ namespace CarTag.Inputs
                 return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
-        public interface IPlayerActions
+        public interface ICarActions
         {
             void OnSteer(InputAction.CallbackContext context);
             void OnLooks(InputAction.CallbackContext context);
@@ -1095,6 +1169,14 @@ namespace CarTag.Inputs
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
             void OnRespawn(InputAction.CallbackContext context);
+        }
+        public interface IPlayerActions
+        {
+            void OnRespawn(InputAction.CallbackContext context);
+        }
+        public interface ICameraActions
+        {
+            void OnLook(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
@@ -1108,10 +1190,6 @@ namespace CarTag.Inputs
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        }
-        public interface ICameraActions
-        {
-            void OnLook(InputAction.CallbackContext context);
         }
     }
 }

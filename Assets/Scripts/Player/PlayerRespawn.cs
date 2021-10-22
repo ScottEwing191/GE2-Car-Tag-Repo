@@ -18,20 +18,35 @@ namespace CarTag.PlayerSpace
         private void Awake() {
             player = GetComponentInParent<Player>();
             carRb = GetComponent<Rigidbody>();
+            SetRespawnLocation(transform.position, transform.rotation);
         }
 
         public void RespawnAtCheckpoint() {
+            if (!CanRespawn()) { return; }
+
             SetCarTransform(respawnPosition, respawnRotation);
             SetCarVelocity();
-            
             CheckCollisionWithCars();   // must be called after the car position and rotation have changed since we want to check new position
             CheckCollisionWithLevel();
         }
 
+
         public void RespawnAfterRoleSwap(Vector3 position, Quaternion rotation) {
+            SetRespawnLocation(position, rotation);
             SetCarTransform(position, rotation);
             SetCarVelocity();
             CheckCollisionWithCars();
+        }
+
+        public void SetRespawnLocation(Vector3 position, Quaternion rotation) {
+            respawnPosition = position;
+            respawnRotation = rotation;
+        }
+        private bool CanRespawn() {
+            if (player.PlayerRoll == PlayerRoleEnum.Chaser) {
+                return true;
+            }
+            return false;
         }
 
         private void SetCarTransform(Vector3 position, Quaternion rotation) {
@@ -71,7 +86,7 @@ namespace CarTag.PlayerSpace
         private void OnTriggerEnter(Collider other) {
             //--When going through checkpoint record the respawn point atached to checkpoint 
             if (other.gameObject.CompareTag("Checkpoint")) {
-                print("Player Collided With Trigger");
+               print("Player Collided With Trigger");
                 Checkpoint cp = other.gameObject.GetComponentInParent<Checkpoint>();
                 respawnPosition = cp.respawnPosition;
                 respawnRotation = cp.respawnRotation;

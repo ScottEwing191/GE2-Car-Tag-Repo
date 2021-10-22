@@ -10,7 +10,7 @@ namespace CarTag.Road
     {
         [SerializeField] private SplineComputer splineComputer;
         [SerializeField] private float maxDisplacementBetweenControlPoints = 4;
-        [SerializeField] private float displacementSinceLastSplinePoint;
+        private float displacementSinceLastSplinePoint;
         [SerializeField] float pointSize = 1;
         [SerializeField] private Spline.Type splineType;
 
@@ -18,20 +18,32 @@ namespace CarTag.Road
         //private RoadSpawnData roadSpawnData;
         private Vector3 currentPosition;
 
-        private void Awake() {
-            
+        //Properties
+        public SplineComputer SplineComputer {
+            get { return splineComputer; }
+            set { splineComputer = value; }
+        }
+
+
+        private void Update() {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.M)) {
+                print("Local:" + splineComputer.GetPoint(9, SplineComputer.Space.Local).position);
+                print("World:" + splineComputer.GetPoint(9, SplineComputer.Space.World).position);
+            }
         }
 
         public void InitialSetup(RoadSpawnData data) {
             roadManager = GetComponentInParent<RoadManager>();
-            //roadSpawnData = data;
             currentPosition = roadManager.RoadSpawnData.Position;
+            splineComputer.space = SplineComputer.Space.World;
         }
 
         // Return true if road is generated
         internal bool TryGenerateRoad() {
             splineComputer.type = splineType;
             currentPosition = roadManager.RoadSpawnData.Position;
+             //print("Spline Length: " +splineComputer.CalculateLength());
+            
 
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
             /*if (roadManager.RoadSpawnData.GroundedThisFrame || roadManager.RoadSpawnData.OffGroundThisFrame) {
@@ -56,6 +68,9 @@ namespace CarTag.Road
         }
         
         private void AddSplinePoint() {
+            if (splineComputer.pointCount == 9) {
+                print("");
+            }
             RoadSpawnData data = roadManager.RoadSpawnData;
             SplinePoint splinePoint = new SplinePoint(data.Position, data.Position, data.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;

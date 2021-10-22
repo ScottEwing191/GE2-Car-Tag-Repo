@@ -89,6 +89,8 @@ namespace CarTag.Checkpoints {
         }
 
         private void DestroyCheckpoint() {
+            //Initiate the removal of the section of road before this checkpoint
+            GameManager.Instance.RoadManager.RemoveRoad(transform.position);
             Destroy(this.gameObject);
         }
 

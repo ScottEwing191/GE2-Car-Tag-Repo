@@ -8714,7 +8714,7 @@ GameObject:
   - component: {fileID: 7364511240395027296}
   - component: {fileID: 7364511240405527414}
   - component: {fileID: 7364511240400324466}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelHubFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8887,7 +8887,7 @@ GameObject:
   - component: {fileID: 7364511240395027302}
   - component: {fileID: 7364511240405527400}
   - component: {fileID: 7364511240400324468}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelHubFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9060,7 +9060,7 @@ GameObject:
   - component: {fileID: 7364511240395027298}
   - component: {fileID: 7364511240405527402}
   - component: {fileID: 7364511240400324470}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelHubRearRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9233,7 +9233,7 @@ GameObject:
   - component: {fileID: 7364511240395027300}
   - component: {fileID: 7364511240405527404}
   - component: {fileID: 7364511240400324456}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelHubRearLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9545,9 +9545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3580cf882e1983043b3bbf521cc141ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionOnCheckMask:
-    serializedVersion: 2
-    m_Bits: 1024
   collisionDisableTime: 0.5
   colliderObjects:
   - {fileID: 546241629205323658}
@@ -9584,12 +9581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRespawnVelocity: 25
-  collisionOffCheckMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  collisionOnCheckMask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!1 &7364511240405824248
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,21 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Input;
+using UnityEngine.InputSystem;
 
 namespace CarTag.Input {
     public class InputManager : MonoBehaviour {
 
-        [SerializeField] private CarInputHandler carInput;
-        [SerializeField] private CameraInputHandler cameraInput;
-        [SerializeField] private PlayerInputHandler playerInput;
+        [SerializeField] private CarInputHandler carInputHandler;
+        [SerializeField] private CameraInputHandler cameraInputHandler;
+        [SerializeField] private PlayerInputHandler playerInputHandler;
+
+        PlayerInput playerInput;
+        private InputActionMap carActionMap, playerActionMap, camerActionMap, UIActionMap;
 
         public CarInputHandler CarInput {
-            get { return carInput; }
+            get { return carInputHandler; }
         }
         public CameraInputHandler CameraInput {
-            get { return cameraInput; }
+            get { return cameraInputHandler; }
         }
-        
 
+        private void Awake() {
+            playerInput = GetComponent<PlayerInput>();
+            carActionMap = playerInput.actions.FindActionMap("Car");
+            playerActionMap = playerInput.actions.FindActionMap("Player");
+            camerActionMap = playerInput.actions.FindActionMap("Camera");
+            UIActionMap = playerInput.actions.FindActionMap("UI");
+
+            carActionMap.Enable();
+            playerActionMap.Enable();
+            camerActionMap.Enable();
+        }
     }
 }

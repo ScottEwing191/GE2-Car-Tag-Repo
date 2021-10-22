@@ -513,9 +513,13 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 32ea7bc5-38e4-4419-bcac-4addeaa772ff
     m_ActionName: Player/Respawn[/DualShock4GamepadHID/buttonEast,/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd16b3e0-0d73-4be9-a6f2-fa6583e0ef92
+    m_ActionName: Player/Respawn[/DualShock4GamepadHID/buttonEast,/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Car
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 7470792546202888320}
 --- !u!114 &7470792546444547673
@@ -530,9 +534,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45ba62129d088d40a248903eb28ea2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carInput: {fileID: 116646952899033602}
-  cameraInput: {fileID: 7470792547062623106}
-  playerInput: {fileID: 6600381172846210179}
+  carInputHandler: {fileID: 116646952899033602}
+  cameraInputHandler: {fileID: 7470792547062623106}
+  playerInputHandler: {fileID: 6600381172846210179}
 --- !u!114 &6600381172846210179
 MonoBehaviour:
   m_ObjectHideFlags: 0
