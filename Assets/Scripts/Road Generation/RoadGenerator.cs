@@ -68,9 +68,6 @@ namespace CarTag.Road
         }
         
         private void AddSplinePoint() {
-            if (splineComputer.pointCount == 9) {
-                print("");
-            }
             RoadSpawnData data = roadManager.RoadSpawnData;
             SplinePoint splinePoint = new SplinePoint(data.Position, data.Position, data.Normal, 0.5f, Color.red);
             splinePoint.size = pointSize;

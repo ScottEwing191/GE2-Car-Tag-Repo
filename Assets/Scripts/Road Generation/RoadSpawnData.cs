@@ -21,6 +21,12 @@ namespace CarTag.Road {
 
         [SerializeField] private WheelCollider rearLeftWheel;
         [SerializeField] private WheelCollider rearRightWheel;
+        private void Start() {
+            //GroundedThisFrame = false;
+            //OffGroundThisFrame = false;
+            //SetIsGrounded();
+            //SetPositionAndNormal();
+        }
 
 
         // Update is called once per frame

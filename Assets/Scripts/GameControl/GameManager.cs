@@ -41,7 +41,7 @@ namespace CarTag
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.RoadSpawnData = newRunner.RoadSpawnData;    // Update RoadManager RoadSpawnData
+            RoadManager.ControlRoleSwap(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
             //--Audio
             //--UI
         }
