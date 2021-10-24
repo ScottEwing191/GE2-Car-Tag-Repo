@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityStandardAssets.Vehicles.Car;
 
 namespace CarTag.PlayerSpace {
     public enum PlayerRoleEnum { Runner, Chaser }
@@ -14,6 +14,7 @@ namespace CarTag.PlayerSpace {
         public PlayerRespawn PlayerRespawn { get; set; }
         public PlayerCollision PlayerCollision { get; set; }
         public Road.RoadSpawnData RoadSpawnData { get; set; }
+        public CarController CarController { get; set; }
 
         //Properties
         public PlayerRoleEnum PlayerRoll { 
@@ -25,6 +26,7 @@ namespace CarTag.PlayerSpace {
             PlayerRespawn = GetComponentInChildren<PlayerRespawn>();
             PlayerCollision = GetComponentInChildren<PlayerCollision>();
             RoadSpawnData = GetComponentInChildren<Road.RoadSpawnData>();
+            CarController = GetComponentInChildren<CarController>();
 
         }
 

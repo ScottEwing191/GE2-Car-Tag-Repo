@@ -17,5 +17,19 @@ namespace CarTag.Car
         [SerializeField] private float m_Topspeed = 150;
         [SerializeField] private float m_SlipLimit = 0.3f;
         [SerializeField] private float m_BrakeTorque = 20000;
+
+        //Properties
+        public float MaximumSteerAngle { get { return m_MaximumSteerAngle; } }
+        public float SteerHelper { get { return m_SteerHelper; } }
+        public float TractionControl { get { return m_TractionControl; } }
+        public float FullTorqueOverAllWheels { get { return m_FullTorqueOverAllWheels; } }
+        public float ReverseTorque { get { return m_ReverseTorque; } }
+        public float MaxHandbrakeTorque { get { return m_MaxHandbrakeTorque; } }
+        public float Downforce { get { return m_Downforce; } }
+        public float Topspeed { get { return m_Topspeed; } }
+        public float SlipLimit { get { return m_SlipLimit; } }
+        public float BrakeTorque { get { return m_BrakeTorque; } }
+
+
     }
 }

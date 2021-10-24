@@ -16,6 +16,10 @@ namespace CarTag
 
         protected override void Awake() {
             base.Awake();
+            //InitialSetup();
+        }
+
+        private void Start() {
             InitialSetup();
         }
 

@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CarTag.Car.CarStats" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAACACkAAQhgAAAAAAABAAQIBIAAIAIAAAAgEI=</HashCode>
+      <FileName>Assets\Scripts\Car\CarStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Car.CarStatsController" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAABAAAAAQAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Car\CarStatsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Checkpoints.Checkpoint" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAHAAAACAAAAAAkIAAEAAAAAQBAAAAQQAAAQAAAkA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\Checkpoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Checkpoints.CheckpointManager" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAIAABAiAAAAAEAAAAAAAAgAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\CheckpointManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Checkpoints.CheckpointReached" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhAAAAACAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\CheckpointReached.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Checkpoints.CheckpointSpawner" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAQAAAAAgAAgAAAAAChAAABAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\CheckpointSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Checkpoints.CheckpointVisibility" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABAAAAAAAAAAAgAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\CheckpointVisibility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.GameManager" Collapsed="true">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAQDAAAAAAABAAAAAAQAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\GameControl\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.MonoSingleton&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\GameControl\MonoSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Input.CameraInputHandler" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAMAAIAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inputs\CameraInputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Input.CarInputHandler" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABgAAAQAAEAAABACACgAAAAAAAgAAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Inputs\CarInputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Input.InputManager" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAEAAEAAQAAAAQQAACAAAQAAACBAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inputs\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Input.PlayerInputHandler" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAgAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inputs\PlayerInputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Inputs.@CarTagInputs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACCAgAAACAgCJAgAACECRAAYLAXBGAUAEMkIFhQAIA=</HashCode>
+      <FileName>Assets\Scripts\Inputs\CarTagInputs.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CarTag.PlayerSpace.Player" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAAAACBABEAAAAAAAAIAAAAAAAAAAQAAIA=</HashCode>
+      <FileName>Assets\Scripts\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.PlayerSpace.PlayerCollision" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAIGRAAAQIAAAAQAAAAJAEAIABAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.PlayerSpace.PlayerManager" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAAAAAgAAAAAAgAABAAIAACAACwAAAAKAAQAAAACgA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.PlayerSpace.PlayerRespawn" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAJAAAAAAAAAAAAAAAAEAAAAAAABVEAEQQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerRespawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Road.Distance" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAAgAAAAAAACAAEAAAAAAAAAAAAQAAggAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\Distance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Road.FollowCar" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\FollowCar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Road.RoadGenerator">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABQAABBAAAAAQABAAAAACAAAAAYABAAAAAAAQEAA=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\RoadGenerator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="roadManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarTag.Road.RoadManager" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABAAAAAAgAAAAAAABAAAAAAAEAAAAAAAAAgAAQIAAQ=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\RoadManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Road.RoadRemoval" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\RoadRemoval.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarTag.Road.RoadSpawnData">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAiQBAAAwAAAAIAgFAAAICAAAAAAACAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Road Generation\RoadSpawnData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CarTag.Checkpoints.CheckpointData" Collapsed="true">
+    <Position X="10.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAABIAAAAQAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Checkpoints\Checkpoint.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="CarTag.PlayerSpace.PlayerRoleEnum" Collapsed="true">
+    <Position X="10.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

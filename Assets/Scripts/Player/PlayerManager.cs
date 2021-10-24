@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CarTag.Car;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
@@ -12,13 +13,21 @@ namespace CarTag.PlayerSpace {
 
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
         [SerializeField] private float chaserWaitTime = 4.0f;
-        public List<Player> Players { get { return players; } }
+
+        private CarStatsController carStatsController;
+        
+        //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
+
+        //--Properties
+        public List<Player> Players { get { return players; } }
 
 
         public void InitialSetup() {
+            carStatsController = GetComponent<CarStatsController>();
             SetupPlayers();
             FindCurrentRunner();
+            AssignCarStats();
         }
 
         private void SetupPlayers() {
@@ -50,6 +59,21 @@ namespace CarTag.PlayerSpace {
             }
         }
         /// <summary>
+        /// Assign the Runner or Chaser stats to the appropriate car controllers
+        /// </summary>
+        private void AssignCarStats() {
+            foreach (Player p in players) {
+                if (p == CurrentRunner) {
+                    carStatsController.AssignStats(p.CarController, carStatsController.RunnerStats);
+                }
+                else {
+                    carStatsController.AssignStats(p.CarController, carStatsController.ChaserStats);
+
+                }
+            }
+        }
+
+        /// <summary>
         /// Takes in a game object and returns the Player script attached to the parent (or parent's parent etc) of the object
         /// </summary>
         public Player GetPlayerFromGameObject(GameObject gameObject) {
@@ -61,22 +85,8 @@ namespace CarTag.PlayerSpace {
 
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
             SwapRoles(newRunner, newChaser);
-
-            //--Respawn Chasers
-            //if (players.Count > 2) {        // only respawn cars if there are more than two chasers (i.e. 3+ players)
-                Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
-                Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
-                for (int i = 0; i < players.Count; i++) {
-                    if (players[i] == newRunner || players[i] == newChaser) {                   // dont need to respawn runner or chaser
-                        players[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without
-                        continue;                                                               // ...actually respawning them
-                    }
-                    else {
-                        players[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot);  // respawn chasers at new chaser pos & rot
-                    }
-                }
-
-            //}
+            RespawnChasers(newRunner, newChaser);
+            SwapCarStats(newRunner, newChaser);
 
             // Change Chaser And Runner Car Stats
 
@@ -94,5 +104,28 @@ namespace CarTag.PlayerSpace {
             newChaser.PlayerRoll = PlayerRoleEnum.Chaser;
             CurrentRunner = newRunner;
         }
+
+        /// <summary>
+        /// Respawn all cars which are not the new Runner or the new Chaser at the new Chaser's Position (if there are only two players this method will ultimetly 
+        /// do nothing)
+        /// </summary>
+        private void RespawnChasers(Player newRunner, Player newChaser) {
+            Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
+            Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
+            for (int i = 0; i < players.Count; i++) {
+                if (players[i] == newRunner || players[i] == newChaser) {                   // dont need to respawn runner or chaser
+                    players[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without
+                    continue;                                                               // ...actually respawning them
+                }
+                else {
+                    players[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot);  // respawn chasers at new chaser pos & rot
+                }
+            }
+        }
+        private void SwapCarStats(Player newRunner, Player newChaser) {
+            carStatsController.AssignStats(newRunner.CarController, carStatsController.RunnerStats);
+            carStatsController.AssignStats(newChaser.CarController, carStatsController.ChaserStats);
+        }
+
     }
 }
