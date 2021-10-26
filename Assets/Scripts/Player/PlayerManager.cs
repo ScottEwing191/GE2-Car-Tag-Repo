@@ -15,13 +15,14 @@ namespace CarTag.PlayerSpace {
         [SerializeField] private float chaserWaitTime = 4.0f;
 
         private CarStatsController carStatsController;
-        
+
         //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
 
         //--Properties
         public List<Player> Players { get { return players; } }
 
+        //=== SET UP START ===
 
         public void InitialSetup() {
             carStatsController = GetComponent<CarStatsController>();
@@ -58,6 +59,7 @@ namespace CarTag.PlayerSpace {
                 Debug.LogError("There are no Runners in the scene");
             }
         }
+
         /// <summary>
         /// Assign the Runner or Chaser stats to the appropriate car controllers
         /// </summary>
@@ -72,6 +74,7 @@ namespace CarTag.PlayerSpace {
                 }
             }
         }
+        //=== SET UP END ===
 
         /// <summary>
         /// Takes in a game object and returns the Player script attached to the parent (or parent's parent etc) of the object
@@ -82,7 +85,7 @@ namespace CarTag.PlayerSpace {
             else { return null; }
         }
 
-
+        //=== ROLE SWAP START ===
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
@@ -126,6 +129,27 @@ namespace CarTag.PlayerSpace {
             carStatsController.AssignStats(newRunner.CarController, carStatsController.RunnerStats);
             carStatsController.AssignStats(newChaser.CarController, carStatsController.ChaserStats);
         }
+
+        //=== ROLE SWAP END ===
+
+        //=== ENABLE/DISABLE CARS START ===
+        public void DisableCars() {
+            foreach (Player p in players) {
+                carStatsController.DisableCar(p.CarController);
+            }
+        }
+        public void EnableRunner() {
+            carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
+        }
+        public void EnableChasers() {
+            carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
+            foreach (Player p in players) {
+                if (p != CurrentRunner) {
+                    carStatsController.EnableCar(p.CarController, carStatsController.ChaserStats);
+                }
+            }
+        }
+        //=== ENABLE/DISABLE CARS END ===
 
     }
 }

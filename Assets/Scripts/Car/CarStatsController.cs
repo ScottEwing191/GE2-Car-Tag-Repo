@@ -25,5 +25,12 @@ namespace CarTag.Car
             carController.SlipLimit = stats.SlipLimit;
             carController.BrakeTorque = stats.BrakeTorque;
         }
+
+        public void DisableCar(CarController carController) {
+            carController.FullTorqueOverAllWheels = 0;
+        }
+        public void EnableCar(CarController carController, CarStats stats) {
+            carController.FullTorqueOverAllWheels = stats.FullTorqueOverAllWheels;
+        }
     }
 }
