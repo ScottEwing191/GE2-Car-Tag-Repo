@@ -15,9 +15,11 @@ namespace CarTag.PlayerSpace {
         [SerializeField] private float chaserWaitTime = 4.0f;
 
         private CarStatsController carStatsController;
+        private Player runnerAtRoundStart;
 
         //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
+
 
         //--Properties
         public List<Player> Players { get { return players; } }
@@ -28,6 +30,7 @@ namespace CarTag.PlayerSpace {
             carStatsController = GetComponent<CarStatsController>();
             SetupPlayers();
             FindCurrentRunner();
+            runnerAtRoundStart = CurrentRunner;
             AssignCarStats();
         }
 
@@ -90,10 +93,7 @@ namespace CarTag.PlayerSpace {
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
             SwapCarStats(newRunner, newChaser);
-
-            // Change Chaser And Runner Car Stats
-
-            // Turn On Collision
+            DisableChasers();
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserWaitTime));
         }
 
@@ -103,8 +103,8 @@ namespace CarTag.PlayerSpace {
         /// <param name="newRunner">The car which caught the runner and will now be the new runner</param>
         /// <param name="newChaser">The car which was the old runner who got caught</param>
         private void SwapRoles(Player newRunner, Player newChaser) {
-            newRunner.PlayerRoll = PlayerRoleEnum.Runner;
             newChaser.PlayerRoll = PlayerRoleEnum.Chaser;
+            newRunner.PlayerRoll = PlayerRoleEnum.Runner;
             CurrentRunner = newRunner;
         }
 
@@ -116,12 +116,13 @@ namespace CarTag.PlayerSpace {
             Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
             Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
             for (int i = 0; i < players.Count; i++) {
-                if (players[i] == newRunner || players[i] == newChaser) {                   // dont need to respawn runner or chaser
+                if (players[i] == newRunner /*|| players[i] == newChaser*/) {                   // dont need to respawn runner or chaser
                     players[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without
                     continue;                                                               // ...actually respawning them
                 }
                 else {
                     players[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot);  // respawn chasers at new chaser pos & rot
+
                 }
             }
         }
@@ -138,11 +139,19 @@ namespace CarTag.PlayerSpace {
                 carStatsController.DisableCar(p.CarController);
             }
         }
+        private void DisableChasers() {
+            foreach (Player p in players) {
+                if (p != CurrentRunner) {
+                    carStatsController.DisableCar(p.CarController);
+                }
+            }
+        }
+
         public void EnableRunner() {
             carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
         }
         public void EnableChasers() {
-            carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
+            //carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
             foreach (Player p in players) {
                 if (p != CurrentRunner) {
                     carStatsController.EnableCar(p.CarController, carStatsController.ChaserStats);
@@ -151,5 +160,26 @@ namespace CarTag.PlayerSpace {
         }
         //=== ENABLE/DISABLE CARS END ===
 
+        public void ResetPlayersAfterRound() {
+            foreach (var p in players) {
+                p.PlayerRespawn.RespawnAfterRound();
+
+            }
+            ResetRolesAfterRound();
+        }
+        /// <summary>
+        /// Sets the player who will be the runner at the start of the next rond.
+        /// The players take turns at being the runner in the order that they appear in the player List.
+        /// The winner of the previous round has no effect on the start runner of the next round 
+        /// </summary>
+        private void ResetRolesAfterRound() {
+            if (runnerAtRoundStart.PlayerListIndex == players.Count - 1) {
+                runnerAtRoundStart = players[0];
+            }
+            else {
+                runnerAtRoundStart = players[(runnerAtRoundStart.PlayerListIndex + 1)];
+            }
+            SwapRoles(runnerAtRoundStart, CurrentRunner);
+        }
     }
 }

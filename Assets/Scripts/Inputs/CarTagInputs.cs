@@ -186,7 +186,7 @@ namespace CarTag.Inputs
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Looks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

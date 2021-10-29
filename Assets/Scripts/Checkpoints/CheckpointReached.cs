@@ -46,7 +46,6 @@ namespace CarTag.Checkpoints {
         /// </summary>
         private void CheckpointSucessfullyReached(Checkpoint cp, int index) {
             checkpointManager.CheckpointQueues[index].Dequeue();        // remove checkpoint from the queue
-            Debug.Log("Dequeud");
             cp.CheckpointReached(index);                         // call destroy checkpoint method. May want to have animation or something later
             checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(index);
         }
@@ -55,7 +54,6 @@ namespace CarTag.Checkpoints {
         /// Handles what happens if the wrong checkpoint is reached
         /// </summary>
         private void WrongCheckpoint() {
-            Debug.Log("Wrong Checkpoint");
         }
     }
 }

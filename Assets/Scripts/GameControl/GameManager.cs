@@ -13,6 +13,7 @@ namespace CarTag
         public PlayerManager PlayerManager { get; set; }
         public RoadManager RoadManager { get; set; }
         public CheckpointManager CheckpointManager { get; set; }
+        public RoundManager RoundManager { get; set; }
 
         protected override void Awake() {
             base.Awake();
@@ -30,11 +31,13 @@ namespace CarTag
             PlayerManager = FindObjectOfType<PlayerManager>();
             RoadManager = FindObjectOfType<RoadManager>();
             CheckpointManager = FindObjectOfType<CheckpointManager>();
+            RoundManager = FindObjectOfType<RoundManager>();
 
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.SetupQueues(PlayerManager.Players.Count);
+            StartCoroutine(RoundManager.RoundStart());
         }
 
 
@@ -45,9 +48,22 @@ namespace CarTag
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.ControlRoleSwap(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
+            RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
+            CheckpointManager.ResetCheckpoints();
             //--Audio
             //--UI
+        }
+
+        public void ManageRoundOver() {
+            //ScoreManager.UpdateScore();
+            PlayerManager.ResetPlayersAfterRound();
+            RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
+            CheckpointManager.ResetCheckpoints();
+            //AbilityManager.ResetAbilities();
+            //DynamicObjectManager.ResetObjects();
+            //UI
+            StartCoroutine(RoundManager.RoundStart());
+
         }
     }
 }

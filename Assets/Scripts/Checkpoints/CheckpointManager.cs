@@ -45,5 +45,25 @@ namespace CarTag.Checkpoints {
 
             }
         }
+
+        internal void ResetCheckpoints() {
+            CheckpointSpawner.PointsSinceLastCP = 0;    // reset when the next checkpointwill spawn
+            //--Find the Longest Checkpoint Queue
+            int longestQueueIndex = 0;
+            for (int i = 0; i < checkpointQueues.Count; i++) {
+                if (checkpointQueues[i].Count > checkpointQueues[longestQueueIndex].Count) {
+                    longestQueueIndex = i;
+                }
+            }
+            //--Destroy the gameobjects that the checkpoint scripts in the queue are attached to 
+            for (int i = 0; i < checkpointQueues[longestQueueIndex].Count; i++) {
+                Destroy(checkpointQueues[longestQueueIndex].Dequeue().gameObject);
+            }
+
+            //--Clear all the Checkpoint Queues
+            for (int i = 0; i < checkpointQueues.Count; i++) {
+                checkpointQueues[i].Clear();
+            }
+        }
     }
 }

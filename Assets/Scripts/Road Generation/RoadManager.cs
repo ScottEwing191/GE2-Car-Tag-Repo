@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Checkpoints;
-
+using System;
+using Dreamteck.Splines;
 
 namespace CarTag.Road
 {
     public class RoadManager : MonoBehaviour
     {
         [SerializeField] private CheckpointManager checkpointManager;
+        
+        //--Auto implemented properties
         public RoadGenerator RoadGenerator { get; set; }
         public RoadSpawnData RoadSpawnData { get; set; }
         private Distance distance = new Distance();
         private RoadRemoval roadRemoval = new RoadRemoval();
+
+        //--Properties
+        public Distance Distance { get { return distance; } }
+
 
         public void InitialSetup(RoadSpawnData initialRoadSpawnData) {
             RoadGenerator = GetComponentInChildren<RoadGenerator>();
@@ -39,13 +46,24 @@ namespace CarTag.Road
             //print("Distance: " + distance.TotalDistance);
         }
 
+        /// <summary>
+        /// Removes the point at the given position from the spline. And removes all points from the spline that came before the given point
+        /// </summary>
+        /// <param name="cpPosition"></param>
         public void RemoveRoad(Vector3 cpPosition) {
-            RoadGenerator.SplineComputer.SetPoints(roadRemoval.RemovePoints(RoadGenerator.SplineComputer.GetPoints(), cpPosition));
+            SplinePoint[] newSplinePoints = roadRemoval.RemovePoints(RoadGenerator.SplineComputer.GetPoints(), cpPosition);
+            RoadGenerator.SplineComputer.SetPoints(newSplinePoints);
         }
-
-        public void ControlRoleSwap(RoadSpawnData newRoadSpawnData) {
+        /// <summary>
+        /// Removes all points from the spline, Sets the new RoadSpawnData and Resets the distance travelled
+        /// </summary>
+        public void ResetRoad(RoadSpawnData newRoadSpawnData) {
             RoadSpawnData = newRoadSpawnData;    // Update RoadManager RoadSpawnData
             distance.ResetDistanceTravelled();
+            SplinePoint[] emptySplinePoints = new SplinePoint[0];
+            RoadGenerator.SplineComputer.SetPoints(emptySplinePoints);
         }
+
+        
     }
 }

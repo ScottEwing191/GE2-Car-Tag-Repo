@@ -17,8 +17,8 @@ MonoBehaviour:
   m_TractionControl: 1
   m_FullTorqueOverAllWheels: 2000
   m_ReverseTorque: 500
-  m_MaxHandbrakeTorque: 100000000
+  m_MaxHandbrakeTorque: 800
   m_Downforce: 100
-  m_Topspeed: 150
+  m_Topspeed: 80
   m_SlipLimit: 0.3
   m_BrakeTorque: 20000

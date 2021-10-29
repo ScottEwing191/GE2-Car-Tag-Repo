@@ -9581,6 +9581,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRespawnVelocity: 25
+  wheels:
+  - {fileID: 7364511240395027296}
+  - {fileID: 7364511240395027298}
+  - {fileID: 7364511240395027302}
+  - {fileID: 7364511240395027300}
 --- !u!1 &7364511240405824248
 GameObject:
   m_ObjectHideFlags: 0

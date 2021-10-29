@@ -28,9 +28,11 @@ namespace CarTag.Car
 
         public void DisableCar(CarController carController) {
             carController.FullTorqueOverAllWheels = 0;
+            carController.ReverseTorque = 0;
         }
         public void EnableCar(CarController carController, CarStats stats) {
             carController.FullTorqueOverAllWheels = stats.FullTorqueOverAllWheels;
+            carController.ReverseTorque = stats.ReverseTorque;
         }
     }
 }

@@ -10,12 +10,11 @@ namespace CarTag.Road
     {
         [SerializeField] private SplineComputer splineComputer;
         [SerializeField] private float maxDisplacementBetweenControlPoints = 4;
-        private float displacementSinceLastSplinePoint;
         [SerializeField] float pointSize = 1;
         [SerializeField] private Spline.Type splineType;
 
+        private float displacementSinceLastSplinePoint;
         private RoadManager roadManager;
-        //private RoadSpawnData roadSpawnData;
         private Vector3 currentPosition;
 
         //Properties
@@ -41,9 +40,7 @@ namespace CarTag.Road
         // Return true if road is generated
         internal bool TryGenerateRoad() {
             splineComputer.type = splineType;
-            currentPosition = roadManager.RoadSpawnData.Position;
-             //print("Spline Length: " +splineComputer.CalculateLength());
-            
+            currentPosition = roadManager.RoadSpawnData.Position;            
 
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 
             /*if (roadManager.RoadSpawnData.GroundedThisFrame || roadManager.RoadSpawnData.OffGroundThisFrame) {
@@ -54,7 +51,6 @@ namespace CarTag.Road
                 return true;
             }
             return false;
-            
         }
 
         private bool IsDisplacementTravelled() {

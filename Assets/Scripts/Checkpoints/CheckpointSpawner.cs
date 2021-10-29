@@ -7,10 +7,11 @@ namespace CarTag.Checkpoints {
     public class CheckpointSpawner : MonoBehaviour {
         [AssetsOnly]
         [SerializeField] private GameObject checkpointPrefab;
-        [SerializeField] private float spawnFrequency = 10;        // the checkpoint will spawn every 10th point on the spline
+        [SerializeField] private float spawnFrequency = 10;         // the checkpoint will spawn every 10th point on the spline
 
-        private float pointsSinceLastCP;                     // how many points have passed since the last checkpoint 
         private CheckpointManager checkpointManager;
+        //--Auto-Implemented Properties
+        public float PointsSinceLastCP { get; set; }                       // how many points have passed since the last checkpoint 
 
         private void Awake() {
             checkpointManager = GetComponent<CheckpointManager>();
@@ -39,22 +40,18 @@ namespace CarTag.Checkpoints {
         }
 
         private bool CanCheckpointSpawn() {
-            pointsSinceLastCP++;
-            if (pointsSinceLastCP % spawnFrequency == 0) {
-                pointsSinceLastCP = 0;
+            PointsSinceLastCP++;
+            if (PointsSinceLastCP % spawnFrequency == 0) {
+                PointsSinceLastCP = 0;
                 return true;
             }
             return false;
         }
+
         int cpName = 0;
-
-        // -- OLD --private Checkpoint SpawnCheckpoint(Transform spawnTransform, int runnerCheckpointListIndex) {
         private Checkpoint SpawnCheckpoint(Vector3 position, Quaternion rotation, int runnerCheckpointListIndex) {
-
         // Instantiate Checkpoint Game object which will be used by each car
         GameObject newCP = Instantiate(checkpointPrefab,
-                // -- OLD --spawnTransform.position,
-                // -- OLD --spawnTransform.rotation,
                 position,
                 rotation,
                 checkpointManager.gameObject.transform);    // parent

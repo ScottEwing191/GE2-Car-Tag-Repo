@@ -157,7 +157,7 @@ namespace UnityStandardAssets.Vehicles.Car {
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
         }
 
-
+        bool cancelHandbrake = false;
         public void Move(float steering, float accel, float footbrake, float handbrake) {
             for (int i = 0; i < 4; i++) {
                 Quaternion quat;
@@ -188,9 +188,15 @@ namespace UnityStandardAssets.Vehicles.Car {
             //Assuming that wheels 2 and 3 are the rear wheels.
             if (handbrake > 0f) {
                 var hbTorque = handbrake * m_MaxHandbrakeTorque;
-                print(hbTorque);
                 m_WheelColliders[2].brakeTorque = hbTorque;
                 m_WheelColliders[3].brakeTorque = hbTorque;
+                cancelHandbrake = true;
+            }
+            //--Set the brake torque back to 0 when the handbrake is released
+            else if (handbrake == 0 && cancelHandbrake) {
+                cancelHandbrake = false;
+                m_WheelColliders[2].brakeTorque = 0;
+                m_WheelColliders[3].brakeTorque = 0;
             }
 
 
@@ -221,7 +227,7 @@ namespace UnityStandardAssets.Vehicles.Car {
             }
         }
 
-
+        
         private void ApplyDrive(float accel, float footbrake) {
 
             float thrustTorque;
