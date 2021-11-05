@@ -8,6 +8,7 @@ namespace CarTag.Checkpoints {
     public class CheckpointManager : MonoBehaviour {
         [ShowInInspector] private List<Queue<Checkpoint>> checkpointQueues = new List<Queue<Checkpoint>>();
         [SerializeField] private int visibleCheckpoints = 5;
+        [SerializeField] private bool spawnCheckpoints = true;
         
         // Auto-implemented Properties
         public CheckpointSpawner CheckpointSpawner { get; private set; }
@@ -35,7 +36,9 @@ namespace CarTag.Checkpoints {
         /// </summary>
         //-- OLD --internal void StartCheckpointSpawn(Transform roadSpawnDataTransform) {
         internal void StartCheckpointSpawn(Vector3 cpPosition, Quaternion cpRotation) {
-
+            if (!spawnCheckpoints) {
+                return;
+            }
             // get the index of the current runner so that the checkpoint system knows which Queue to avoid adding checkpoints to
             int currentRunnerIndex = GameManager.Instance.PlayerManager.CurrentRunner.PlayerListIndex;      
             //-- OLD --var newCPScript = CheckpointSpawner.TrySpawnCheckpoint(roadSpawnDataTransform, currentRunnerIndex);
@@ -46,6 +49,11 @@ namespace CarTag.Checkpoints {
             }
         }
 
+        /// <summary>
+        /// Finds the checkpoints queue which contains the most checkpoints (i.e all the checkpoints still in the scene) and destroys all
+        /// the checkpoint game objects containing the checpoints scripts in the queue.
+        /// Also clears all checkpoint queues
+        /// </summary>
         internal void ResetCheckpoints() {
             CheckpointSpawner.PointsSinceLastCP = 0;    // reset when the next checkpointwill spawn
             //--Find the Longest Checkpoint Queue
@@ -56,7 +64,8 @@ namespace CarTag.Checkpoints {
                 }
             }
             //--Destroy the gameobjects that the checkpoint scripts in the queue are attached to 
-            for (int i = 0; i < checkpointQueues[longestQueueIndex].Count; i++) {
+            int count = checkpointQueues[longestQueueIndex].Count;
+            for (int i = 0; i < count; i++) {
                 Destroy(checkpointQueues[longestQueueIndex].Dequeue().gameObject);
             }
 

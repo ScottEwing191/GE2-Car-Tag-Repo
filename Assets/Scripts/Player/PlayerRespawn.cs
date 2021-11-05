@@ -35,15 +35,24 @@ namespace CarTag.PlayerSpace
             CheckCollisionWithLevel();
         }
 
-
+        /// <summary>
+        /// Respawns the cars at the given position and rotation. Sets the velocity of the cars to 0 and checks if the cars collision
+        /// should be on or off
+        /// </summary>
         public void RespawnAfterRoleSwap(Vector3 position, Quaternion rotation) {
             SetRespawnLocation(position, rotation);
             SetCarTransform(position, rotation);
-            SetCarVelocity(0);
-            //StartCoroutine(StopWheelsRoleSwap());
+            // For some reason respawning after Role swap was not working the way it is done after Round End. I have no clue why but...
+            //... directly clamping the velocity and angular velocity seems to produce the desired (same) effects. i.e the car full stops
+            carRb.velocity = Vector3.ClampMagnitude(carRb.velocity, 0);
+            carRb.angularVelocity = Vector3.ClampMagnitude(carRb.angularVelocity, 0);
+            StartCoroutine(StopWheelsRoleSwap());
             CheckCollisionWithCars();
         }
 
+        /// <summary>
+        /// Respawns the cars at the given position and rotation. Sets the velocity of the cars to 0.
+        /// </summary>
         public void RespawnAfterRound() {
             SetRespawnLocation(startPosition, startRotation);
             SetCarTransform(startPosition, startRotation);
@@ -56,6 +65,7 @@ namespace CarTag.PlayerSpace
         /// </summary>
         private IEnumerator StopWheels() {
             yield return new WaitForFixedUpdate();
+            print(transform.gameObject.name);
             SetCarVelocity(0);                          // stops car from moving after respawning while on ramp
             SetWheelBrakeTorque(Mathf.Infinity);        // stops wheels from spinning, but stops acceleration from working
             yield return new WaitForFixedUpdate();
@@ -106,7 +116,6 @@ namespace CarTag.PlayerSpace
         }
         private void SetWheelBrakeTorque(float torque) {
             foreach (WheelCollider wheel in wheels) {
-                //wheel.motorTorque = 0;
                 wheel.brakeTorque = torque;
             }
         }

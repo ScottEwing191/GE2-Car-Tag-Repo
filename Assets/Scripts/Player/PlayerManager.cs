@@ -8,11 +8,8 @@ namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
         [SerializeField] private List<Player> players = new List<Player>();
 
-        [Tooltip("This is the time that the chaser has to wait at the start of the round before they can begin driving")]
-        [SerializeField] private float initialChaserWaitTime = 3.0f;
-
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
-        [SerializeField] private float chaserWaitTime = 4.0f;
+        [SerializeField] private float chaserRoundSwapWaitTime = 4.0f;
 
         private CarStatsController carStatsController;
         private Player runnerAtRoundStart;
@@ -94,7 +91,8 @@ namespace CarTag.PlayerSpace {
             RespawnChasers(newRunner, newChaser);
             SwapCarStats(newRunner, newChaser);
             DisableChasers();
-            StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserWaitTime));
+            StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoundSwapWaitTime));
+            Invoke("EnableChasers", chaserRoundSwapWaitTime);
         }
 
         /// <summary>
