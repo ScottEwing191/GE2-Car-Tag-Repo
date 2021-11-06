@@ -5,6 +5,7 @@ using UnityEngine;
 using CarTag.PlayerSpace;
 using CarTag.Road;
 using CarTag.Checkpoints;
+using CarTag.UI;
 
 namespace CarTag
 {
@@ -14,6 +15,7 @@ namespace CarTag
         public RoadManager RoadManager { get; set; }
         public CheckpointManager CheckpointManager { get; set; }
         public RoundManager RoundManager { get; set; }
+        public UIManager UIManager { get; set; }
 
         protected override void Awake() {
             base.Awake();
@@ -32,11 +34,13 @@ namespace CarTag
             RoadManager = FindObjectOfType<RoadManager>();
             CheckpointManager = FindObjectOfType<CheckpointManager>();
             RoundManager = FindObjectOfType<RoundManager>();
-
+            UIManager = FindObjectOfType<UIManager>();
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.SetupQueues(PlayerManager.Players.Count);
+            UIManager.InitalSetup();
+            RoundManager.InitalSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
 
