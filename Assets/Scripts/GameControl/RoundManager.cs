@@ -31,7 +31,7 @@ namespace CarTag
             GameManager.Instance.PlayerManager.DisableCars();           // all Cars Disabled
             //StartCoroutine(GameManager.Instance.UIManager.DisplayCount(roundStartWaitTime, chaserStartWaitTime)); // UIManager Displays Count
             UIManager.StartRunnerCountdown(runnerStartWaitTime);
-            //UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
+            UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
             yield return new WaitForSeconds(runnerStartWaitTime);        // wait till runner can start
             GameManager.Instance.PlayerManager.EnableRunner();          // runner Enabled
             //print("Runner Enabled");

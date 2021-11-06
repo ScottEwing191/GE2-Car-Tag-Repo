@@ -8,7 +8,7 @@ namespace CarTag.UI {
         //--Serialized Fields
         [Tooltip("The time between counter updates as it is counting down")]
         [SerializeField] private float counterRate = 0.1f;
-        
+
         //--Private 
         private List<PlayerUIController> playerUIControllers = new List<PlayerUIController>();
 
@@ -19,62 +19,36 @@ namespace CarTag.UI {
         public List<PlayerUIController> PlayerUIControllers { get { return playerUIControllers; } }
 
         //--Methods
+        /// <summary>
+        /// Using the list of player from the Player Manager find all the PlayerUIController Components and add them to the  UI Manager's list
+        /// This will make sure the players are in the same order win both lists
+        /// </summary>
         public void InitalSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;
             foreach (Player player in PlayerManager.Players) {
                 playerUIControllers.Add(player.GetComponentInChildren<PlayerUIController>());
             }
         }
+
+        /// <summary>
+        /// Starts the countdown timer on the runner
+        /// </summary>
         public void StartRunnerCountdown(float startTime) {
-            //StartCoroutine(StartCountdownTimer(startTime, PlayerManager.CurrentRunner.PlayerListIndex, true));
             PlayerUIController runnerUI = playerUIControllers[PlayerManager.CurrentRunner.PlayerListIndex];
             StartCoroutine(runnerUI.DoCountdownTimer(startTime, counterRate, 1));
         }
+
+        /// <summary>
+        /// Starts the countdown timer on the Chasers. Skips the runner
+        /// </summary>
         public void StartChaserCountdown(float startTime) {
-            //StartCoroutine(StartCountdownTimer(startTime, PlayerManager.CurrentRunner.PlayerListIndex));
             for (int i = 0; i < playerUIControllers.Count; i++) {
-                if (i == PlayerManager.CurrentRunner.PlayerListIndex)
-                    continue;
-                StartCoroutine(playerUIControllers[PlayerManager.CurrentRunner.PlayerListIndex].DoCountdownTimer(startTime, counterRate, 2));
+                if (i != PlayerManager.CurrentRunner.PlayerListIndex) {
+                    StartCoroutine(playerUIControllers[i].DoCountdownTimer(startTime, counterRate, 2));
+                }
             }
         }
 
-        /*public IEnumerator StartCountdownTimer(float startTime, int runnerIndex, bool isRunnerTimer = false) {
-            float time = startTime;
-            while (time > 0) {
-                //--If setting the runner timer
-                if (isRunnerTimer) {
-                    playerUIControllers[runnerIndex].SetCountdownTime(time.ToString());
-                }
-                //--If setting the chaser timers
-                else  {
-                    for (int i = 0; i < playerUIControllers.Count; i++) {
-                        if (i == runnerIndex)
-                            continue;
-                        playerUIControllers[i].SetCountdownTime(time.ToString());
-                    } 
-                }
-                time -= counterRate;
-                yield return new WaitForSeconds(counterRate);
-            }
-
-            //--Display message once countdown has reached zero
-            //--If setting the runner message
-            if (isRunnerTimer) {
-                playerUIControllers[runnerIndex].SetCountdownTime("START");
-            }
-            //--If setting the chaser messages
-            else {
-                for (int i = 0; i < playerUIControllers.Count; i++) {
-                    if (i == runnerIndex)
-                        continue;
-                    playerUIControllers[i].SetCountdownTime("START");
-                }
-            }
-
-            yield return 
-
-            
-        }*/
+       
     }
 }

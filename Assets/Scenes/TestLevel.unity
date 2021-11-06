@@ -3369,7 +3369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470792546444547671, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7470792546444547672, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: m_DefaultControlScheme
@@ -3468,6 +3468,7 @@ MonoBehaviour:
   players:
   - {fileID: 1645846346}
   - {fileID: 7117316}
+  - {fileID: 1341261404}
   chaserRoundSwapWaitTime: 4
 --- !u!114 &778535459
 MonoBehaviour:
@@ -5742,6 +5743,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7364511240405986964, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
   m_PrefabInstance: {fileID: 438650119}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1341261404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2748212000098630705, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+  m_PrefabInstance: {fileID: 753988977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74988e494b6145a459532f2cd86a093c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1346211844
 GameObject:
   m_ObjectHideFlags: 0
@@ -9259,8 +9271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be095e49331eb904489fdcbdc9878754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runnerStartWaitTime: 1
-  chaserStartWaitTime: 1
+  runnerStartWaitTime: 3
+  chaserStartWaitTime: 3
   distanceToWin: 400
   distanceTravelled: 0
 --- !u!1 &1645846342 stripped
