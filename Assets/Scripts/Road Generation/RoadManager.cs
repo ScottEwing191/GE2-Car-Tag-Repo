@@ -31,7 +31,6 @@ namespace CarTag.Road
        private void FixedUpdate() {
             if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
                 if (checkpointManager != null) {
-                    //checkpointManager.StartCheckpointSpawn(RoadSpawnData.transform);    // tell checkpoint system to try and spawn a checkpoint
                     checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
                 }
                 Vector3 newestPointInSpline = RoadGenerator.SplineComputer.GetPoint(RoadGenerator.SplineComputer.pointCount - 1).position;
@@ -39,11 +38,9 @@ namespace CarTag.Road
             }
             else {      // no new points were added to spline
                 //--uses the same values as used in road generator but will not add distance while car is in air.
-                //distance.SetNoPointAddedDistance(RoadSpawnData.Position);
                 //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
                 distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
             }
-            //print("Distance: " + distance.TotalDistance);
         }
 
         /// <summary>

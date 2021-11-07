@@ -13,6 +13,8 @@ namespace CarTag.Checkpoints {
         //--Auto-Implemented Properties
         public float PointsSinceLastCP { get; set; }                       // how many points have passed since the last checkpoint 
 
+        //--Properties
+        public float SpawnFrequency { get { return spawnFrequency; } }
         private void Awake() {
             checkpointManager = GetComponent<CheckpointManager>();
         }
@@ -24,12 +26,9 @@ namespace CarTag.Checkpoints {
         /// <param name="runnerCheckpointListIndex">This is the index in the List<Queue<Checkpoint>> of the runner queue. Checkpoints do not need to be added here</param>
         /// <returns>Returns new chekpoint script or null if no checkpoint was spawned</returns>
         
-        //-- OLD --internal Checkpoint TrySpawnCheckpoint(Transform spawnTransform, int runnerCheckpointListIndex) {
         internal Checkpoint TrySpawnCheckpoint(Vector3 cpPosition, Quaternion cpRotation, int runnerCheckpointListIndex) {
-
-            bool canSpawn = CanCheckpointSpawn();
-            if (canSpawn) {
-                // -- OLD --var newCPScript = SpawnCheckpoint(spawnTransform, runnerCheckpointListIndex);
+            //bool canSpawn = CanCheckpointSpawn();
+            if (CanCheckpointSpawn()) {
                 var newCPScript = SpawnCheckpoint(cpPosition, cpRotation, runnerCheckpointListIndex);
 
                 return newCPScript;

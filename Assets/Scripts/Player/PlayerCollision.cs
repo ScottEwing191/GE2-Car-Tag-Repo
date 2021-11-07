@@ -27,18 +27,11 @@ namespace CarTag.PlayerSpace {
             player = GetComponentInParent<Player>();
             collisionCheckCenter = tempBoxCollider.center;
             collisionCheckHalfSize = tempBoxCollider.size / 2;
-
-            //int val = LayerMask.NameToLayer("Car Collision");
-            //collisionOnCheckMask.value = Mathf.Pow(2, (float)val); 
             collisionOnCheckMask = LayerMask.GetMask("Car Collision");
-
-
-
         }
 
         private void Start() {
             Destroy(tempBoxCollider);
-
         }
 
         private void OnCollisionEnter(Collision collision) {
@@ -100,7 +93,6 @@ namespace CarTag.PlayerSpace {
         /// </summary>
         /// <param name="delay">The seconds before the method will try to turn the collision on</param>
         /// <param name="collisionOnMask">If the car will collide with anything on this layermask the collision will not turn on</param>
-        /// 
         public IEnumerator TurnOnCarCollision(float delay, LayerMask collisionOnMask) {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
@@ -136,7 +128,6 @@ namespace CarTag.PlayerSpace {
         ///         and this car can Safely be set the ("Car Collision) layer
         /// </summary>
         public bool CarCollisionCheck() {
-            //if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, mask, QueryTriggerInteraction.Ignore)) {
             if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, collisionOnCheckMask, QueryTriggerInteraction.Ignore)) {
                 return true;
             }

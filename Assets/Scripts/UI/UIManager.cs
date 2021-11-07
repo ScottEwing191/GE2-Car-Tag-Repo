@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CarTag.PlayerSpace;
+using System;
 
 namespace CarTag.UI {
     public class UIManager : MonoBehaviour {
@@ -30,6 +31,7 @@ namespace CarTag.UI {
             }
         }
 
+        //=== COUNTDOWN TIMER START ===
         /// <summary>
         /// Starts the countdown timer on the runner
         /// </summary>
@@ -48,7 +50,50 @@ namespace CarTag.UI {
                 }
             }
         }
+        //=== COUNTDOWN TIMER END ===
 
-       
+        public PlayerUIController GetRunnerUIController() {
+            return playerUIControllers[PlayerManager.CurrentRunner.PlayerListIndex];
+        }
+
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentDst"></param>
+        /// <param name="dstBetweenCheckpoint"></param>
+        public void ManageCheckpointSpawnUI(float currentDst, float dstBetweenCheckpoint, bool spawned = true, int runnerCheckpointsAhead = -1) {
+            //--Set RunnerSlider
+            GetRunnerUIController().SetPlacedCheckpointTracker(currentDst, dstBetweenCheckpoint);
+            //--if spawned set runner Counter
+            if (spawned) {
+                GetRunnerUIController().SetCheckpointsAheadText(runnerCheckpointsAhead);
+            }
+            //--if spawned set Chaser Slider and Counter
+
+        }
+
+
+        public void ManageCheckpointReachedUI(int runnerCheckpointsAhead) {
+            //--Runner
+            GetRunnerUIController().SetCheckpointsAheadText(runnerCheckpointsAhead);
+            //--Chaser
+        }
+
+        public void RoleSwapReset(Player newRunner, Player newChaser) {
+            Reset();
+        }
+        internal void RoundOverReset() {
+            Reset();
+        }
+
+        private void Reset() {
+            foreach (var p in playerUIControllers) {
+                p.SetCheckpointsAheadText(0);
+                p.SetPlacedCheckpointTracker(0, 0);
+            }
+        }
+
     }
 }

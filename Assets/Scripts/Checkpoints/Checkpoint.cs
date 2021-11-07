@@ -49,7 +49,8 @@ namespace CarTag.Checkpoints {
             else {
                 Debug.LogError("Checkpoint Respawn Transform is NULL");
             }
-            checkpointManager = GameManager.Instance.CheckpointManager;
+            //REMINDER: This can be set in awake since checkpoints are only spawned once the game has already begun
+            checkpointManager = GameManager.Instance.CheckpointManager;     
             SetupPlayerCheckpointsList();
         }
         /// <summary>
@@ -58,7 +59,7 @@ namespace CarTag.Checkpoints {
         /// </summary>
         private void SetupPlayerCheckpointsList() {
             foreach (Transform child in transform) {
-                if (child.gameObject.CompareTag("CPMeshAndTrigger")) {      // If the child has the correct tag
+                if (child.gameObject.CompareTag("CPMeshAndTrigger")) {                              // If the child has the correct tag
 
                     if (playerCheckpoints.Count < checkpointManager.CheckpointQueues.Count) {       // Has a checkpoint checkpoint data been added for each player in the game 
                         CheckpointData data = new CheckpointData(child.GetChild(0).gameObject, child.GetChild(1).gameObject);
@@ -114,8 +115,10 @@ namespace CarTag.Checkpoints {
 
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag("CarTrigger")) {                                   // makes sure we are detecting the corect trigger on car
-                // pass this checkpoint and colliding player into the Checkpoint Reached Script which will determine if the correct player has collided with the correct checkpoint 
-                checkpointManager.CheckpointReached.DoCheckpointReached(this, GameManager.Instance.PlayerManager.GetPlayerFromGameObject(other.gameObject));
+                //--pass this checkpoint and colliding player into the Checkpoint Reached Script which will determine if the correct player has collided with the correct checkpoint 
+                //checkpointManager.CheckpointReached.DoCheckpointReached(this, GameManager.Instance.PlayerManager.GetPlayerFromGameObject(other.gameObject));
+                checkpointManager.HandleCheckpointReached(this, checkpointManager.PlayerManager.GetPlayerFromGameObject(other.gameObject));
+
             }
         }
     }

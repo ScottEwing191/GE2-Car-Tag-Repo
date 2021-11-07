@@ -38,7 +38,7 @@ namespace CarTag
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
-            CheckpointManager.SetupQueues(PlayerManager.Players.Count);
+            CheckpointManager.InitialSetup(PlayerManager.Players.Count);
             UIManager.InitalSetup();
             RoundManager.InitalSetup();
             StartCoroutine(RoundManager.RoundStart());
@@ -56,6 +56,7 @@ namespace CarTag
             CheckpointManager.ResetCheckpoints();
             //--Audio
             //--UI
+            UIManager.RoleSwapReset(newRunner, newChaser);
         }
 
         public void ManageRoundOver() {
@@ -66,6 +67,7 @@ namespace CarTag
             //AbilityManager.ResetAbilities();
             //DynamicObjectManager.ResetObjects();
             //UI
+            UIManager.RoundOverReset();
             StartCoroutine(RoundManager.RoundStart());
 
         }
