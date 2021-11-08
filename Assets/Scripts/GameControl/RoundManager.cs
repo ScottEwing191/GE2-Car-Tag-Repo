@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CarTag.PlayerSpace;
 using CarTag.UI;
 
 namespace CarTag
@@ -16,6 +17,7 @@ namespace CarTag
 
         //--Auto-Implemented Properties
         public UIManager UIManager { get; private set; }
+        public PlayerManager PlayerManager { get; private set; }
 
         //--Properties
         public float DistanceToWin {
@@ -24,21 +26,21 @@ namespace CarTag
         }
 
         public void InitalSetup() {
+            PlayerManager = GameManager.Instance.PlayerManager;
             UIManager = GameManager.Instance.UIManager;
         }
 
         public IEnumerator RoundStart() {
-            GameManager.Instance.PlayerManager.DisableCars();           // all Cars Disabled
-            //StartCoroutine(GameManager.Instance.UIManager.DisplayCount(roundStartWaitTime, chaserStartWaitTime)); // UIManager Displays Count
+            PlayerManager.DisableCars();           // all Cars Disabled
             UIManager.StartRunnerCountdown(runnerStartWaitTime);
             UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
-            yield return new WaitForSeconds(runnerStartWaitTime);        // wait till runner can start
-            GameManager.Instance.PlayerManager.EnableRunner();          // runner Enabled
-            //print("Runner Enabled");
+            yield return new WaitForSeconds(runnerStartWaitTime);       // wait till runner can start
+            PlayerManager.EnableRunner();          // runner Enabled
             checkDistance = true;
-            yield return new WaitForSeconds(chaserStartWaitTime);        // wait till chaser can start
-            //print("Chaser Enabled");
-            GameManager.Instance.PlayerManager.EnableChasers();          // chaser enabled
+            yield return new WaitForSeconds(chaserStartWaitTime);       // wait till chaser can start
+            PlayerManager.EnableChasers();         // chaser enabled
+            UIManager.SetupChaserCheckpointTrackers();
+            
         }
         [SerializeField] float distanceTravelled;
         private void Update() {

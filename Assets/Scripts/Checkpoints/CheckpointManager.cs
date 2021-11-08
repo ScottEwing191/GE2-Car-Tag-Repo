@@ -18,6 +18,7 @@ namespace CarTag.Checkpoints {
         public CheckpointSpawner CheckpointSpawner { get; private set; }
         public CheckpointVisibility CheckpointVisibility { get; set; }
         public CheckpointReached CheckpointReached { get; set; }
+        
 
         // Properties
         public List<Queue<Checkpoint>> CheckpointQueues { get { return checkpointQueues; } }
@@ -64,8 +65,6 @@ namespace CarTag.Checkpoints {
         public void HandleCheckpointReached(Checkpoint checkpoint, Player player) {
             CheckpointReached.DoCheckpointReached(checkpoint, player);
             //--Update Checkpoint UI 
-            //Runner needs the number of checkpoints left for he chaser witht he least checkpoints
-            //Each Chaser needs number of checkpoints left 
             UIManager.ManageCheckpointReachedUI(runnerCpAhead());
         }
 

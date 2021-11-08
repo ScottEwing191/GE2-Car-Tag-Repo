@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Car;
+using CarTag.UI;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
         [SerializeField] private List<Player> players = new List<Player>();
 
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
-        [SerializeField] private float chaserRoundSwapWaitTime = 4.0f;
+        [SerializeField] private float chaserRoleSwapWaitTime = 4.0f;
 
         private CarStatsController carStatsController;
         private Player runnerAtRoundStart;
 
         //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
+        public UIManager UIManager { get; set; }
 
 
         //--Properties
@@ -24,6 +26,7 @@ namespace CarTag.PlayerSpace {
         //=== SET UP START ===
 
         public void InitialSetup() {
+            UIManager = GameManager.Instance.UIManager;
             carStatsController = GetComponent<CarStatsController>();
             SetupPlayers();
             FindCurrentRunner();
@@ -91,8 +94,9 @@ namespace CarTag.PlayerSpace {
             RespawnChasers(newRunner, newChaser);
             SwapCarStats(newRunner, newChaser);
             DisableChasers();
-            StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoundSwapWaitTime));
-            Invoke("EnableChasers", chaserRoundSwapWaitTime);
+            StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime));
+            UIManager.StartChaserCountdown(chaserRoleSwapWaitTime);
+            StartCoroutine(StartChasersAfterRoleSwapWait());
         }
 
         /// <summary>
@@ -178,6 +182,16 @@ namespace CarTag.PlayerSpace {
                 runnerAtRoundStart = players[(runnerAtRoundStart.PlayerListIndex + 1)];
             }
             SwapRoles(runnerAtRoundStart, CurrentRunner);
+        }
+
+        /// <summary>
+        /// Allows the chasers to begin driving again after the Role Swap
+        /// Tells UI Manager to Set up the chaser Checkpoint Tracker UI
+        /// </summary>
+        private IEnumerator StartChasersAfterRoleSwapWait() {
+            yield return new WaitForSeconds(chaserRoleSwapWaitTime);
+            EnableChasers();
+            UIManager.SetupChaserCheckpointTrackers();
         }
     }
 }

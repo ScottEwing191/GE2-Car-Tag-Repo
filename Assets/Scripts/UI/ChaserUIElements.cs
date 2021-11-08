@@ -10,13 +10,54 @@ namespace CarTag.UI
     [Serializable]
     public struct ChaserUIElements
     {
-        [SerializeField] private GameObject chaserUIElements;
-        [SerializeField] private Slider chaserCheckpointsProgress;
+        [SerializeField] private GameObject chaserUIObject;
+        [SerializeField] ChaserCheckpointTrackerUIElements checkpointTracker;
+        //[SerializeField] private Slider chaserCheckpointsProgress;
 
         //--Properties
-        public Slider ChaserCheckpointsProgress {
-            get { return chaserCheckpointsProgress; }
-            set { chaserCheckpointsProgress = value; }
+        public GameObject ChaserUIObject { 
+            get { return chaserUIObject; }
         }
+        public ChaserCheckpointTrackerUIElements CheckpointTracker {
+            get { return checkpointTracker; }
+            set { checkpointTracker = value; }
+        }
+    }
+
+    [Serializable]
+    public struct ChaserCheckpointTrackerUIElements {
+        [SerializeField] private Slider chaserCpTrackerSlider;
+        [SerializeField] private Image startCheckpointIcon;
+        [SerializeField] private Image endCheckpointIcon;
+        [SerializeField] private Image numberCheckpointIcon;
+        [SerializeField] private List<Image> defualtCheckpointIcons;
+        [SerializeField] private TextMeshProUGUI checkpointsLeftText;
+        [SerializeField] private HorizontalLayoutGroup layoutGroup;
+
+
+        //--Properties
+        public Slider ChaserCpTrackerSlider {
+            get { return chaserCpTrackerSlider; }
+        }
+        public Image StartCheckpointIcon {
+            get { return startCheckpointIcon; }
+        }
+        public Image EndCheckpointIcon {
+            get { return endCheckpointIcon; }
+        }
+        public Image NumberCheckpointIcon {
+            get { return numberCheckpointIcon; }
+        }
+        public List<Image> DefualtCheckpointIcons {
+            get { return defualtCheckpointIcons; }
+        }
+        public TextMeshProUGUI CheckpointsLeftText {
+            get { return checkpointsLeftText; }
+            set {checkpointsLeftText = value; }
+        }
+        public HorizontalLayoutGroup LayoutGroup {
+            get { return layoutGroup; }
+        }
+
     }
 }

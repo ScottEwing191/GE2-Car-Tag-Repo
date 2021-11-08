@@ -11,8 +11,22 @@ namespace CarTag.UI {
         [SerializeField] PlayerUIElements playerUI;
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
+        int number = 0;
 
-        
+        public ChaserCheckpointTracker chaserCheckpointTracker { get; set; }
+
+        private void Awake() {
+            chaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
+            //chaserCheckpointTracker.SetupCpTracker(1);
+            
+        }
+        private void Update() {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.P)) {
+                chaserCheckpointTracker.SetupCpTracker(number);
+                number++;
+            }
+        }
+
         //--Methods
         /// <summary>
         /// Start the countdown timer at the given time, When the timer reaches 0 display a message for the given time then hide the message
@@ -35,8 +49,19 @@ namespace CarTag.UI {
             playerUI.CountdownTimer.gameObject.SetActive(false);
 
         }
+        //=== SWITCH BETWEEN RUNNER AND CHASER UI ===
 
+        public void SwitchToRunnerUI() {
+            runnerUI.RunnerUIObject.SetActive(true);
+            chaserUI.ChaserUIObject.SetActive(false);
+
+        }
+        public void SwitchToChaserUI() {
+            chaserUI.ChaserUIObject.SetActive(true);
+            runnerUI.RunnerUIObject.SetActive(false);
+        }
         //=== RUNNER CONTROLS ===
+
         public void SetPlacedCheckpointTracker(float currentDst, float dstBetweenCheckpoint) {
             runnerUI.PlaceCheckpointTracker.maxValue = dstBetweenCheckpoint;
             runnerUI.PlaceCheckpointTracker.value = currentDst;

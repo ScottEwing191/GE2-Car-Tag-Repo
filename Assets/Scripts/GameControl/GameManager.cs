@@ -67,7 +67,7 @@ namespace CarTag
             //AbilityManager.ResetAbilities();
             //DynamicObjectManager.ResetObjects();
             //UI
-            UIManager.RoundOverReset();
+            UIManager.RoundStartReset();
             StartCoroutine(RoundManager.RoundStart());
 
         }
