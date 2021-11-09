@@ -34,8 +34,8 @@ namespace CarTag.Checkpoints {
         public Vector3 respawnPosition { get; private set; }
         public Quaternion respawnRotation { get; private set; }
 
-        [SerializeField] private GameObject mesh;
-        [SerializeField] private GameObject checkpointTrigger;
+        //[SerializeField] private GameObject mesh;
+        //[SerializeField] private GameObject checkpointTrigger;
         [SerializeField] private List<CheckpointData> playerCheckpoints = new List<CheckpointData>();
         [SerializeField] private Transform respawnTransform;
 
