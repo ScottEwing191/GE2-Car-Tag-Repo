@@ -45,7 +45,7 @@ namespace CarTag
         [SerializeField] float distanceTravelled;
         private void Update() {
             distanceTravelled = GameManager.Instance.RoadManager.Distance.TotalDistance;
-            
+            UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);        // update Runner Distance Tracker UI
             if (GameManager.Instance.RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
                 checkDistance = false;
                 RoundWin();

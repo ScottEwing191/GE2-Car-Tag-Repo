@@ -12,7 +12,6 @@ namespace CarTag.UI
     {
         [SerializeField] private GameObject chaserUIObject;
         [SerializeField] ChaserCheckpointTrackerUIElements checkpointTracker;
-        //[SerializeField] private Slider chaserCheckpointsProgress;
 
         //--Properties
         public GameObject ChaserUIObject { 

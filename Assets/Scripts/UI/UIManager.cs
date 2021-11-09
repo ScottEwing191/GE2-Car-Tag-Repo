@@ -127,7 +127,7 @@ namespace CarTag.UI {
         }
 
         
-
+        //=== ROLE/ROUND CHANGE ===
         public void RoleSwapReset(Player newRunner, Player newChaser) {
             ResetUI();
 
@@ -145,6 +145,11 @@ namespace CarTag.UI {
                 p.SwitchToChaserUI();                               // switch all cars to chaser UI
             }
             GetRunnerUIController().SwitchToRunnerUI();             // switch only the runner to Runner UI
+        }
+
+        //=== UPDATE RUNNER DISTANCE TRAVELLED ===
+        public void UpdateRunnerDistanceTracker(float distanceTravelled, float targetDistance) {
+            GetRunnerUIController().SetDistanceTrackerUI(distanceTravelled, targetDistance);
         }
 
     }

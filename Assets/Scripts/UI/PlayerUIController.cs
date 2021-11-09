@@ -17,14 +17,6 @@ namespace CarTag.UI {
 
         private void Awake() {
             chaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
-            //chaserCheckpointTracker.SetupCpTracker(1);
-            
-        }
-        private void Update() {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.P)) {
-                chaserCheckpointTracker.SetupCpTracker(number);
-                number++;
-            }
         }
 
         //--Methods
@@ -71,6 +63,11 @@ namespace CarTag.UI {
             runnerUI.CheckpointsAhead.SetText(cpAhead.ToString());
         }
 
+        public void SetDistanceTrackerUI(float distanceTravelled, float targetDistance) {
+            runnerUI.DistanceTrackerSider.maxValue = targetDistance;
+            runnerUI.DistanceTrackerSider.value = distanceTravelled;
+            runnerUI.DistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
+        }
         //=== CHASER CONTROLS ===
 
     }

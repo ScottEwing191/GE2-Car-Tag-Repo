@@ -17,11 +17,6 @@ namespace CarTag
         public RoundManager RoundManager { get; set; }
         public UIManager UIManager { get; set; }
 
-        protected override void Awake() {
-            base.Awake();
-            //InitialSetup();
-        }
-
         private void Start() {
             InitialSetup();
         }
