@@ -63,10 +63,21 @@ namespace CarTag.UI {
             runnerUI.CheckpointsAhead.SetText(cpAhead.ToString());
         }
 
+        /// <summary>
+        /// Sets the distance tracker on the runner UI
+        /// </summary>
         public void SetDistanceTrackerUI(float distanceTravelled, float targetDistance) {
-            runnerUI.DistanceTrackerSider.maxValue = targetDistance;
-            runnerUI.DistanceTrackerSider.value = distanceTravelled;
+            runnerUI.DistanceTrackerSlider.maxValue = targetDistance;
+            runnerUI.DistanceTrackerSlider.value = distanceTravelled;
             runnerUI.DistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
+        }
+        /// <summary>
+        /// Sets the distance tracker on the chaser UI
+        /// </summary>
+        public void SetDistanceTrackerChaserUI(float distanceTravelled, float targetDistance) {
+            chaserUI.RunnerDistanceTrackerSlider.maxValue = targetDistance;
+            chaserUI.RunnerDistanceTrackerSlider.value = distanceTravelled;
+            chaserUI.RunnerDistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
         }
         //=== CHASER CONTROLS ===
 

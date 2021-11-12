@@ -11,7 +11,10 @@ namespace CarTag.UI
     public struct ChaserUIElements
     {
         [SerializeField] private GameObject chaserUIObject;
-        [SerializeField] ChaserCheckpointTrackerUIElements checkpointTracker;
+        [SerializeField] private ChaserCheckpointTrackerUIElements checkpointTracker;
+        [SerializeField] private Slider runnerDistanceTrackerSlider;
+        [SerializeField] private TextMeshProUGUI textMeshProUGUI;
+
 
         //--Properties
         public GameObject ChaserUIObject { 
@@ -20,6 +23,14 @@ namespace CarTag.UI
         public ChaserCheckpointTrackerUIElements CheckpointTracker {
             get { return checkpointTracker; }
             set { checkpointTracker = value; }
+        }
+        public Slider RunnerDistanceTrackerSlider {
+            get { return runnerDistanceTrackerSlider; }
+            set { runnerDistanceTrackerSlider = value; }
+        }
+        public TextMeshProUGUI RunnerDistanceTrackerText {
+            get { return textMeshProUGUI; }
+            set { textMeshProUGUI = value; }
         }
     }
 

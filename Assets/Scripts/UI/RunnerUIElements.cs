@@ -33,7 +33,7 @@ namespace CarTag.UI
             get { return checkpointsAhead; }
             set { checkpointsAhead = value; }
         }
-        public Slider DistanceTrackerSider {
+        public Slider DistanceTrackerSlider {
             get { return distanceTrackerSider; }
             set { distanceTrackerSider = value; }
         }

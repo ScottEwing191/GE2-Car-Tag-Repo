@@ -6,6 +6,7 @@ using CarTag.PlayerSpace;
 using CarTag.Road;
 using CarTag.Checkpoints;
 using CarTag.UI;
+using CarTag.Abilities;
 
 namespace CarTag
 {
@@ -16,6 +17,7 @@ namespace CarTag
         public CheckpointManager CheckpointManager { get; set; }
         public RoundManager RoundManager { get; set; }
         public UIManager UIManager { get; set; }
+        public AbilityManager AbilityManager { get; set; }
 
         private void Start() {
             InitialSetup();
@@ -30,12 +32,14 @@ namespace CarTag
             CheckpointManager = FindObjectOfType<CheckpointManager>();
             RoundManager = FindObjectOfType<RoundManager>();
             UIManager = FindObjectOfType<UIManager>();
+            AbilityManager = FindObjectOfType<AbilityManager>();
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
             UIManager.InitalSetup();
             RoundManager.InitalSetup();
+            AbilityManager.InitialSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
 

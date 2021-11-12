@@ -10,6 +10,8 @@ namespace CarTag.Road
     public class RoadManager : MonoBehaviour
     {
         [SerializeField] private CheckpointManager checkpointManager;
+
+        private bool isResetting = false;       // dont try and place a point on the spline for the fram that the road is reset
         
         //--Auto implemented properties
         public RoadGenerator RoadGenerator { get; set; }
@@ -29,17 +31,22 @@ namespace CarTag.Road
 
         }
        private void FixedUpdate() {
-            if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
-                if (checkpointManager != null) {
-                    checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
+            if (!isResetting) {
+                if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
+                    if (checkpointManager != null) {
+                        checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
+                    }
+                    Vector3 newestPointInSpline = RoadGenerator.SplineComputer.GetPoint(RoadGenerator.SplineComputer.pointCount - 1).position;
+                    distance.SetNewPointAddedDistance(newestPointInSpline);
                 }
-                Vector3 newestPointInSpline = RoadGenerator.SplineComputer.GetPoint(RoadGenerator.SplineComputer.pointCount - 1).position;
-                distance.SetNewPointAddedDistance(newestPointInSpline);
+                else {      // no new points were added to spline
+                            //--uses the same values as used in road generator but will not add distance while car is in air.
+                            //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
+                    distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
+                } 
             }
-            else {      // no new points were added to spline
-                //--uses the same values as used in road generator but will not add distance while car is in air.
-                //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
-                distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
+            else if(isResetting){
+                isResetting = false;
             }
         }
 
@@ -59,6 +66,7 @@ namespace CarTag.Road
             distance.ResetDistanceTravelled();
             SplinePoint[] emptySplinePoints = new SplinePoint[0];
             RoadGenerator.SplineComputer.SetPoints(emptySplinePoints);
+            isResetting = true;
         }
 
         

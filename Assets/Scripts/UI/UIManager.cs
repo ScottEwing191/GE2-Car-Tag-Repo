@@ -150,6 +150,11 @@ namespace CarTag.UI {
         //=== UPDATE RUNNER DISTANCE TRAVELLED ===
         public void UpdateRunnerDistanceTracker(float distanceTravelled, float targetDistance) {
             GetRunnerUIController().SetDistanceTrackerUI(distanceTravelled, targetDistance);
+            foreach (var p in playerUIControllers) {
+                if (p != GetRunnerUIController()) {
+                    p.SetDistanceTrackerChaserUI(distanceTravelled, targetDistance);
+                }
+            }
         }
 
     }
