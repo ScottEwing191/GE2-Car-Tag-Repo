@@ -61,7 +61,12 @@ namespace CarTag.Checkpoints {
         }
 
         
-
+        /// <summary>
+        /// Called from checkpoint OnTriggerEnter when player collides with Checkpoint
+        /// Tells the CheckpointReached script to determine if the correct checkpoint was collided with
+        /// </summary>
+        /// <param name="checkpoint">The Checkpoint Which was collided with</param>
+        /// <param name="player">The player which collided with the checkpoint</param>
         public void HandleCheckpointReached(Checkpoint checkpoint, Player player) {
             CheckpointReached.DoCheckpointReached(checkpoint, player);
             //--Update Checkpoint UI 

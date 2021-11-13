@@ -6,11 +6,13 @@ using CarTag.Abilities.BoxSpawn;
 
 
 namespace CarTag.Abilities {
-    /*public enum Role { CHASER, RUNNER }*/
+    public enum InputState { STARTED, PERFORMED, CANCELLED}
     public class PlayerAbilityController : MonoBehaviour {
-        //--Public 
+        //--Serialized Fields
+        [SerializeField] private float timeBetweenUses = 5;
         //--Private
         private Ability defaultAbility;
+        private bool cooldownOver = true;
 
         //--Auto-Implemented Properties
         public AbilityManager AbilityManager { get; set; }
@@ -28,41 +30,39 @@ namespace CarTag.Abilities {
             AbilityManager = GameManager.Instance.AbilityManager;
         }
 
-        private void Update() {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.I)) {
-                OnAbilityButtonPressed();
+        public void OnAbilityInput(InputState state) {
+            if (!CurrentAbility.CanStartAbility() || !cooldownOver) {
+                print("Cant Activate Ability");
+                return;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.I)) {
-                OnAbilityButtonHeld();
+            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
+
+            switch (state) {
+                case InputState.STARTED:
+                    CurrentAbility.OnAbilityButtonPressed(isRunner);
+                    break;
+                case InputState.PERFORMED:
+                    CurrentAbility.OnAbilityButtonHeld(isRunner);
+                    break;
+                case InputState.CANCELLED:
+                    CurrentAbility.OnAbilityButtonReleased(isRunner);
+                    break;
+                default:
+                    break;
             }
-            if (UnityEngine.Input.GetKeyUp(KeyCode.I)) {
-                OnAbilityButtonReleased();
-            }
+            
         }
-
-        public void OnAbilityButtonPressed() {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            CurrentAbility.OnAbilityButtonPressed(isRunner);
+        /// <summary>
+        /// Started from within Curent Ability Script
+        /// </summary>
+        public IEnumerator AbilityCooldown() {
+            cooldownOver = false;
+            yield return new WaitForSeconds(timeBetweenUses);
+            cooldownOver = true;
         }
-
-        public void OnAbilityButtonHeld() {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            CurrentAbility.OnAbilityButtonHeld(isRunner);
-        }
-
-        public void OnAbilityButtonReleased() {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            CurrentAbility.OnAbilityButtonReleased(isRunner);
-        }
+        
 
         //=== PRIVATE METHODS ===
-        /*public bool GetIsRunner() {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            Role role = Role.CHASER;
-            if (isRunner) {
-                role = Role.RUNNER;
-            }
-            return role;
-        }*/
+        
     }
 }

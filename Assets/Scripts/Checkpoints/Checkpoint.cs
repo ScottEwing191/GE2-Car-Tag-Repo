@@ -11,15 +11,13 @@ namespace CarTag.Checkpoints {
     public struct CheckpointData {
         [SerializeField] private GameObject mesh;
         [SerializeField] private GameObject checkpointTrigger;
+
+        
         public bool IsCheckpointReached { get; set; }
 
         //Properties
         public GameObject Mesh { get { return mesh; } }
         public GameObject CheckpointTrigger { get { return checkpointTrigger; } }
-        /*public bool IsCheckpointReached { 
-            get { return isCheckpointReached; } 
-            set { isCheckpointReached = value; }
-        }*/
 
         // Constructor
         public CheckpointData(GameObject mesh, GameObject checkpointTrigger) {
@@ -27,18 +25,24 @@ namespace CarTag.Checkpoints {
             this.checkpointTrigger = checkpointTrigger;
             this.IsCheckpointReached = false;
         }
+        
     }
 
     public class Checkpoint : MonoBehaviour {
+        //--Serialized Fields
+        [SerializeField] private List<CheckpointData> playerCheckpoints = new List<CheckpointData>();
+        [SerializeField] private Transform respawnTransform;
+        [SerializeField] private GameObject greenParticles;
+        [SerializeField] private GameObject yellowParticles;
+        [SerializeField] private GameObject redParticles;
+
+
+        //--Auto-Implemented Properties
         public int id { get; set; }     // might come in handy
         public Vector3 respawnPosition { get; private set; }
         public Quaternion respawnRotation { get; private set; }
 
-        //[SerializeField] private GameObject mesh;
-        //[SerializeField] private GameObject checkpointTrigger;
-        [SerializeField] private List<CheckpointData> playerCheckpoints = new List<CheckpointData>();
-        [SerializeField] private Transform respawnTransform;
-
+        //--Private
         private CheckpointManager checkpointManager;
 
         private void Awake() {
@@ -71,6 +75,7 @@ namespace CarTag.Checkpoints {
                 }
             }
         }
+        
 
         public void HideCheckpointForPlayer(int playerIndex) {
             HideMeshAndCollider(playerCheckpoints[playerIndex]);
@@ -90,21 +95,21 @@ namespace CarTag.Checkpoints {
         }
 
         private void DestroyCheckpoint() {
-            //Initiate the removal of the section of road before this checkpoint
+            //--Initiate the removal of the section of road before this checkpoint
             GameManager.Instance.RoadManager.RemoveRoad(transform.position);
             Destroy(this.gameObject);
         }
 
         public void CheckpointReached(int playerCheckpointsIndex) {
-            // Gett the Checkpoint data that has just been collided with using the playerCheckpointsIndex and set the IsCheckpointReached value to true
+            //--Get the Checkpoint data that has just been collided with using the playerCheckpointsIndex and set the IsCheckpointReached value to true
             CheckpointData d = playerCheckpoints[playerCheckpointsIndex];
             d.IsCheckpointReached = true;
             playerCheckpoints[playerCheckpointsIndex] = d;
             HideCheckpointForPlayer(playerCheckpointsIndex);
 
-            //Check if every player has reached this checkpoint and if so call the destroy Checkpoint method
+            //--Check if every player has reached this checkpoint and if so call the destroy Checkpoint method
             for (int i = 0; i < playerCheckpoints.Count; i++) {
-                //Dont need to worry if the Current runner has reached any checkpoints
+                //--Dont need to worry if the Current runner has reached any checkpoints
                 if (GameManager.Instance.PlayerManager.CurrentRunner.PlayerListIndex == i) {
                     continue;
                 }
@@ -115,10 +120,9 @@ namespace CarTag.Checkpoints {
 
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag("CarTrigger")) {                                   // makes sure we are detecting the corect trigger on car
-                //--pass this checkpoint and colliding player into the Checkpoint Reached Script which will determine if the correct player has collided with the correct checkpoint 
-                //checkpointManager.CheckpointReached.DoCheckpointReached(this, GameManager.Instance.PlayerManager.GetPlayerFromGameObject(other.gameObject));
+                //--pass this checkpoint and colliding player into the Checkpoint Reached Script which will determine if the correct player has collided 
+                //--with the correct checkpoint 
                 checkpointManager.HandleCheckpointReached(this, checkpointManager.PlayerManager.GetPlayerFromGameObject(other.gameObject));
-
             }
         }
     }

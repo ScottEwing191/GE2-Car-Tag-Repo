@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CarTag.PlayerSpace;
+using CarTag.Abilities;
 
 namespace CarTag.Input
 {
     public class PlayerInputHandler : MonoBehaviour
     {
         [SerializeField] Player player;
+        [SerializeField] PlayerAbilityController abilityController; 
+        int test = 0;
+
+        private void Update() {
+            test++;
+        }
         public void OnRespawn(InputAction.CallbackContext context) {
             //print("Respawn");
             if (context.started) {
@@ -25,6 +32,18 @@ namespace CarTag.Input
                 //--Stop UI Respawn Display
             }
             
+        }
+
+        public void OnUseAbility(InputAction.CallbackContext context) {
+            if (context.started) {
+                abilityController.OnAbilityInput(InputState.STARTED);
+            }
+            if (context.performed) {
+                abilityController.OnAbilityInput(InputState.PERFORMED);
+            }
+            if (context.canceled) {
+                abilityController.OnAbilityInput(InputState.CANCELLED);
+            }
         }
     }
 }

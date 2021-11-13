@@ -10,13 +10,13 @@ namespace CarTag.Checkpoints {
         }
 
         public void DoCheckpointReached(Checkpoint triggeredheckpoint, PlayerSpace.Player player) {
-            if (!CheckIfCorrectPlayer(player)) { return; }                // Check if the correct player collided
+            if (!CheckIfCorrectPlayer(player)) { return; }                                  // Check if the correct player collided
 
             if (CheckIfCorrectCheckpoint(triggeredheckpoint, player.PlayerListIndex)) {     // Check if the correct checkpoint was collided with
-                CheckpointSucessfullyReached(triggeredheckpoint, player.PlayerListIndex);                     // Successfull Checkpoint Reached
+                CheckpointSucessfullyReached(triggeredheckpoint, player.PlayerListIndex);   // Successfull Checkpoint Reached
             }
             else {
-                WrongCheckpoint();                                  // Wrong checkpoint was reached
+                WrongCheckpoint();                                                          // Wrong checkpoint was reached
             }
         }
 
@@ -42,12 +42,14 @@ namespace CarTag.Checkpoints {
             return false;
         }
         /// <summary>
-        /// Removes the checkpoint from the Queue an letts the checkpoint manager know that checkpoint was sucessfully reached
+        /// Removes the checkpoint from the Queue an lets the checkpoint manager know that checkpoint was sucessfully reached
         /// </summary>
-        private void CheckpointSucessfullyReached(Checkpoint cp, int index) {
-            checkpointManager.CheckpointQueues[index].Dequeue();        // remove checkpoint from the queue
-            cp.CheckpointReached(index);                         // call destroy checkpoint method. May want to have animation or something later
-            checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(index);
+        /// <param name="cp">The checkpoint which has just been reached</param>
+        /// <param name="queueListIndex">The index of the player who collided with the checkpoint</param>
+        private void CheckpointSucessfullyReached(Checkpoint cp, int queueListIndex) {
+            checkpointManager.CheckpointQueues[queueListIndex].Dequeue();        // remove checkpoint from the queue
+            cp.CheckpointReached(queueListIndex);                         // call destroy checkpoint method. May want to have animation or something later
+            checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(queueListIndex);
         }
 
         /// <summary>

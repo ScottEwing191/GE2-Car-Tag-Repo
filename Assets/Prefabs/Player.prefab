@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d959f0c1ab2c1141b5cf83970227d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenUses: 5
 --- !u!114 &6815191565815228120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +139,10 @@ MonoBehaviour:
   collisionCheckLayer:
     serializedVersion: 2
     m_Bits: 7169
+  coolDownTimer: 10
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  spawningCollisionColor: {r: 1, g: 0.21226418, b: 0.21226418, a: 0.7490196}
+  spawningNoCollisionColor: {r: 0, g: 0.6981132, b: 0.07469919, a: 0.7490196}
 --- !u!1 &963167582966622194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,12 +2727,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 32ea7bc5-38e4-4419-bcac-4addeaa772ff
-    m_ActionName: Player/Respawn[/DualShock4GamepadHID/buttonEast,/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: dd16b3e0-0d73-4be9-a6f2-fa6583e0ef92
     m_ActionName: Player/Respawn[/DualShock4GamepadHID/buttonEast,/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6600381172846210179}
+        m_TargetAssemblyTypeName: CarTag.Input.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnUseAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3befc815-2264-49ee-98ad-5cb605d04550
+    m_ActionName: Player/UseAbility[/DualShock4GamepadHID/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Car
@@ -2761,6 +2778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2748212000098630705}
+  abilityController: {fileID: 7584422975702530065}
 --- !u!114 &2748212000098630705
 MonoBehaviour:
   m_ObjectHideFlags: 0

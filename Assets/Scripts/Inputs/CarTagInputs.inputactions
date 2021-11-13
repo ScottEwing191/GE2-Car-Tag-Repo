@@ -44,14 +44,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Respawn",
-                    "type": "Button",
-                    "id": "32ea7bc5-38e4-4419-bcac-4addeaa772ff",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(duration=2)"
                 }
             ],
             "bindings": [
@@ -274,28 +266,6 @@
                     "action": "Handbrake",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2bcef4ab-c5f3-4a47-a649-56ab69be2209",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Respawn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "31a7d086-d31f-4147-b6a9-eec23a962ce0",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Respawn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -310,6 +280,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=2)"
+                },
+                {
+                    "name": "UseAbility",
+                    "type": "Button",
+                    "id": "3befc815-2264-49ee-98ad-5cb605d04550",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -332,6 +310,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1fe93e4-f035-4d16-a75d-8c2b602364ee",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UseAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c3234fa-0680-48d4-a1aa-bf01b7806af6",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "UseAbility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

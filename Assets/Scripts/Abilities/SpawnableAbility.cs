@@ -16,10 +16,12 @@ namespace CarTag.Abilities
         //-The box collider center must have XZ values of 0
         protected BoxCollider abilityCollisionCheckTrigger;
         
+        
 
         protected override void Awake() {
             base.Awake();
             abilityCollisionCheckTrigger = abilityPrefab.GetComponent<BoxCollider>();
+
             if (abilityCollisionCheckTrigger.center.x != 0 || abilityCollisionCheckTrigger.center.z != 0) {
                 Debug.LogError("The prefab collision check box collider must have a center with XZ values of 0");
             }
@@ -37,5 +39,7 @@ namespace CarTag.Abilities
             }
             return false;
         }
+
+        
     }
 }

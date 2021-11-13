@@ -67,6 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18341a33f50a44d47a3bd3e2e01a5fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionMaterial: {fileID: 2100000, guid: 6fc87d687ef568a47bab5ddd792cdc77, type: 2}
+  noCollisionMaterial: {fileID: 2100000, guid: c9dcbefc7c58bd14eb57a8530c8a4cba, type: 2}
+  spawningCollisionColor: {r: 1, g: 0.21176472, b: 0.21176472, a: 0.7490196}
+  spawningNoCollisionColor: {r: 0, g: 0.69803923, b: 0.07450981, a: 0.7490196}
 --- !u!1001 &1019364866112719141
 PrefabInstance:
   m_ObjectHideFlags: 0

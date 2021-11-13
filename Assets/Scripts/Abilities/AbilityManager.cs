@@ -40,7 +40,7 @@ namespace CarTag.Abilities
             return false;
         }
         //=== PRIVATE METHODS ===
-        private PlayerAbilityController GetRunnerAbilityController() {
+        public PlayerAbilityController GetRunnerAbilityController() {
             return PlayerAbilityControllers[PlayerManager.CurrentRunner.PlayerListIndex];
         }
     }
