@@ -44,7 +44,10 @@ namespace CarTag.Checkpoints {
             var checkpointsAsArray = checkpointManager.CheckpointQueues[queueIndex].ToArray();
             for (int i = 0; i < loopLimit; i++) {
                 checkpointsAsArray[i].ShowCheckpointForPlayer(queueIndex);
+                checkpointsAsArray[i].SetColourOfCheckpoint(i,queueIndex);
                 //--Set Checkpoint Colour
+                //--queueIndex is the player number
+                //--i is the number of the Checkpoint
             }
         }
     }
