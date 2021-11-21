@@ -119,23 +119,23 @@ namespace CarTag.Checkpoints {
             switch (cpNumber) {
                 case 0:                 // Green Checkpoint
                     playerCheckpoints[playerIndex].GreenParticles.SetActive(true);
-                    playerCheckpoints[playerIndex].RedParticles.SetActive(false);
                     playerCheckpoints[playerIndex].YellowParticles.SetActive(false);
+                    playerCheckpoints[playerIndex].RedParticles.SetActive(false);
                     break;
                 case 1:                 // Yellow Checkpoint
                     playerCheckpoints[playerIndex].GreenParticles.SetActive(false);
-                    playerCheckpoints[playerIndex].RedParticles.SetActive(true);
-                    playerCheckpoints[playerIndex].YellowParticles.SetActive(false);
+                    playerCheckpoints[playerIndex].YellowParticles.SetActive(true);
+                    playerCheckpoints[playerIndex].RedParticles.SetActive(false);
                     break;
                 case 2:                 // Red Checkpoint
                     playerCheckpoints[playerIndex].GreenParticles.SetActive(false);
-                    playerCheckpoints[playerIndex].RedParticles.SetActive(false);
-                    playerCheckpoints[playerIndex].YellowParticles.SetActive(true);
+                    playerCheckpoints[playerIndex].YellowParticles.SetActive(false);
+                    playerCheckpoints[playerIndex].RedParticles.SetActive(true);
                     break;
                 default:                // Red Checkpoint
                     playerCheckpoints[playerIndex].GreenParticles.SetActive(false);
-                    playerCheckpoints[playerIndex].RedParticles.SetActive(false);
-                    playerCheckpoints[playerIndex].YellowParticles.SetActive(true);
+                    playerCheckpoints[playerIndex].YellowParticles.SetActive(false);
+                    playerCheckpoints[playerIndex].RedParticles.SetActive(true);
                     break;
             }
         }

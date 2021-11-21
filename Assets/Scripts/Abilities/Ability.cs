@@ -34,8 +34,12 @@ namespace CarTag.Abilities
         }
 
         //--Can be implemented by each Spawnable ability to determine if they can be activated
-        public virtual bool CanStartAbility() {
+        public virtual bool CanStartAbility(bool isRunner) {
             return true;
+        }
+
+        public virtual void Reset() {
+
         }
     }
 }

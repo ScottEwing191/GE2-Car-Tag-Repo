@@ -22,7 +22,6 @@ namespace CarTag.Abilities
         //=== PUBLIC METHODS ===
         public void InitialSetup() {
             PlayerAbilityControllers = new List<PlayerAbilityController>();
-            print("Confirm That Implementing list like this should work");
             UIManager = GameManager.Instance.UIManager;
             PlayerManager = GameManager.Instance.PlayerManager;
             foreach (Player player in PlayerManager.Players) {
@@ -32,6 +31,14 @@ namespace CarTag.Abilities
                 p.InitialSetup();
             }
         }
+
+        public void ResetAbilities() {
+            foreach (var controller in PlayerAbilityControllers) {
+                controller.ResetAbilities();
+            }
+        }
+
+        
 
         public bool IsControllerAttachedToRunner(PlayerAbilityController controller) {
             if (controller == GetRunnerAbilityController()) {

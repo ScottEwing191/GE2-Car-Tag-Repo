@@ -56,6 +56,7 @@ namespace CarTag
             //--Audio
             //--UI
             UIManager.RoleSwapReset(newRunner, newChaser);
+            AbilityManager.ResetAbilities();
         }
 
         public void ManageRoundOver() {
@@ -67,6 +68,7 @@ namespace CarTag
             //DynamicObjectManager.ResetObjects();
             //UI
             UIManager.RoundStartReset();
+            AbilityManager.ResetAbilities();
             StartCoroutine(RoundManager.RoundStart());
 
         }

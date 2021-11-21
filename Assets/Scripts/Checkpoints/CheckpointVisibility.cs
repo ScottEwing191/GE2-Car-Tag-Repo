@@ -28,6 +28,11 @@ namespace CarTag.Checkpoints {
                 if (checkpointManager.CheckpointQueues[i].Count > visibleCheckpoints) {
                     checkpoint.HideCheckpointForPlayer(i);
                 }
+                else {      // set the chekpoint colours for each of the players
+                    checkpoint.SetColourOfCheckpoint(checkpointManager.CheckpointQueues[i].Count - 1, i);
+                }
+
+                
             }
         }
 
