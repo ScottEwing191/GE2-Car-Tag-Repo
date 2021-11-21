@@ -32,6 +32,17 @@ namespace CarTag.Abilities {
             AbilityManager = GameManager.Instance.AbilityManager;
         }
 
+        public void OnAbilityInputStarted() {
+            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
+            if (CanDoAbility(isRunner)) {
+                CurrentAbility.OnAbilityButtonPressed(isRunner);
+            }
+        }
+
+        public void OnAbilityInputCancelled() {
+            CurrentAbility.OnAbilityButtonReleased("");
+        }
+
         public void OnAbilityInput(InputState state) {
             bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
             
@@ -44,7 +55,7 @@ namespace CarTag.Abilities {
                     CurrentAbility.OnAbilityButtonPressed(isRunner);
                     break;
                 case InputState.PERFORMED:
-                    CurrentAbility.OnAbilityButtonHeld(isRunner);
+                    //CurrentAbility.OnAbilityButtonHeld(isRunner);
                     break;
                 case InputState.CANCELLED:
                     CurrentAbility.OnAbilityButtonReleased(isRunner);
