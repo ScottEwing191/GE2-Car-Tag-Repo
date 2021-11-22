@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace CarTag.Checkpoints {
     public class CheckpointReached {
         private CheckpointManager checkpointManager;
@@ -9,7 +10,7 @@ namespace CarTag.Checkpoints {
             this.checkpointManager = checkpointManager;
         }
 
-        public void DoCheckpointReached(Checkpoint triggeredheckpoint, PlayerSpace.Player player) {
+        public void DoCheckpointReached(Checkpoint triggeredheckpoint, Player player) {
             if (!CheckIfCorrectPlayer(player)) { return; }                                  // Check if the correct player collided
 
             if (CheckIfCorrectCheckpoint(triggeredheckpoint, player.PlayerListIndex)) {     // Check if the correct checkpoint was collided with
@@ -23,10 +24,10 @@ namespace CarTag.Checkpoints {
         /// <summary>
         /// Checks if it was the correct player who collided with the checkpoint i.e the chaser not the runner
         /// </summary>
-        private bool CheckIfCorrectPlayer(PlayerSpace.Player player) {
+        private bool CheckIfCorrectPlayer(Player player) {
             // I HATE THIS - if the player is a child of of an a "Player" and that player has the role Runner then return true  
             if (player != null) {
-                if (player.PlayerRoll == PlayerSpace.PlayerRoleEnum.Chaser) {
+                if (player.PlayerRoll == PlayerRoleEnum.Chaser) {
                     return true;
                 }
             }

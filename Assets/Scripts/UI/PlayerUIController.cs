@@ -7,16 +7,21 @@ using TMPro;
 
 namespace CarTag.UI {
     public class PlayerUIController : MonoBehaviour {
-        //[SerializeField] private TextMeshProUGUI countdownTimer;
+        //--Serialized Fields
         [SerializeField] PlayerUIElements playerUI;
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
-        int number = 0;
+        
+        //--Private
+        private Coroutine abilityCooldownTimerUIRoutine;
 
-        public ChaserCheckpointTracker chaserCheckpointTracker { get; set; }
+        //--Auto-Implemented Properties
+        public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }
+        public AbilityUI AbilityUI { get; set; }
 
         private void Awake() {
-            chaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
+            ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
+            AbilityUI = new AbilityUI(playerUI.AbilityUIElements);
         }
 
         //--Methods
@@ -80,6 +85,20 @@ namespace CarTag.UI {
             chaserUI.RunnerDistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
         }
         //=== CHASER CONTROLS ===
+
+        internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
+            abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
+            AbilityUI.SetUsesLeftIndicators(usesLeft);
+        }
+        private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
+            float timeLeft = cooldownTime;
+            while (timeLeft >= 0) {
+                //AbilityUI.CalculateTimerFilledImageValue(timeLeft, cooldownTime);
+                AbilityUI.SetTimerFilledImage(Mathf.Lerp(1, 0, timeLeft / cooldownTime));
+                yield return new WaitForSeconds(0.1f);
+                timeLeft -= 0.1f;
+            }
+        }
 
     }
 }

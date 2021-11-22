@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Vehicles.Car;
+using CarTag.UI;
+using CarTag.Road;
+using CarTag.PlayerSpace;
 
-namespace CarTag.PlayerSpace {
+namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
@@ -13,8 +16,9 @@ namespace CarTag.PlayerSpace {
         public PlayerManager PlayerManager { get; set; }
         public PlayerRespawn PlayerRespawn { get; set; }
         public PlayerCollision PlayerCollision { get; set; }
-        public Road.RoadSpawnData RoadSpawnData { get; set; }
+        public RoadSpawnData RoadSpawnData { get; set; }
         public CarController CarController { get; set; }
+        public PlayerUIController PlayerUIController { get; set; }
 
         //Properties
         public PlayerRoleEnum PlayerRoll { 
@@ -27,8 +31,15 @@ namespace CarTag.PlayerSpace {
             PlayerCollision = GetComponentInChildren<PlayerCollision>();
             RoadSpawnData = GetComponentInChildren<Road.RoadSpawnData>();
             CarController = GetComponentInChildren<CarController>();
+            PlayerUIController = GetComponentInChildren<PlayerUIController>();
 
         }
 
+        public bool IsThisPlayerCurrentRunner() {
+            if (this == PlayerManager.CurrentRunner) {
+                return true;
+            }
+            else { return false; }
+        }
     }
 }

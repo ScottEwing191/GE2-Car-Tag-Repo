@@ -11,7 +11,10 @@ namespace CarTag.Abilities {
         //--Serialized Fields
         //[SerializeField] private List<Ability> abilities = new List<Ability>();         // only have one ability at the moment but should need this in future
         [SerializeField] private float timeBetweenAbilityUse = 5;
+        
         //--Private
+        private Player thisPlayer;                               // The Player script Attached the same player as this PlayerAbilityController script...
+                                                                //...can be used to acess other scripts on this player without going through any managers
         private Ability defaultAbility;
         private bool cooldownOver = true;
         private Coroutine abilityTimerRoutine;
@@ -21,7 +24,6 @@ namespace CarTag.Abilities {
         public BoxSpawnAbility BoxSpawnAbility { get; set; }
         public Ability CurrentAbility { get; set; }
 
-
         public void Awake() {
             BoxSpawnAbility = GetComponent<BoxSpawnAbility>();
             defaultAbility = BoxSpawnAbility;
@@ -30,12 +32,13 @@ namespace CarTag.Abilities {
 
         public void InitialSetup() {
             AbilityManager = GameManager.Instance.AbilityManager;
+            thisPlayer = GetComponentInParent<Player>();
+            BoxSpawnAbility.RoleStartSetup(thisPlayer.IsThisPlayerCurrentRunner());
         }
 
         public void OnAbilityInputStarted() {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            if (CanDoAbility(isRunner)) {
-                CurrentAbility.OnAbilityButtonPressed(isRunner);
+            if (cooldownOver) {
+                CurrentAbility.OnAbilityButtonPressed("");
             }
         }
 
@@ -43,38 +46,8 @@ namespace CarTag.Abilities {
             CurrentAbility.OnAbilityButtonReleased("");
         }
 
-        public void OnAbilityInput(InputState state) {
-            bool isRunner = AbilityManager.IsControllerAttachedToRunner(this);
-            
-            if (!CanDoAbility(isRunner)) { 
-                return; 
-            }
-
-            switch (state) {
-                case InputState.STARTED:
-                    CurrentAbility.OnAbilityButtonPressed(isRunner);
-                    break;
-                case InputState.PERFORMED:
-                    //CurrentAbility.OnAbilityButtonHeld(isRunner);
-                    break;
-                case InputState.CANCELLED:
-                    CurrentAbility.OnAbilityButtonReleased(isRunner);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
-        private bool CanDoAbility(bool isRunner) {
-            if (!CurrentAbility.CanStartAbility(isRunner)) { return false; }
-            if (!cooldownOver) { return false; }
-            //--if isRunner and Runner cant be targeted
-            return true;
-        }
-
         public void ResetAbilities() {
-            BoxSpawnAbility.Reset();
+            BoxSpawnAbility.RoleStartSetup(this.thisPlayer.IsThisPlayerCurrentRunner());
 
             //-Reset use ability timer
             if (abilityTimerRoutine != null) {
@@ -84,8 +57,9 @@ namespace CarTag.Abilities {
             }
         }
 
-        public void StartCooldown() {
+        public void CurrentAbilityUsed(int usesLeft) {
             abilityTimerRoutine = StartCoroutine(AbilityCooldown());
+            thisPlayer.PlayerUIController.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
         }
 
         public IEnumerator AbilityCooldown() {
@@ -93,6 +67,5 @@ namespace CarTag.Abilities {
             yield return new WaitForSeconds(timeBetweenAbilityUse);
             cooldownOver = true;
         }
-
     }
 }

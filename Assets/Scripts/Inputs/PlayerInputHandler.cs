@@ -40,9 +40,9 @@ namespace CarTag.Input
                 abilityController.OnAbilityInputStarted();
 
             }
-            if (context.performed) {
+            /*if (context.performed) {
                 abilityController.OnAbilityInput(InputState.PERFORMED);
-            }
+            }*/
             if (context.canceled) {
                 //abilityController.OnAbilityInput(InputState.CANCELLED);
                 abilityController.OnAbilityInputCancelled();

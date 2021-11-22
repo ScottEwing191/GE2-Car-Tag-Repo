@@ -90,7 +90,7 @@ namespace CarTag.UI {
             for (int i = 0; i < playerUIControllers.Count; i++) {
                 if (playerUIControllers[i] != GetRunnerUIController()) {
                     int checkpointsLeft = CheckpointManager.CheckpointQueues[i].Count;
-                    playerUIControllers[i].chaserCheckpointTracker.UpdateTracker(checkpointsLeft);
+                    playerUIControllers[i].ChaserCheckpointTracker.UpdateTracker(checkpointsLeft);
                 }
             }
                 
@@ -121,7 +121,7 @@ namespace CarTag.UI {
             //--Setup the tracker on each chaser
             foreach (var p in playerUIControllers) {
                 if (p != GetRunnerUIController()) {
-                    p.chaserCheckpointTracker.SetupCpTracker(checkpointsMade);
+                    p.ChaserCheckpointTracker.SetupCpTracker(checkpointsMade);
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace CarTag.UI {
                 p.SetCheckpointsAheadText(0);                       // reset runner's checkpoints ahead tracker
                 p.SetPlacedCheckpointTracker(0, 0);                 // reset runner's checkpoint placed slider
                 
-                p.chaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
+                p.ChaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
                 p.SwitchToChaserUI();                               // switch all cars to chaser UI
             }
             GetRunnerUIController().SwitchToRunnerUI();             // switch only the runner to Runner UI

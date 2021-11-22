@@ -7,8 +7,8 @@ namespace CarTag.Abilities
     public abstract class Ability : MonoBehaviour
     {
         protected PlayerAbilityController playerAbilityController;
-        protected int maxUses = 3;
-        protected int usesLeft = 3;
+        protected int maxUses = 4;
+        protected int usesLeft = 4;
 
         //--Properties
         public int MaxUses { get { return maxUses; } }
@@ -34,7 +34,7 @@ namespace CarTag.Abilities
         }
 
         //--Can be implemented by each Spawnable ability to determine if they can be activated
-        public virtual bool CanStartAbility(bool isRunner) {
+        public virtual bool CanStartAbility() {
             return true;
         }
 

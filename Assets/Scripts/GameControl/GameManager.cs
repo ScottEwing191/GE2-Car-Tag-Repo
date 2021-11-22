@@ -64,7 +64,6 @@ namespace CarTag
             PlayerManager.ResetPlayersAfterRound();
             RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.ResetCheckpoints();
-            //AbilityManager.ResetAbilities();
             //DynamicObjectManager.ResetObjects();
             //UI
             UIManager.RoundStartReset();

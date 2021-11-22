@@ -15110,6 +15110,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6815191565815228120, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: chaserMaxUses
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815191565815228120, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
+      propertyPath: runnerMaxUses
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7005935280806046594, guid: 7676da7c65bf21b4aaff718ff2f5d3a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
