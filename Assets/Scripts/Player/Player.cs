@@ -5,6 +5,7 @@ using UnityStandardAssets.Vehicles.Car;
 using CarTag.UI;
 using CarTag.Road;
 using CarTag.PlayerSpace;
+using CarTag.Abilities;
 
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
@@ -19,6 +20,8 @@ namespace CarTag {
         public RoadSpawnData RoadSpawnData { get; set; }
         public CarController CarController { get; set; }
         public PlayerUIController PlayerUIController { get; set; }
+        public PlayerAbilityController PlayerAbilityController { get; set; }
+
 
         //Properties
         public PlayerRoleEnum PlayerRoll { 
@@ -32,7 +35,7 @@ namespace CarTag {
             RoadSpawnData = GetComponentInChildren<Road.RoadSpawnData>();
             CarController = GetComponentInChildren<CarController>();
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
-
+            PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
         }
 
         public bool IsThisPlayerCurrentRunner() {

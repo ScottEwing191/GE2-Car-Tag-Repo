@@ -11,19 +11,22 @@ namespace CarTag.UI {
         [SerializeField] PlayerUIElements playerUI;
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
-        
-        //--Private
-        private Coroutine abilityCooldownTimerUIRoutine;
 
+        private Player thisPlayer;          // used to gain acess to other controller script attached to the same player as this one
+        
         //--Auto-Implemented Properties
         public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }
         public AbilityUI AbilityUI { get; set; }
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
-            AbilityUI = new AbilityUI(playerUI.AbilityUIElements);
+            AbilityUI = GetComponent<AbilityUI>();
+            thisPlayer = GetComponentInParent<Player>();
         }
 
+        public void InitialSetup() {
+            AbilityUI.InitialSetup(playerUI.AbilityUIElements, thisPlayer.PlayerAbilityController.CurrentAbility.UsesLeft);
+        } 
         //--Methods
         /// <summary>
         /// Start the countdown timer at the given time, When the timer reaches 0 display a message for the given time then hide the message
@@ -86,19 +89,8 @@ namespace CarTag.UI {
         }
         //=== CHASER CONTROLS ===
 
-        internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
-            abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
-            AbilityUI.SetUsesLeftIndicators(usesLeft);
-        }
-        private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
-            float timeLeft = cooldownTime;
-            while (timeLeft >= 0) {
-                //AbilityUI.CalculateTimerFilledImageValue(timeLeft, cooldownTime);
-                AbilityUI.SetTimerFilledImage(Mathf.Lerp(1, 0, timeLeft / cooldownTime));
-                yield return new WaitForSeconds(0.1f);
-                timeLeft -= 0.1f;
-            }
-        }
+        
 
+       
     }
 }

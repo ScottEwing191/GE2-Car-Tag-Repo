@@ -48,6 +48,8 @@ namespace CarTag.Abilities {
 
         public void ResetAbilities() {
             BoxSpawnAbility.RoleStartSetup(this.thisPlayer.IsThisPlayerCurrentRunner());
+            this.thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(BoxSpawnAbility.UsesLeft);
+
 
             //-Reset use ability timer
             if (abilityTimerRoutine != null) {
@@ -59,7 +61,7 @@ namespace CarTag.Abilities {
 
         public void CurrentAbilityUsed(int usesLeft) {
             abilityTimerRoutine = StartCoroutine(AbilityCooldown());
-            thisPlayer.PlayerUIController.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
+            thisPlayer.PlayerUIController.AbilityUI.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
         }
 
         public IEnumerator AbilityCooldown() {

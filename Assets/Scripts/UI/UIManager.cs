@@ -36,9 +36,13 @@ namespace CarTag.UI {
         public void InitalSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;
             CheckpointManager = GameManager.Instance.CheckpointManager;
-            foreach (Player player in PlayerManager.Players) {
-                playerUIControllers.Add(player.GetComponentInChildren<PlayerUIController>());
+            for (int i = 0; i < PlayerManager.Players.Count; i++) {
+                playerUIControllers.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerUIController>());
+                playerUIControllers[i].InitialSetup();
             }
+           /* foreach (Player player in PlayerManager.Players) {
+                playerUIControllers.Add(player.GetComponentInChildren<PlayerUIController>());
+            }*/
             ResetUI();
         }
 
@@ -142,6 +146,7 @@ namespace CarTag.UI {
                 p.SetPlacedCheckpointTracker(0, 0);                 // reset runner's checkpoint placed slider
                 
                 p.ChaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
+                // Ability UI Is Reset from the PlayerAbilityController
                 p.SwitchToChaserUI();                               // switch all cars to chaser UI
             }
             GetRunnerUIController().SwitchToRunnerUI();             // switch only the runner to Runner UI

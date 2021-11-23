@@ -37,9 +37,9 @@ namespace CarTag
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
+            AbilityManager.InitialSetup();
             UIManager.InitalSetup();
             RoundManager.InitalSetup();
-            AbilityManager.InitialSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
 
