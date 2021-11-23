@@ -9,15 +9,23 @@ namespace CarTag.Abilities {
         [SerializeField] private float fuseTime = 3;
         [SerializeField] private bool useFuse = false;
         [SerializeField] float rocketSpeed = 5;
+        [SerializeField] private ParticleSystem rocketEffect;
+        [SerializeField] private ParticleSystem explosionEffect;
 
         Rigidbody thisRigidbody;
         private float timeLeftTillExplode;
+        private bool hasExploded = false;
 
         private void Start() {
             thisRigidbody = GetComponent<Rigidbody>();
             timeLeftTillExplode = fuseTime;
-            Move(rocketSpeed, transform.rotation);
+            StartRocket(rocketSpeed, transform.rotation);
 
+        }
+        public void StartRocket(float speed, Quaternion spawnRotation) {
+            rocketEffect.Play();
+            transform.rotation = spawnRotation;
+            thisRigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
         }
         private void Update() {
             if (useFuse) {
@@ -28,20 +36,14 @@ namespace CarTag.Abilities {
             }
         }
         private void OnTriggerEnter(Collider other) {
-            print("Rocket Trigger Hit");
-            Explode();
-
-        }
-
-        public void Move(float speed, Quaternion spawnRotation) {
-            transform.rotation = spawnRotation;
-            this.thisRigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+            if (!hasExploded) {
+                print("Rocket Trigger Hit:" + other.gameObject.name);
+                Explode();
+            }
         }
 
         private void Explode() {
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-            //List<Rigidbody> rigidBodies = new List<Rigidbody>();
-
             foreach (var c in colliders) {
                 if (c.CompareTag("CollidesWithRocket")) {
                     Rigidbody rb = c.GetComponent<Rigidbody>();
@@ -56,11 +58,15 @@ namespace CarTag.Abilities {
                     }
                 }
             }
-            Destroy(gameObject);
+            hasExploded = true;
+            thisRigidbody.AddForce(-thisRigidbody.velocity, ForceMode.VelocityChange);              // Dont know why this needs be divided by two
+            rocketEffect.Stop();
+            explosionEffect.Play();
+            Destroy(gameObject, explosionEffect.main.duration);
         }
 
         private void OnDrawGizmosSelected() {
-                Gizmos.DrawWireSphere(transform.position, explosionRadius);
-            }
+            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
     }
+}
