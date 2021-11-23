@@ -5573,7 +5573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 546241629205323658, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
       propertyPath: m_TagString
-      value: CollidesWithRocket
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3167183998915313102, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
       propertyPath: m_TagString
@@ -5641,7 +5641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8462884453991813013, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: CollidesWithRocket
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2c71a7c84a557a4e800a06201d0685f, type: 3}
