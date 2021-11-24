@@ -288,6 +288,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "NextAbility",
+                    "type": "Button",
+                    "id": "467fc77f-f69e-4ff9-9c81-5077f25f2929",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreviousAbility",
+                    "type": "Button",
+                    "id": "20a3a695-e67b-466b-9d38-53332d40b424",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -332,6 +348,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "UseAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "743e04da-8098-48de-8e99-690558deee8d",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "NextAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "acab50b7-1fd3-4bb6-b5f3-9d6eae72726a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NextAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cc425ff-155b-4d5c-bce2-e34af5201042",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PreviousAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f5d419b-a449-4146-b4c3-fb96762203ad",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PreviousAbility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

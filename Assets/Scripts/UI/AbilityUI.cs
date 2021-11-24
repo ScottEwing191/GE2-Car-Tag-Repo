@@ -16,16 +16,41 @@ namespace CarTag.UI {
             SetTimerFilledImage(1);
             SetUsesLeftIndicators(initialUsesLeft);
             SetSelectedIcon(0);
-            SetSelectedIndicator(0);
+            SetAbilitySelectedIndicator(0);
         }
 
-        private void SetDefaultValues() {
-            SetTimerFilledImage(1);
-            SetUsesLeftIndicators(4);
-            SetSelectedIcon(0);
-            SetSelectedIndicator(0);
+        //--Called each time an ability is used. Will update the Indicaters which show how many uses of an ability are left
+        //--Starts coroutine to display time until an ability can be used again
+        internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
+            abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
+            SetUsesLeftIndicators(usesLeft);
         }
-        
+        private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
+            float timeLeft = cooldownTime;
+            while (timeLeft >= 0) {
+                SetTimerFilledImage(Mathf.Lerp(1, 0, timeLeft / cooldownTime));
+                yield return new WaitForSeconds(0.1f);
+                timeLeft -= 0.1f;
+            }
+        }
+
+        //Changes the UI to Show the currently active Ability
+        internal void ChangeAbilityUI(int usesLeft, int selectedIndex) {
+            SetUsesLeftIndicators(usesLeft);
+            SetAbilitySelectedIndicator(selectedIndex);
+            SetSelectedIcon(selectedIndex);
+
+        }
+
+
+        public void ResetAbilityUI(int usesLeft) {              // uses left will be the max number of uses for the current ability and may differ if the player
+            if (abilityCooldownTimerUIRoutine != null) {        // depending on if the player is the Runner or the Chaser
+                StopCoroutine(abilityCooldownTimerUIRoutine);
+                abilityCooldownTimerUIRoutine = null;
+            }
+            SetUsesLeftIndicators(usesLeft);
+            SetTimerFilledImage(1);
+        }
 
         private void SetUsesLeftIndicators(int usesLeft) {
             //--the UI currently only has the capacity for show between 0 - 4 uses left so if there are more than 4 uses left it wil just show the 4 indicators
@@ -47,7 +72,7 @@ namespace CarTag.UI {
                     abilityUIElements.SelectedIcons[i].SetActive(false);
             }
         }
-        private void SetSelectedIndicator(int selectedIndicatorIndex) {
+        private void SetAbilitySelectedIndicator(int selectedIndicatorIndex) {
             for (int i = 0; i < abilityUIElements.AbilitiesToSelect.Count; i++) {
                 if (i == selectedIndicatorIndex)
                     abilityUIElements.AbilitiesToSelect[i].SelectedIndicator.SetActive(true);
@@ -60,29 +85,7 @@ namespace CarTag.UI {
             abilityUIElements.TimerFilledImage.fillAmount = fillValue;
         }
 
+        
 
-        //--Called each time an ability is used. Will update the Indicaters which show how many uses of an ability are left
-        //--Starts coroutine to display time until an ability can be used again
-        internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
-            abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
-            SetUsesLeftIndicators(usesLeft);
-        }
-        private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
-            float timeLeft = cooldownTime;
-            while (timeLeft >= 0) {
-                SetTimerFilledImage(Mathf.Lerp(1, 0, timeLeft / cooldownTime));
-                yield return new WaitForSeconds(0.1f);
-                timeLeft -= 0.1f;
-            }
-        }
-
-        public void ResetAbilityUI(int usesLeft) {              // uses left will be the max number of uses for the current ability and may differ if the player
-            if (abilityCooldownTimerUIRoutine != null) {        // depending on if the player is the Runner or the Chaser
-                StopCoroutine(abilityCooldownTimerUIRoutine);
-                abilityCooldownTimerUIRoutine = null;
-            }
-            SetUsesLeftIndicators(usesLeft);
-            SetTimerFilledImage(1);
-        }
     }
 }

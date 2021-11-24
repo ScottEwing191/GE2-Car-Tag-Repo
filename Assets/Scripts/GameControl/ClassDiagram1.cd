@@ -202,8 +202,8 @@
     <Position X="39.25" Y="14.5" Width="1.5" />
     <AssociationLine Name="player" Type="CarTag.Player" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="39.25" Y="14.938" />
-        <Point X="38.101" Y="14.938" />
+        <Point X="39.25" Y="15.012" />
+        <Point X="38.101" Y="15.012" />
         <Point X="38.101" Y="13.761" />
         <Point X="36.833" Y="13.761" Type="JumpStart" />
         <Point X="36.667" Y="13.761" Type="JumpEnd" />
@@ -213,7 +213,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAJAAEAAgAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAgAAAAABAAAAAAAAAAAAAAAJAAEAAgAACAA=</HashCode>
       <FileName>Assets\Scripts\Inputs\PlayerInputHandler.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

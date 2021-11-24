@@ -36,17 +36,25 @@ namespace CarTag.Input
 
         public void OnUseAbility(InputAction.CallbackContext context) {
             if (context.started) {
-                //abilityController.OnAbilityInput(InputState.STARTED);
                 abilityController.OnAbilityInputStarted();
 
             }
-            /*if (context.performed) {
-                abilityController.OnAbilityInput(InputState.PERFORMED);
-            }*/
             if (context.canceled) {
-                //abilityController.OnAbilityInput(InputState.CANCELLED);
                 abilityController.OnAbilityInputCancelled();
 
+            }
+        }
+
+        public void OnNextAbility(InputAction.CallbackContext context) {
+            if (context.started) {
+                print("Next Ability");
+                abilityController.NextAbility();
+            }
+        }
+        public void OnPreviousAbility(InputAction.CallbackContext context) {
+            if (context.started) {
+                print("Previous Ability");
+                abilityController.PreviousAbility();
             }
         }
     }

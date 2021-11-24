@@ -18,7 +18,9 @@ namespace CarTag.Abilities.BoxSpawn {
         private bool inputReleased = false;
         private Transform currentSpawn;
 
-        public void RoleStartSetup(bool isRunner) {
+
+        
+        public override void RoleStartSetup(bool isRunner) {
             isCurrentlyRunner = isRunner;
             usesLeft = chaserMaxUses;
             if (isRunner) {
@@ -32,8 +34,8 @@ namespace CarTag.Abilities.BoxSpawn {
             }
 
             //--Destroy Instantiated Boxes
-            foreach (var box in boxesObstacles) {
-                Destroy(box.gameObject);
+            foreach (var boxes in boxesObstacles) {
+                Destroy(boxes.gameObject);
             }
             boxesObstacles.Clear();
         }
@@ -43,6 +45,14 @@ namespace CarTag.Abilities.BoxSpawn {
                 return false;
             }
             if (usesLeft <= 0) {
+                return false;
+            }
+            return true;
+        }
+
+        //-- the player cannot switch to another ability if the box is still in the process of spawning
+        public override bool CanSwitchFrom() {
+            if (moveBoxesRoutine != null) {
                 return false;
             }
             return true;

@@ -303,6 +303,22 @@ namespace CarTag.Inputs
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""NextAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""467fc77f-f69e-4ff9-9c81-5077f25f2929"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""20a3a695-e67b-466b-9d38-53332d40b424"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -347,6 +363,50 @@ namespace CarTag.Inputs
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""UseAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""743e04da-8098-48de-8e99-690558deee8d"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""NextAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acab50b7-1fd3-4bb6-b5f3-9d6eae72726a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""NextAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cc425ff-155b-4d5c-bce2-e34af5201042"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PreviousAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f5d419b-a449-4146-b4c3-fb96762203ad"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PreviousAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -839,6 +899,8 @@ namespace CarTag.Inputs
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
             m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
+            m_Player_NextAbility = m_Player.FindAction("NextAbility", throwIfNotFound: true);
+            m_Player_PreviousAbility = m_Player.FindAction("PreviousAbility", throwIfNotFound: true);
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
             m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
@@ -970,12 +1032,16 @@ namespace CarTag.Inputs
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Respawn;
         private readonly InputAction m_Player_UseAbility;
+        private readonly InputAction m_Player_NextAbility;
+        private readonly InputAction m_Player_PreviousAbility;
         public struct PlayerActions
         {
             private @CarTagInputs m_Wrapper;
             public PlayerActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Respawn => m_Wrapper.m_Player_Respawn;
             public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
+            public InputAction @NextAbility => m_Wrapper.m_Player_NextAbility;
+            public InputAction @PreviousAbility => m_Wrapper.m_Player_PreviousAbility;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -991,6 +1057,12 @@ namespace CarTag.Inputs
                     @UseAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
                     @UseAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
                     @UseAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
+                    @NextAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextAbility;
+                    @NextAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextAbility;
+                    @NextAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextAbility;
+                    @PreviousAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
+                    @PreviousAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
+                    @PreviousAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1001,6 +1073,12 @@ namespace CarTag.Inputs
                     @UseAbility.started += instance.OnUseAbility;
                     @UseAbility.performed += instance.OnUseAbility;
                     @UseAbility.canceled += instance.OnUseAbility;
+                    @NextAbility.started += instance.OnNextAbility;
+                    @NextAbility.performed += instance.OnNextAbility;
+                    @NextAbility.canceled += instance.OnNextAbility;
+                    @PreviousAbility.started += instance.OnPreviousAbility;
+                    @PreviousAbility.performed += instance.OnPreviousAbility;
+                    @PreviousAbility.canceled += instance.OnPreviousAbility;
                 }
             }
         }
@@ -1173,6 +1251,8 @@ namespace CarTag.Inputs
         {
             void OnRespawn(InputAction.CallbackContext context);
             void OnUseAbility(InputAction.CallbackContext context);
+            void OnNextAbility(InputAction.CallbackContext context);
+            void OnPreviousAbility(InputAction.CallbackContext context);
         }
         public interface ICameraActions
         {

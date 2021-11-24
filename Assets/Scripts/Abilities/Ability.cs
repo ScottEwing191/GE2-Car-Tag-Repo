@@ -21,6 +21,10 @@ namespace CarTag.Abilities
         protected virtual void Awake() {
             playerAbilityController = GetComponentInParent<PlayerAbilityController>();
         }
+
+        public virtual void RoleStartSetup(bool isRunner) {
+
+        }
         public virtual void OnAbilityButtonPressed<T>(T obj) {
 
         }
@@ -35,6 +39,9 @@ namespace CarTag.Abilities
 
         //--Can be implemented by each Spawnable ability to determine if they can be activated
         public virtual bool CanStartAbility() {
+            return true;
+        }
+        public virtual bool CanSwitchFrom() {
             return true;
         }
 
