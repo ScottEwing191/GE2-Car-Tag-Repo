@@ -136,6 +136,9 @@ namespace CarTag.UI {
             ResetUI();
 
         }
+        /*public void RoundSwapScreenFade(Player newRunner, Player newChaser) {
+            // Start
+        }*/
         internal void RoundStartReset() {
             ResetUI();
         }

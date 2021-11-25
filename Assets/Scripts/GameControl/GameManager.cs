@@ -50,6 +50,18 @@ namespace CarTag
         /// <param name="newRunner">The Player Script on the new runner (old chaser)</param>
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
+            //StartCoroutine(ContinueManageRoleSwap(newRunner, newChaser));
+            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
+            RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
+            CheckpointManager.ResetCheckpoints();
+            //--Audio
+            //--UI
+            UIManager.RoleSwapReset(newRunner, newChaser);
+            AbilityManager.ResetAbilities();
+        }
+
+        internal IEnumerator ContinueManageRoleSwap(Player newRunner, Player newChaser) {
+            yield return new WaitForSeconds(3);
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
             RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
@@ -70,6 +82,17 @@ namespace CarTag
             AbilityManager.ResetAbilities();
             StartCoroutine(RoundManager.RoundStart());
 
+        }
+        private void ContinueManageRound() {
+            //ScoreManager.UpdateScore();
+            PlayerManager.ResetPlayersAfterRound();
+            RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
+            CheckpointManager.ResetCheckpoints();
+            //DynamicObjectManager.ResetObjects();
+            //UI
+            UIManager.RoundStartReset();
+            AbilityManager.ResetAbilities();
+            StartCoroutine(RoundManager.RoundStart());
         }
     }
 }
