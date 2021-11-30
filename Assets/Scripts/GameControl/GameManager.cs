@@ -31,27 +31,25 @@ namespace CarTag {
         }
 
         private void Start() {
-
+            //PreInitialSetup();          // Make sure all players are in the game and controllers are all working (NOT DONE YET)
             InitialSetup();
         }
 
-        private void Update() {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Y)) {
-                //InitialSetup();
-            }
-        }
+        //--Will make sure that the controllers for all players in the game are working
+        /*private void PreInitialSetup() {
+            PlayerManager.PreInitialSetup();
+        }*/
         /// <summary>
         /// This starts the inital for the game including setting up the Player And road managers which in turn initiate setup on other scripts
         /// </summary>
         private void InitialSetup() {
-
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
             AbilityManager.InitialSetup();
+            ScoreManager.InitialSetup();                //must come before UI Manager
             UIManager.InitalSetup();
             RoundManager.InitalSetup();
-            ScoreManager.InitialSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
 

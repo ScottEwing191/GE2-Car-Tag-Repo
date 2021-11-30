@@ -20,12 +20,15 @@ namespace CarTag.UI {
 
         //--Private 
         private List<PlayerUIController> playerUIControllers = new List<PlayerUIController>();
-        private LevelUI levelUI;
+        //private LevelUI LevelUI;
 
         //--Auto-Implemented Properties
         public PlayerManager PlayerManager { get; private set; }
         public CheckpointManager CheckpointManager { get; private set; }
         public ScoreManager ScoreManager { get; set; }
+        public RoundManager RoundManager { get; private set; }
+        public LevelUI LevelUI { get; set; }
+
         public int cpAtRoleStart { get; set; }  // the number of checkpoints the runner has created before the chaser is allowed to start
 
         //--Properties
@@ -40,18 +43,20 @@ namespace CarTag.UI {
             PlayerManager = GameManager.Instance.PlayerManager;
             CheckpointManager = GameManager.Instance.CheckpointManager;
             ScoreManager = GameManager.Instance.ScoreManager;
-            levelUI = FindObjectOfType<LevelUI>();
+            RoundManager = GameManager.Instance.RoundManager;
+            LevelUI = FindObjectOfType<LevelUI>();
             for (int i = 0; i < PlayerManager.Players.Count; i++) {
                 playerUIControllers.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerUIController>());
                 playerUIControllers[i].InitialSetup();
             }
             ResetUI();
+            LevelUI.SetScoreboardText(ScoreManager.GetPlayerScoresInDisplayOrder(), false);
         }
 
         // === SCOREBOARD ===
         public void ShowScores(bool isGameOver) {
             DisablePlayersUI();
-            levelUI.DoScoreboard(ScoreManager.GetPlayerScoresInDisplayOrder(), isGameOver);
+            LevelUI.DoScoreboard(ScoreManager.GetPlayerScoresInDisplayOrder(), isGameOver);
         }
 
         // === SCREEN FADE ===

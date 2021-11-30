@@ -319,6 +319,14 @@ namespace CarTag.Inputs
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""76390b1d-9d50-4564-8244-2a4fdaddc8aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -407,6 +415,28 @@ namespace CarTag.Inputs
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""PreviousAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2c0d42a-8ceb-4a81-8e41-3af7efbf84e6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4508551a-3a46-46a3-b931-6ce837b4be35"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PauseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -901,6 +931,7 @@ namespace CarTag.Inputs
             m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
             m_Player_NextAbility = m_Player.FindAction("NextAbility", throwIfNotFound: true);
             m_Player_PreviousAbility = m_Player.FindAction("PreviousAbility", throwIfNotFound: true);
+            m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
             m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
@@ -1034,6 +1065,7 @@ namespace CarTag.Inputs
         private readonly InputAction m_Player_UseAbility;
         private readonly InputAction m_Player_NextAbility;
         private readonly InputAction m_Player_PreviousAbility;
+        private readonly InputAction m_Player_PauseMenu;
         public struct PlayerActions
         {
             private @CarTagInputs m_Wrapper;
@@ -1042,6 +1074,7 @@ namespace CarTag.Inputs
             public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
             public InputAction @NextAbility => m_Wrapper.m_Player_NextAbility;
             public InputAction @PreviousAbility => m_Wrapper.m_Player_PreviousAbility;
+            public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1063,6 +1096,9 @@ namespace CarTag.Inputs
                     @PreviousAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
                     @PreviousAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
                     @PreviousAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousAbility;
+                    @PauseMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                    @PauseMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1079,6 +1115,9 @@ namespace CarTag.Inputs
                     @PreviousAbility.started += instance.OnPreviousAbility;
                     @PreviousAbility.performed += instance.OnPreviousAbility;
                     @PreviousAbility.canceled += instance.OnPreviousAbility;
+                    @PauseMenu.started += instance.OnPauseMenu;
+                    @PauseMenu.performed += instance.OnPauseMenu;
+                    @PauseMenu.canceled += instance.OnPauseMenu;
                 }
             }
         }
@@ -1253,6 +1292,7 @@ namespace CarTag.Inputs
             void OnUseAbility(InputAction.CallbackContext context);
             void OnNextAbility(InputAction.CallbackContext context);
             void OnPreviousAbility(InputAction.CallbackContext context);
+            void OnPauseMenu(InputAction.CallbackContext context);
         }
         public interface ICameraActions
         {

@@ -7,7 +7,8 @@ using CarTag.UI;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
-        [SerializeField] private List<Player> players = new List<Player>();
+        [SerializeField] private List<GameObject> playerObjects = new List<GameObject>();
+        private List<Player> players = new List<Player>();
 
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
         [SerializeField] private float chaserRoleSwapWaitTime = 4.0f;
@@ -26,6 +27,11 @@ namespace CarTag.PlayerSpace {
 
         //=== SET UP START ===
 
+        /*public void PreInitialSetup() {
+            SetupPlayersList();
+            // Get each player to Input Key to make sure controller is working
+        }*/
+
         public void InitialSetup() {
             UIManager = GameManager.Instance.UIManager;
             carStatsController = GetComponent<CarStatsController>();
@@ -36,11 +42,13 @@ namespace CarTag.PlayerSpace {
             AssignCarStats();
         }
 
-        private void SetupPlayersList() {
+        //--Use the number of players selected in the Main menu to disable the player Objects which are not required and remove them from te players list.
+        /*private void SetupPlayersList() {
             int playersInGame = -1;
             MainMenu.PlayersPlaying playersPlaying = FindObjectOfType<MainMenu.PlayersPlaying>();
             if (playersPlaying != null) {
                 playersInGame = playersPlaying.NumberOfPlayers;
+                Destroy(playersPlaying.gameObject);
             }
             else {
                 //Debug.LogError("Players Playing script from the Main Menu was Not found");
@@ -55,6 +63,27 @@ namespace CarTag.PlayerSpace {
                 //players[i].gameObject.SetActive(false);
                 players[players.Count - 1].gameObject.SetActive(false);     //disable the last player in the list
                 players.RemoveAt(players.Count - 1);
+            }
+        }*/
+
+        private void SetupPlayersList() {
+            int playersInGame = -1;
+            MainMenu.PlayersPlaying playersPlaying = FindObjectOfType<MainMenu.PlayersPlaying>();
+            if (playersPlaying != null) {
+                playersInGame = playersPlaying.NumberOfPlayers;
+                Destroy(playersPlaying.gameObject);
+            }
+            else {
+                //Debug.LogError("Players Playing script from the Main Menu was Not found");
+                playersInGame = defaultPlayersInGame;
+            }
+            for (int i = 0; i < playerObjects.Count; i++) {
+                playerObjects[i].SetActive(false);
+            }
+            //--Add the desired number of players list enable those players
+            for (int i = 0; i < playersInGame; i++) {
+                players.Add(playerObjects[i].GetComponent<Player>());
+                players[i].gameObject.SetActive(true);
             }
         }
         private void SetupPlayers() {

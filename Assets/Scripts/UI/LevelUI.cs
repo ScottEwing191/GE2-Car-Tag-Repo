@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.ScoreSystem;
 using System;
-
+using UnityEngine.SceneManagement;
 namespace CarTag.UI
 {
     public class LevelUI : MonoBehaviour
@@ -12,31 +12,59 @@ namespace CarTag.UI
         [SerializeField] private ScoreboardUIElements scoreboardUIElements;
 
         private ScreenFadeUI screenFadeUI;
-        //private UIManager UIManager;
+        private bool shouldOpenPauseMenu = true;
+        private UIManager UIManager;
 
         private void Awake() {
             screenFadeUI = GetComponentInChildren<ScreenFadeUI>();
         }
         private void Start() {
-            //UIManager = GameManager.Instance.UIManager;
+            UIManager = GameManager.Instance.UIManager;
         }
         // === SCOREBOARD START===
         public void DoScoreboard(PlayerScore[] playerScoresArray, bool isGameOver) {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(true);
             SetScoreboardText(playerScoresArray, isGameOver);
+            SetScoreboardButtons(isGameOver);
             StartCoroutine(screenFadeUI.CanvasGroupFadeRoutine(0, 1, scoreboardUIElements.ScoreBoardGroup));
         }
 
-        private void SetScoreboardText(PlayerScore[] playerScoresArray, bool isGameOver) {
-            if (isGameOver) {
-                scoreboardUIElements.NextRoundButton.gameObject.SetActive(false);
+        public void DoPauseMenu() {
+            if (!UIManager.RoundManager.IsRoundRunning) {
+                return;
             }
+            if (shouldOpenPauseMenu) {
+                scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(true);
+                SetScoreboardButtons(true);
+                Time.timeScale = 0;
+                shouldOpenPauseMenu = false;
+            }
+            else {
+                SetScoreboardButtons(false);
+                scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+                Time.timeScale = 1;
+                shouldOpenPauseMenu = true;
+            }
+        }
+
+        
+
+        public void SetScoreboardText(PlayerScore[] playerScoresArray, bool isGameOver) {
             int numberOfPlayers = playerScoresArray.Length;
             SetPlayerPositionRowsActiveState(false);                                 // disable all Player Position Rows
             SetPlayerPositionRowsActiveState(true, playerScoresArray.Length);        // enable only the required player position rows
             for (int i = 0; i < numberOfPlayers; i++) {
                 scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerScoreStats.PlayerName);
                 scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].PlayerScoreStats.RoundWins.ToString());
+            }
+        }
+        private void SetScoreboardButtons(bool hideNextRoundButton) {
+            if (hideNextRoundButton) {
+                scoreboardUIElements.NextRoundButton.gameObject.SetActive(false);
+            }
+            else {
+                scoreboardUIElements.NextRoundButton.gameObject.SetActive(true);
+
             }
         }
 
@@ -67,6 +95,7 @@ namespace CarTag.UI
         public void ReturnToMenuButton() {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
             print("Game Over");
+            SceneManager.LoadScene(0);
         }
         // === SCOREBOARD END ===
     }

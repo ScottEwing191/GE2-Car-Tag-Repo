@@ -33,7 +33,6 @@ namespace CarTag.ScoreSystem
         /// <summary>
         /// Returns an array of Player Scores which have been sorted first place to last place.
         /// </summary>
-        /// <returns></returns>
         public PlayerScore[] GetPlayerScoresInDisplayOrder() {
             var displayOrder = PlayerScores.OrderByDescending(i => i.PlayerScoreStats.RoundWins).ToArray();
             return displayOrder;

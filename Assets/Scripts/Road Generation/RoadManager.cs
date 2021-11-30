@@ -11,14 +11,18 @@ namespace CarTag.Road
     {
         [SerializeField] private CheckpointManager checkpointManager;
 
-        private bool isResetting = false;       // dont try and place a point on the spline for the fram that the road is reset
+        //private bool isResetting = false;       // dont try and place a point on the spline for the fram that the road is reset
         
         //--Auto implemented properties
         public RoadGenerator RoadGenerator { get; set; }
         public RoadSpawnData RoadSpawnData { get; set; }
+        public bool DoFixedUpdate { get; set; }                 // controlled by Round Manager True when round starts False when runner reaches target distance
+        
+        //-- Private
         private Distance distance = new Distance();
         private RoadRemoval roadRemoval = new RoadRemoval();
-        private bool initialSetupDone = false;
+        private bool InitialSetupDone = false;
+
 
         //--Properties
         public Distance Distance { get { return distance; } }
@@ -29,13 +33,16 @@ namespace CarTag.Road
             checkpointManager = FindObjectOfType<CheckpointManager>();
             RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
             RoadGenerator.InitialSetup(initialRoadSpawnData);
-            initialSetupDone = true;
+            InitialSetupDone = true;
+            
         }
-       private void FixedUpdate() {
-            if (!initialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
+        
+        private void FixedUpdate() {
+
+            if (!InitialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
                 return;                                     // does ot get done on Start() anymore
             }
-            if (!isResetting) {
+            if (DoFixedUpdate) {
                 if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
                     if (checkpointManager != null) {
                         checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
@@ -47,10 +54,7 @@ namespace CarTag.Road
                             //--uses the same values as used in road generator but will not add distance while car is in air.
                             //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
                     distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
-                } 
-            }
-            else if(isResetting){
-                isResetting = false;
+                }
             }
         }
 
@@ -70,7 +74,7 @@ namespace CarTag.Road
             distance.ResetDistanceTravelled();
             SplinePoint[] emptySplinePoints = new SplinePoint[0];
             RoadGenerator.SplineComputer.SetPoints(emptySplinePoints);
-            isResetting = true;
+            //isResetting = true;
         }
 
         

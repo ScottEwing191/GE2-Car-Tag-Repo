@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Input;
+using CarTag.UI;
 using UnityEngine.InputSystem;
 
 namespace CarTag.Input {
@@ -10,6 +11,8 @@ namespace CarTag.Input {
         [SerializeField] private CarInputHandler carInputHandler;
         [SerializeField] private CameraInputHandler cameraInputHandler;
         [SerializeField] private PlayerInputHandler playerInputHandler;
+
+        public UIManager UIManager { get; private set; }
 
         PlayerInput playerInput;
         private InputActionMap carActionMap, playerActionMap, camerActionMap, UIActionMap;
@@ -31,6 +34,10 @@ namespace CarTag.Input {
             carActionMap.Enable();
             playerActionMap.Enable();
             camerActionMap.Enable();
+        }
+
+        private void Start() {
+            UIManager = GameManager.Instance.UIManager;
         }
     }
 }
