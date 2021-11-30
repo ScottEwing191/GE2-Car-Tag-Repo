@@ -9,13 +9,14 @@ namespace CarTag.Input
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        [SerializeField] Player thisPlayer;
+        Player thisPlayer;
         [SerializeField] PlayerAbilityController abilityController;
 
         public InputManager InputManager { get; private set; }
 
         private void Start() {
             InputManager = GetComponent<InputManager>();
+            thisPlayer = GetComponent<Player>();
         }
 
         public void OnRespawn(InputAction.CallbackContext context) {
