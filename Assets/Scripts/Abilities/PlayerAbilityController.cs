@@ -22,7 +22,8 @@ namespace CarTag.Abilities {
         public BoxSpawnAbility BoxSpawnAbility { get; set; }
         public Ability CurrentAbility { get; set; }
         public Player thisPlayer { get; private set; }              // The Player script Attached the same player as this PlayerAbilityController script...
-                                                                    //...can be used to acess other scripts on this player without going through any managers
+        //private Player thisPlayer;                                    // The Player script Attached the same player as this PlayerAbilityController script...
+                                                                      //...can be used to acess other scripts on this player without going through any managers
 
         public void Awake() {
             BoxSpawnAbility = GetComponent<BoxSpawnAbility>();

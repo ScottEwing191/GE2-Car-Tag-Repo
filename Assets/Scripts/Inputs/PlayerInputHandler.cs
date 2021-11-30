@@ -9,7 +9,7 @@ namespace CarTag.Input
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        [SerializeField] Player player;
+        [SerializeField] Player thisPlayer;
         [SerializeField] PlayerAbilityController abilityController;
 
         public InputManager InputManager { get; private set; }
@@ -26,7 +26,7 @@ namespace CarTag.Input
             }
             if (context.performed) {
                 //print("Respawn Performed");
-                player.PlayerRespawn.RespawnAtCheckpoint();
+                thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
 
             }
             if (context.canceled) {
