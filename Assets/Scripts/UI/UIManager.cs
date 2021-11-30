@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.PlayerSpace;
 using CarTag.Checkpoints;
+using CarTag.ScoreSystem;
 
 namespace CarTag.UI {
     public class UIManager : MonoBehaviour {
@@ -19,10 +20,12 @@ namespace CarTag.UI {
 
         //--Private 
         private List<PlayerUIController> playerUIControllers = new List<PlayerUIController>();
+        private LevelUI levelUI;
 
         //--Auto-Implemented Properties
         public PlayerManager PlayerManager { get; private set; }
         public CheckpointManager CheckpointManager { get; private set; }
+        public ScoreManager ScoreManager { get; set; }
         public int cpAtRoleStart { get; set; }  // the number of checkpoints the runner has created before the chaser is allowed to start
 
         //--Properties
@@ -36,14 +39,35 @@ namespace CarTag.UI {
         public void InitalSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;
             CheckpointManager = GameManager.Instance.CheckpointManager;
+            ScoreManager = GameManager.Instance.ScoreManager;
+            levelUI = FindObjectOfType<LevelUI>();
             for (int i = 0; i < PlayerManager.Players.Count; i++) {
                 playerUIControllers.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerUIController>());
                 playerUIControllers[i].InitialSetup();
             }
-           /* foreach (Player player in PlayerManager.Players) {
-                playerUIControllers.Add(player.GetComponentInChildren<PlayerUIController>());
-            }*/
             ResetUI();
+        }
+
+        // === SCOREBOARD ===
+        public void ShowScores(bool isGameOver) {
+            DisablePlayersUI();
+            levelUI.DoScoreboard(ScoreManager.GetPlayerScoresInDisplayOrder(), isGameOver);
+        }
+
+        // === SCREEN FADE ===
+        /// <summary>
+        /// Fades the UI screen for each player from one alpha value to another. 
+        /// </summary>
+        /// <param name="fromAlpha">The start alpha value of the image</param>
+        /// <param name="toAlpha">The end alpha value of the image</param>
+        /// <param name="waitTime">Time to wait after each of the player have been told to start fading befor returning from method</param>
+        /// <returns></returns>
+        public IEnumerator ScreenFadeOnAllPlayers(int fromAlpha, int toAlpha, float waitTime) {
+            foreach (var p in playerUIControllers) {
+                StartCoroutine(p.ScreenFadeUI.ScreenFadeRoutine(fromAlpha, toAlpha));          
+            }
+            yield return new WaitForSeconds(waitTime);
+
         }
 
         //=== COUNTDOWN TIMER START ===
@@ -151,8 +175,16 @@ namespace CarTag.UI {
                 p.ChaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
                 // Ability UI Is Reset from the PlayerAbilityController
                 p.SwitchToChaserUI();                               // switch all cars to chaser UI
+                p.EnablePlayerUI();                                 // make sure Player UI is on
             }
             GetRunnerUIController().SwitchToRunnerUI();             // switch only the runner to Runner UI
+        }
+
+        //--Disables the runner/ chaser/ player UI for all players in the game
+        private void DisablePlayersUI() {
+            foreach (var p in playerUIControllers) {
+                p.DisableUI();
+            }
         }
 
         //=== UPDATE RUNNER DISTANCE TRAVELLED ===

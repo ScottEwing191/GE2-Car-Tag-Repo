@@ -18,6 +18,7 @@ namespace CarTag.Road
         public RoadSpawnData RoadSpawnData { get; set; }
         private Distance distance = new Distance();
         private RoadRemoval roadRemoval = new RoadRemoval();
+        private bool initialSetupDone = false;
 
         //--Properties
         public Distance Distance { get { return distance; } }
@@ -28,9 +29,12 @@ namespace CarTag.Road
             checkpointManager = FindObjectOfType<CheckpointManager>();
             RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
             RoadGenerator.InitialSetup(initialRoadSpawnData);
-
+            initialSetupDone = true;
         }
        private void FixedUpdate() {
+            if (!initialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
+                return;                                     // does ot get done on Start() anymore
+            }
             if (!isResetting) {
                 if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
                     if (checkpointManager != null) {

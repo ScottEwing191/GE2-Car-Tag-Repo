@@ -11,6 +11,7 @@ namespace CarTag.PlayerSpace {
 
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
         [SerializeField] private float chaserRoleSwapWaitTime = 4.0f;
+        [SerializeField] private int defaultPlayersInGame = 2;
 
         private CarStatsController carStatsController;
         private Player runnerAtRoundStart;
@@ -28,18 +29,38 @@ namespace CarTag.PlayerSpace {
         public void InitialSetup() {
             UIManager = GameManager.Instance.UIManager;
             carStatsController = GetComponent<CarStatsController>();
+            SetupPlayersList();
             SetupPlayers();
             FindCurrentRunner();
             runnerAtRoundStart = CurrentRunner;
             AssignCarStats();
         }
 
+        private void SetupPlayersList() {
+            int playersInGame = -1;
+            MainMenu.PlayersPlaying playersPlaying = FindObjectOfType<MainMenu.PlayersPlaying>();
+            if (playersPlaying != null) {
+                playersInGame = playersPlaying.NumberOfPlayers;
+            }
+            else {
+                //Debug.LogError("Players Playing script from the Main Menu was Not found");
+                playersInGame = defaultPlayersInGame;
+            }
+            //--Keep the desired number of players in the list and remove the rest
+            int loopLegth = players.Count;
+            for (int i = 0; i < loopLegth; i++) {
+                if (i < playersInGame) {                
+                    continue;
+                }
+                //players[i].gameObject.SetActive(false);
+                players[players.Count - 1].gameObject.SetActive(false);     //disable the last player in the list
+                players.RemoveAt(players.Count - 1);
+            }
+        }
         private void SetupPlayers() {
             for (int i = 0; i < players.Count; i++) {
                 players[i].InitialSetup();
                 players[i].PlayerListIndex = i;             // tell each player its position in the list
-            }
-            foreach (var player in players) {
             }
         }
 

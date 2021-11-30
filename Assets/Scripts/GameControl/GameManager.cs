@@ -7,32 +7,43 @@ using CarTag.Road;
 using CarTag.Checkpoints;
 using CarTag.UI;
 using CarTag.Abilities;
+using CarTag.ScoreSystem;
 
-namespace CarTag
-{
-    public class GameManager : MonoSingleton<GameManager>
-    {
+namespace CarTag {
+    public class GameManager : MonoSingleton<GameManager> {
         public PlayerManager PlayerManager { get; set; }
         public RoadManager RoadManager { get; set; }
         public CheckpointManager CheckpointManager { get; set; }
         public RoundManager RoundManager { get; set; }
         public UIManager UIManager { get; set; }
         public AbilityManager AbilityManager { get; set; }
+        public ScoreManager ScoreManager { get; set; }
 
-        private void Start() {
-            InitialSetup();
-        }
-
-        /// <summary>
-        /// This starts the inital for the game including setting up the Player And road managers which in turn initiate setup on other scripts
-        /// </summary>
-        private void InitialSetup() {
+        protected override void Awake() {
+            base.Awake();
             PlayerManager = FindObjectOfType<PlayerManager>();
             RoadManager = FindObjectOfType<RoadManager>();
             CheckpointManager = FindObjectOfType<CheckpointManager>();
             RoundManager = FindObjectOfType<RoundManager>();
             UIManager = FindObjectOfType<UIManager>();
             AbilityManager = FindObjectOfType<AbilityManager>();
+            ScoreManager = FindObjectOfType<ScoreManager>();
+        }
+
+        private void Start() {
+
+            InitialSetup();
+        }
+
+        private void Update() {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Y)) {
+                //InitialSetup();
+            }
+        }
+        /// <summary>
+        /// This starts the inital for the game including setting up the Player And road managers which in turn initiate setup on other scripts
+        /// </summary>
+        private void InitialSetup() {
 
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
@@ -40,6 +51,7 @@ namespace CarTag
             AbilityManager.InitialSetup();
             UIManager.InitalSetup();
             RoundManager.InitalSetup();
+            ScoreManager.InitialSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
 
@@ -50,18 +62,6 @@ namespace CarTag
         /// <param name="newRunner">The Player Script on the new runner (old chaser)</param>
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
-            //StartCoroutine(ContinueManageRoleSwap(newRunner, newChaser));
-            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
-            CheckpointManager.ResetCheckpoints();
-            //--Audio
-            //--UI
-            UIManager.RoleSwapReset(newRunner, newChaser);
-            AbilityManager.ResetAbilities();
-        }
-
-        internal IEnumerator ContinueManageRoleSwap(Player newRunner, Player newChaser) {
-            yield return new WaitForSeconds(3);
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
             RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
@@ -72,27 +72,31 @@ namespace CarTag
         }
 
         public void ManageRoundOver() {
-            //ScoreManager.UpdateScore();
-            PlayerManager.ResetPlayersAfterRound();
-            RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
-            CheckpointManager.ResetCheckpoints();
-            //DynamicObjectManager.ResetObjects();
-            //UI
-            UIManager.RoundStartReset();
-            AbilityManager.ResetAbilities();
-            StartCoroutine(RoundManager.RoundStart());
+            PlayerManager.DisableCars();                                // display cars while scoreboard is up
+            bool gameOver = ScoreManager.UpdateScoreCheckIfGameOver(PlayerManager.CurrentRunner);        // update scores after round
+            // If gameOver is true then the UI button which the player presses to advance to the next round will be disabled leaving a button to return to Menu
+            UIManager.ShowScores(gameOver);                                     // display scoreboard
+        }
 
+        public void StartNewRound() {
+            StartCoroutine(StartNewRoundRoutine());
         }
-        private void ContinueManageRound() {
-            //ScoreManager.UpdateScore();
+
+        private IEnumerator StartNewRoundRoutine() {
+            yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(0, 1, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to black
+
+            //--Reset Managers For New Round
             PlayerManager.ResetPlayersAfterRound();
             RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.ResetCheckpoints();
             //DynamicObjectManager.ResetObjects();
-            //UI
             UIManager.RoundStartReset();
             AbilityManager.ResetAbilities();
+            yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
+            yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent
             StartCoroutine(RoundManager.RoundStart());
+            yield return null;
         }
+
     }
 }

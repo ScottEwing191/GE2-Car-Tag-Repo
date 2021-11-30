@@ -10,11 +10,15 @@ namespace CarTag.UI
     [Serializable]
     public struct PlayerUIElements
     {
-        [SerializeField] private GameObject playerUIElements;
+        [SerializeField] private GameObject playerUIObject;
         [SerializeField] private TextMeshProUGUI countdownTimer;
         [SerializeField] private AbilityUIElements abilityUIElements;
 
         //--Properties
+        public GameObject PlayerUIObject {
+            get { return playerUIObject; }
+            set { playerUIObject = value; }
+        }
         public TextMeshProUGUI CountdownTimer {
             get { return countdownTimer; }
             set { countdownTimer = value; }

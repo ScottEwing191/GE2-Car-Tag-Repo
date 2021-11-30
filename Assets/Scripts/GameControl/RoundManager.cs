@@ -15,6 +15,7 @@ namespace CarTag
         [SerializeField] private float chaserStartWaitTime = 4;     // countdown timer before chaser can start
         [SerializeField] private float distanceToWin = 200;
         private bool checkDistance = false;
+        private bool initialSetupDone = false;
 
         //--Auto-Implemented Properties
         public UIManager UIManager { get; private set; }
@@ -31,6 +32,7 @@ namespace CarTag
             PlayerManager = GameManager.Instance.PlayerManager;
             UIManager = GameManager.Instance.UIManager;
             RoadManager = GameManager.Instance.RoadManager;
+            initialSetupDone = true;
         }
 
         public IEnumerator RoundStart() {
@@ -48,12 +50,14 @@ namespace CarTag
         }
         [SerializeField] float distanceTravelled;
         private void Update() {
-            distanceTravelled = RoadManager.Distance.TotalDistance;
-            UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
-            if (RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
-                checkDistance = false;
-                RoundWin();
-                print("Runner Wins");
+            if (initialSetupDone) {
+                distanceTravelled = RoadManager.Distance.TotalDistance;
+                UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
+                if (RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
+                    checkDistance = false;
+                    RoundWin();
+                    print("Runner Wins");
+                } 
             }
         }
 

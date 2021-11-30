@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace CarTag.UI {
     public class ScreenFadeUI : MonoBehaviour {
+        public const float DEFAULT_FADE_TIME = 1f;
+        
         //--Serialized Fields
         [SerializeField] private Image screenFadeImage;
         //[SerializeField] private Color screenColour;
-        [SerializeField] private float screenFadeTime = 2;          // the time taken for the screen from opaque to transparent
         [SerializeField] private float screenOpaqueTime = 0.5f;     // the time the screen will remain opaque before fading back in    
 
         //--Private
@@ -40,11 +41,11 @@ namespace CarTag.UI {
 
         }
 
-        private IEnumerator ScreenFadeRoutine(float fromAlpha, float toAlpha) {
+        public IEnumerator ScreenFadeRoutine(float fromAlpha, float toAlpha, float fadeTime = DEFAULT_FADE_TIME) {
             float time = 0;
             Color newColor = screenFadeImage.color;                 // new colour created, doesn't work if trying to modify the image colour alpha directly, don't remember why
-            while (time <= screenFadeTime) {
-                newColor.a = Mathf.Lerp(fromAlpha, toAlpha, time / screenFadeTime);
+            while (time <= fadeTime) {
+                newColor.a = Mathf.Lerp(fromAlpha, toAlpha, time / fadeTime);
                 screenFadeImage.color = newColor;
                 time += Time.deltaTime;
                 yield return null;
@@ -52,6 +53,18 @@ namespace CarTag.UI {
             newColor.a = toAlpha;                                         // make sure alpha is exact orrect value
             screenFadeImage.color = newColor;
 
+            yield return null;
+        }
+
+        //--Fades the given Canvas group from one alpha value to another
+        public IEnumerator CanvasGroupFadeRoutine(float fromAlpha, float toAlpha, CanvasGroup group, float fadeTime = DEFAULT_FADE_TIME) {
+            float time = 0;
+            while (time <= fadeTime) {
+                group.alpha = Mathf.Lerp(fromAlpha, toAlpha, time / fadeTime);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            group.alpha = toAlpha;                                         // make sure alpha is exact correct value
             yield return null;
         }
     }

@@ -17,10 +17,12 @@ namespace CarTag.UI {
         //--Auto-Implemented Properties
         public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }
         public AbilityUI AbilityUI { get; set; }
+        public ScreenFadeUI ScreenFadeUI { get; set; }
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
             AbilityUI = GetComponent<AbilityUI>();
+            ScreenFadeUI = GetComponentInChildren<ScreenFadeUI>();
             thisPlayer = GetComponentInParent<Player>();
         }
 
@@ -49,7 +51,7 @@ namespace CarTag.UI {
             playerUI.CountdownTimer.gameObject.SetActive(false);
 
         }
-        //=== SWITCH BETWEEN RUNNER AND CHASER UI ===
+        //=== ENABLE/DISABLE RUNNER/ CHASER/ PLAYER UI===
 
         public void SwitchToRunnerUI() {
             runnerUI.RunnerUIObject.SetActive(true);
@@ -60,6 +62,15 @@ namespace CarTag.UI {
             chaserUI.ChaserUIObject.SetActive(true);
             runnerUI.RunnerUIObject.SetActive(false);
         }
+        public void EnablePlayerUI() {
+            playerUI.PlayerUIObject.SetActive(true);
+        }
+        //-- Sets the Runner/ Chaser/ Player/ UI gamobjects to Inactive
+        public void DisableUI() {
+            chaserUI.ChaserUIObject.SetActive(false);
+            runnerUI.RunnerUIObject.SetActive(false);
+            playerUI.PlayerUIObject.SetActive(false);
+        } 
         //=== RUNNER CONTROLS ===
 
         public void SetPlacedCheckpointTracker(float currentDst, float dstBetweenCheckpoint) {

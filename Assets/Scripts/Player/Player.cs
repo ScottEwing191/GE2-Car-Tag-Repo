@@ -6,6 +6,7 @@ using CarTag.UI;
 using CarTag.Road;
 using CarTag.PlayerSpace;
 using CarTag.Abilities;
+using CarTag.ScoreSystem;
 
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
@@ -21,6 +22,7 @@ namespace CarTag {
         public CarController CarController { get; set; }
         public PlayerUIController PlayerUIController { get; set; }
         public PlayerAbilityController PlayerAbilityController { get; set; }
+        public PlayerScore PlayerScore { get; set; }
 
 
         //Properties
@@ -36,6 +38,7 @@ namespace CarTag {
             CarController = GetComponentInChildren<CarController>();
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
+            PlayerScore = GetComponentInChildren<PlayerScore>();
         }
 
         public bool IsThisPlayerCurrentRunner() {
