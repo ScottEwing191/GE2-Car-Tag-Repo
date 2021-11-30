@@ -119,7 +119,7 @@
         <Point X="12.18" Y="15.25" />
         <Point X="12.18" Y="14.875" />
         <Point X="9.81" Y="14.875" Type="JumpStart" />
-        <Point X="9.643" Y="14.875" Type="JumpEnd" />
+        <Point X="9.644" Y="14.875" Type="JumpEnd" />
         <Point X="7.5" Y="14.875" />
         <Point X="7.5" Y="13.117" />
       </Path>
@@ -166,28 +166,12 @@
         <Point X="7.812" Y="9.25" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="AbilityManager" Type="CarTag.Abilities.AbilityManager" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="43.438" Y="5.887" />
-        <Point X="43.438" Y="6.337" />
-        <Point X="69.75" Y="6.337" />
-        <Point X="69.75" Y="9.5" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="RoundManager" Type="CarTag.RoundManager" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="43.438" Y="5.887" />
         <Point X="43.438" Y="6.337" />
         <Point X="75.75" Y="6.337" />
         <Point X="75.75" Y="9.5" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="ScoreManager" Type="CarTag.ScoreSystem.ScoreManager" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="43.438" Y="5.887" />
-        <Point X="43.438" Y="6.337" />
-        <Point X="79.75" Y="6.337" />
-        <Point X="79.75" Y="9.5" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="UIManager" Type="CarTag.UI.UIManager" FixedFromPoint="true" FixedToPoint="true">
@@ -198,6 +182,22 @@
         <Point X="54.75" Y="9.5" />
       </Path>
     </AssociationLine>
+    <AssociationLine Name="AbilityManager" Type="CarTag.Abilities.AbilityManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="43.438" Y="5.887" />
+        <Point X="43.438" Y="6.337" />
+        <Point X="69.75" Y="6.337" />
+        <Point X="69.75" Y="9.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ScoreManager" Type="CarTag.ScoreSystem.ScoreManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="43.438" Y="5.887" />
+        <Point X="43.438" Y="6.337" />
+        <Point X="79.75" Y="6.337" />
+        <Point X="79.75" Y="9.5" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AABAABAAQDIAAAAQABQACQAAQAAAIAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\GameControl\GameManager.cs</FileName>
@@ -206,10 +206,10 @@
       <Property Name="PlayerManager" />
       <Property Name="RoadManager" />
       <Property Name="CheckpointManager" />
-      <Property Name="AbilityManager" />
       <Property Name="RoundManager" />
-      <Property Name="ScoreManager" />
       <Property Name="UIManager" />
+      <Property Name="AbilityManager" />
+      <Property Name="ScoreManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="CarTag.MonoSingleton&lt;T&gt;">
@@ -247,6 +247,8 @@
       <Path>
         <Point X="42.875" Y="13.232" />
         <Point X="42.875" Y="23.786" />
+        <Point X="42.583" Y="23.786" Type="JumpStart" />
+        <Point X="42.417" Y="23.786" Type="JumpEnd" />
         <Point X="40.75" Y="23.786" />
         <Point X="40.75" Y="24.75" />
       </Path>
@@ -306,14 +308,30 @@
         <Point X="30.25" Y="26" />
       </Path>
     </AssociationLine>
+    <AssociationLine Name="PlayerUIController" Type="CarTag.UI.PlayerUIController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="32.25" Y="18.688" />
+        <Point X="37.417" Y="18.688" Type="JumpStart" />
+        <Point X="37.583" Y="18.688" Type="JumpEnd" />
+        <Point X="42.417" Y="18.688" Type="JumpStart" />
+        <Point X="42.583" Y="18.688" Type="JumpEnd" />
+        <Point X="42.792" Y="18.688" Type="JumpStart" />
+        <Point X="42.958" Y="18.688" Type="JumpEnd" />
+        <Point X="50.483" Y="18.688" />
+        <Point X="50.483" Y="21" />
+        <Point X="51" Y="21" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="PlayerAbilityController" Type="CarTag.Abilities.PlayerAbilityController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="32.25" Y="18.688" />
         <Point X="37.417" Y="18.688" Type="JumpStart" />
         <Point X="37.583" Y="18.688" Type="JumpEnd" />
+        <Point X="42.417" Y="18.688" Type="JumpStart" />
+        <Point X="42.583" Y="18.688" Type="JumpEnd" />
         <Point X="42.792" Y="18.688" Type="JumpStart" />
         <Point X="42.958" Y="18.688" Type="JumpEnd" />
-        <Point X="54.354" Y="18.688" Type="JumpStart" />
+        <Point X="54.355" Y="18.688" Type="JumpStart" />
         <Point X="54.521" Y="18.688" Type="JumpEnd" />
         <Point X="60.167" Y="18.688" Type="JumpStart" />
         <Point X="60.333" Y="18.688" Type="JumpEnd" />
@@ -327,9 +345,11 @@
         <Point X="32.25" Y="18.688" />
         <Point X="37.417" Y="18.688" Type="JumpStart" />
         <Point X="37.583" Y="18.688" Type="JumpEnd" />
+        <Point X="42.417" Y="18.688" Type="JumpStart" />
+        <Point X="42.583" Y="18.688" Type="JumpEnd" />
         <Point X="42.792" Y="18.688" Type="JumpStart" />
         <Point X="42.958" Y="18.688" Type="JumpEnd" />
-        <Point X="54.354" Y="18.688" Type="JumpStart" />
+        <Point X="54.355" Y="18.688" Type="JumpStart" />
         <Point X="54.521" Y="18.688" Type="JumpEnd" />
         <Point X="60.167" Y="18.688" Type="JumpStart" />
         <Point X="60.333" Y="18.688" Type="JumpEnd" />
@@ -338,18 +358,6 @@
         <Point X="78.875" Y="18.688" />
         <Point X="78.875" Y="19.845" />
         <Point X="79.25" Y="19.845" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="PlayerUIController" Type="CarTag.UI.PlayerUIController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="32.25" Y="18.688" />
-        <Point X="37.417" Y="18.688" Type="JumpStart" />
-        <Point X="37.583" Y="18.688" Type="JumpEnd" />
-        <Point X="42.792" Y="18.688" Type="JumpStart" />
-        <Point X="42.958" Y="18.688" Type="JumpEnd" />
-        <Point X="50.483" Y="18.688" />
-        <Point X="50.483" Y="21" />
-        <Point X="51" Y="21" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="PlayerRoll" Type="CarTag.PlayerRoleEnum" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
@@ -369,9 +377,9 @@
       <Property Name="PlayerRespawn" />
       <Property Name="PlayerCollision" />
       <Property Name="RoadSpawnData" />
+      <Property Name="PlayerUIController" />
       <Property Name="PlayerAbilityController" />
       <Property Name="PlayerScore" />
-      <Property Name="PlayerUIController" />
       <Property Name="PlayerRoll" />
     </ShowAsAssociation>
   </Class>
@@ -476,6 +484,8 @@
       <Path>
         <Point X="19.5" Y="12.598" />
         <Point X="19.5" Y="14.768" />
+        <Point X="19.854" Y="14.768" Type="JumpStart" />
+        <Point X="20.021" Y="14.768" Type="JumpEnd" />
         <Point X="25.125" Y="14.768" />
         <Point X="25.125" Y="15.75" />
       </Path>
@@ -484,8 +494,6 @@
       <Path>
         <Point X="19.5" Y="12.598" />
         <Point X="19.5" Y="14.828" />
-        <Point X="19.146" Y="14.828" Type="JumpStart" />
-        <Point X="18.979" Y="14.828" Type="JumpEnd" />
         <Point X="15.688" Y="14.828" />
         <Point X="15.688" Y="15.75" />
       </Path>
@@ -494,6 +502,8 @@
       <Path>
         <Point X="19.5" Y="12.598" />
         <Point X="19.5" Y="14.767" />
+        <Point X="19.854" Y="14.767" Type="JumpStart" />
+        <Point X="20.021" Y="14.767" Type="JumpEnd" />
         <Point X="22.25" Y="14.767" />
         <Point X="22.25" Y="15.75" />
       </Path>
@@ -626,14 +636,6 @@
   </Class>
   <Class Name="CarTag.UI.PlayerUIController">
     <Position X="51" Y="19.75" Width="2.25" />
-    <AssociationLine Name="chaserUI" Type="CarTag.UI.ChaserUIElements" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="52.125" Y="22.906" />
-        <Point X="52.125" Y="24.817" />
-        <Point X="54.25" Y="24.817" />
-        <Point X="54.25" Y="25.5" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="playerUI" Type="CarTag.UI.PlayerUIElements" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="52.125" Y="22.906" />
@@ -650,12 +652,26 @@
         <Point X="56.5" Y="25.5" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="AbilityUI" Type="CarTag.UI.AbilityUI" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="chaserUI" Type="CarTag.UI.ChaserUIElements" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="52.125" Y="22.906" />
-        <Point X="52.125" Y="24.807" />
-        <Point X="48" Y="24.807" />
-        <Point X="48" Y="25.5" />
+        <Point X="52.125" Y="24.817" />
+        <Point X="54.25" Y="24.817" />
+        <Point X="54.25" Y="25.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="thisPlayer" Type="CarTag.Player" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="51" Y="21.551" />
+        <Point X="49.847" Y="21.551" />
+        <Point X="49.847" Y="19" />
+        <Point X="42.958" Y="19" Type="JumpStart" />
+        <Point X="42.792" Y="19" Type="JumpEnd" />
+        <Point X="42.583" Y="19" Type="JumpStart" />
+        <Point X="42.417" Y="19" Type="JumpEnd" />
+        <Point X="37.583" Y="19" Type="JumpStart" />
+        <Point X="37.417" Y="19" Type="JumpEnd" />
+        <Point X="32.25" Y="19" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="ChaserCheckpointTracker" Type="CarTag.UI.ChaserCheckpointTracker" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
@@ -666,6 +682,14 @@
         <Point X="52.125" Y="25.5" />
       </Path>
     </AssociationLine>
+    <AssociationLine Name="AbilityUI" Type="CarTag.UI.AbilityUI" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="52.125" Y="22.906" />
+        <Point X="52.125" Y="24.807" />
+        <Point X="48" Y="24.807" />
+        <Point X="48" Y="25.5" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="ScreenFadeUI" Type="CarTag.UI.ScreenFadeUI" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="52.125" Y="22.906" />
@@ -674,29 +698,17 @@
         <Point X="59.75" Y="25.5" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="thisPlayer" Type="CarTag.Player" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="51" Y="21.551" />
-        <Point X="49.847" Y="21.551" />
-        <Point X="49.847" Y="19" />
-        <Point X="42.958" Y="19" Type="JumpStart" />
-        <Point X="42.792" Y="19" Type="JumpEnd" />
-        <Point X="37.583" Y="19" Type="JumpStart" />
-        <Point X="37.417" Y="19" Type="JumpEnd" />
-        <Point X="32.25" Y="19" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAEgwAjAAQAAAAIIBAAAAAAAAAAAAABABAAKAAAAEA=</HashCode>
       <FileName>Assets\Scripts\UI\PlayerUIController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="chaserUI" />
       <Field Name="playerUI" />
       <Field Name="runnerUI" />
+      <Field Name="chaserUI" />
       <Field Name="thisPlayer" />
-      <Property Name="AbilityUI" />
       <Property Name="ChaserCheckpointTracker" />
+      <Property Name="AbilityUI" />
       <Property Name="ScreenFadeUI" />
     </ShowAsAssociation>
   </Class>
@@ -708,14 +720,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CarTag.Abilities.BoxSpawn.BoxesObstacle">
-    <Position X="70" Y="35.5" Width="1.5" />
+    <Position X="70" Y="39" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIgAABAAFAAQAAAAAAABAACAAIAAAAAACAAFA=</HashCode>
       <FileName>Assets\Scripts\Abilities\BoxSpawnAbility\BoxesObstacle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CarTag.Abilities.BoxSpawn.BoxSpawnAbility">
-    <Position X="70" Y="33.25" Width="1.5" />
+    <Position X="70" Y="33.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQgAAAAAYAAAAAABAAIAAEAIMgAAAhAAAoAAAgAgCAA=</HashCode>
       <FileName>Assets\Scripts\Abilities\BoxSpawnAbility\BoxSpawnAbility.cs</FileName>
@@ -725,14 +737,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CarTag.Abilities.Rocket">
-    <Position X="67.75" Y="34.75" Width="1.5" />
+    <Position X="67.75" Y="39" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADQAIQAAACIAAAAAJAAAAAgAAAAAAAEIBAgACADAEAA=</HashCode>
       <FileName>Assets\Scripts\Abilities\RocketAbility\Rocket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CarTag.Abilities.RocketAbility">
-    <Position X="67.75" Y="33.25" Width="1.5" />
+    <Position X="67.75" Y="33.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAIACAAAAAAAAAAAAIAgAAAgAAAIAAAAAACEA=</HashCode>
       <FileName>Assets\Scripts\Abilities\RocketAbility\RocketAbility.cs</FileName>
@@ -772,18 +784,18 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="CurrentAbility" Type="CarTag.Abilities.Ability" FixedFromPoint="true">
-      <Path>
-        <Point X="69.75" Y="23.425" />
-        <Point X="69.75" Y="25.25" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="BoxSpawnAbility" Type="CarTag.Abilities.BoxSpawn.BoxSpawnAbility" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="70.5" Y="22.059" />
         <Point X="71.875" Y="22.059" />
-        <Point X="71.875" Y="33.75" />
-        <Point X="71.5" Y="33.75" />
+        <Point X="71.875" Y="34" />
+        <Point X="71.5" Y="34" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CurrentAbility" Type="CarTag.Abilities.Ability" FixedFromPoint="true">
+      <Path>
+        <Point X="69.75" Y="23.425" />
+        <Point X="69.75" Y="25.25" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="thisPlayer" Type="CarTag.Player" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
@@ -794,11 +806,13 @@
         <Point X="60.333" Y="19" Type="JumpStart" />
         <Point X="60.167" Y="19" Type="JumpEnd" />
         <Point X="54.521" Y="19" Type="JumpStart" />
-        <Point X="54.354" Y="19" Type="JumpEnd" />
+        <Point X="54.355" Y="19" Type="JumpEnd" />
         <Point X="50.566" Y="19" Type="JumpStart" />
-        <Point X="50.399" Y="19" Type="JumpEnd" />
+        <Point X="50.4" Y="19" Type="JumpEnd" />
         <Point X="42.958" Y="19" Type="JumpStart" />
         <Point X="42.792" Y="19" Type="JumpEnd" />
+        <Point X="42.583" Y="19" Type="JumpStart" />
+        <Point X="42.417" Y="19" Type="JumpEnd" />
         <Point X="37.583" Y="19" Type="JumpStart" />
         <Point X="37.417" Y="19" Type="JumpEnd" />
         <Point X="32.25" Y="19" />
@@ -809,8 +823,8 @@
       <FileName>Assets\Scripts\Abilities\PlayerAbilityController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CurrentAbility" />
       <Property Name="BoxSpawnAbility" />
+      <Property Name="CurrentAbility" />
       <Property Name="thisPlayer" />
     </ShowAsAssociation>
   </Class>
@@ -842,11 +856,13 @@
         <Point X="60.333" Y="19" Type="JumpStart" />
         <Point X="60.167" Y="19" Type="JumpEnd" />
         <Point X="54.521" Y="19" Type="JumpStart" />
-        <Point X="54.354" Y="19" Type="JumpEnd" />
+        <Point X="54.355" Y="19" Type="JumpEnd" />
         <Point X="50.566" Y="19" Type="JumpStart" />
-        <Point X="50.399" Y="19" Type="JumpEnd" />
+        <Point X="50.4" Y="19" Type="JumpEnd" />
         <Point X="42.958" Y="19" Type="JumpStart" />
         <Point X="42.792" Y="19" Type="JumpEnd" />
+        <Point X="42.583" Y="19" Type="JumpStart" />
+        <Point X="42.417" Y="19" Type="JumpEnd" />
         <Point X="37.583" Y="19" Type="JumpStart" />
         <Point X="37.417" Y="19" Type="JumpEnd" />
         <Point X="32.25" Y="19" />

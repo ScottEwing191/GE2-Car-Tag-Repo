@@ -600,7 +600,13 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: ODIN_INSPECTOR;ODIN_INSPECTOR_3;DREAMTECK_SPLINES
+    1: ODIN_INSPECTOR;ODIN_INSPECTOR_3;DREAMTECK_SPLINES;BCG_RCC
+    4: BCG_RCC
+    7: BCG_RCC
+    13: BCG_RCC
+    19: BCG_RCC
+    21: BCG_RCC
+    25: BCG_RCC
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
