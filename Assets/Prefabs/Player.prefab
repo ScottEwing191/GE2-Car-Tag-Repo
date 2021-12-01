@@ -217,7 +217,7 @@ MonoBehaviour:
   chaserSpawnTransform: {fileID: 2470638760022266730}
   collisionCheckLayers:
     serializedVersion: 2
-    m_Bits: 8129
+    m_Bits: 24513
   runnerMaxUses: 4
   chaserMaxUses: 3
 --- !u!1 &696110328067088925
@@ -4012,7 +4012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a340c6cc2c34942bc7fb93d784449c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2748212000098630705}
   abilityController: {fileID: 7584422975702530065}
 --- !u!114 &2748212000098630705
 MonoBehaviour:

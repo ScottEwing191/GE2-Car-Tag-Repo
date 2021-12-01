@@ -354,13 +354,26 @@ public class RCC_Camera : MonoBehaviour{
 			#endif
 
 			break;
-
+		// === MY CODE START ===
+		case RCC_Settings.ControllerType.Custom:
+				rCCInputHandler = FindObjectOfType<CarTag.Input.RCCInputHandler>();
+				orbitX += rCCInputHandler.CameraX * orbitXSpeed;
+				orbitY += rCCInputHandler.CameraY * orbitYSpeed;
+                if (false) {
+					ChangeCamera();
+				}
+				break;
+		// === MY CODE END ===
 		}
+		
 
 		orbitX_Smoothed = Mathf.Lerp(orbitX_Smoothed, orbitX, Time.deltaTime * orbitSmooth);
 		orbitY_Smoothed = Mathf.Lerp(orbitY_Smoothed, orbitY, Time.deltaTime * orbitSmooth);
 
 	}
+	// === MY CODE START ===
+	private CarTag.Input.RCCInputHandler rCCInputHandler;
+	// === MY CODE END ===
 
 	// Change camera by increasing camera switch counter.
 	public void ChangeCamera(){

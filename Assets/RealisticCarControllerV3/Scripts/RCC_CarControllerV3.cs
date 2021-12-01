@@ -990,13 +990,23 @@ public class RCC_CarControllerV3 : RCC_Core {
 
 	}
 
+	[SerializeField] private CarTag.Input.RCCInputHandler rCCInputHandler;
 	private void Inputs() {
 
 		if (canControl) {
 
 			if (!externalController) {
 
-				inputs = RCC_InputManager.GetInputs();
+				//inputs = RCC_InputManager.GetInputs();
+				// === MY CODE START ===
+				rCCInputHandler = GetComponent<CarTag.Input.RCCInputHandler>();
+                if (rCCInputHandler != null) {
+					inputs = rCCInputHandler.GetInputs();
+                }
+                else {
+					inputs = RCC_InputManager.GetInputs();
+				}
+				// === MY CODE END ===
 
 				if (!automaticGear || semiAutomaticGear) {
 					if (!changingGear && !cutGas)

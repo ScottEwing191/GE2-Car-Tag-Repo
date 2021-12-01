@@ -107,14 +107,14 @@ public class RCC_InputManager : MonoBehaviour{
 
 		case RCC_Settings.ControllerType.Custom:
 
-			// You can use your own inputs with Custom controller type here.
-
-//			inputs.throttleInput = "yourValue";
-//			inputs.brakeInput = "yourValue";
-//			inputs.steerInput = "yourValue";
-//			inputs.boostInput = "yourValue";
+				// You can use your own inputs with Custom controller type here.
+//			CarTag.Input.RCCInputHandler rccInputHandler = FindObjectOfType<CarTag.Input.RCCInputHandler>();
+//			inputs.throttleInput = rccInputHandler.Accelerate;
+//			inputs.brakeInput = rccInputHandler.Brake;
+//			inputs.steerInput = rccInputHandler.Steering;
+//			inputs.boostInput = rccInputHandler.Boost;
 //			inputs.clutchInput = "yourValue";
-//			inputs.handbrakeInput = "yourValue";
+//			inputs.handbrakeInput = rccInputHandler.Handbrake;
 
 			break;
 

@@ -285,6 +285,304 @@ namespace CarTag.Inputs
             ]
         },
         {
+            ""name"": ""RCC"",
+            ""id"": ""a15b3a1d-fd7a-491f-b3dc-a012681db197"",
+            ""actions"": [
+                {
+                    ""name"": ""Steer"",
+                    ""type"": ""Value"",
+                    ""id"": ""5f6992c1-1e9a-4740-8225-ff857df14025"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CameraLook"",
+                    ""type"": ""Value"",
+                    ""id"": ""288afd9e-60bb-4899-88ac-5b99a4346629"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""InvertVector2(invertX=false)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Accelerate"",
+                    ""type"": ""Value"",
+                    ""id"": ""cadf4693-2466-4d2c-b145-a301322e6552"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Brake"",
+                    ""type"": ""Value"",
+                    ""id"": ""df1d63b9-17e2-4ed7-9c87-fea511e8ba4a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Handbrake"",
+                    ""type"": ""Button"",
+                    ""id"": ""55f17efd-d7fc-4010-a143-a64e9f406bf1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""448b26bc-ca4a-476b-9dcf-5f4e8f3d400c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""39c808a0-6347-42bc-b7d7-4a69a60fa059"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""42e2e68f-299d-4daa-9074-06b6ef3b7140"",
+                    ""path"": ""Dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""005c4104-d395-4f33-9e02-071951756cc4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""90d30b86-d930-4ec8-b22d-9ee82e8e97ab"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7edd297e-263f-4f49-8a17-1d4b0edafbfd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e0cfc600-bbc5-443d-adb5-b2b8d70fbd22"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""392c0828-8f2b-4e97-b972-fc77ff41e0a6"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""be12e80a-21a1-4585-9291-1421dd8ab1af"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0e76a68c-6bc5-483f-bd2b-a48187bf7be7"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""b083191c-2963-44d0-aec3-608220fc09d9"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80eaf07e-df8a-4cca-a281-2340dd3083ba"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.03,y=0.03)"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""819ec28e-17dd-46ce-bbe3-daa70b9b7412"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.001,y=0.001)"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CameraLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""763e5cba-fa1b-4b71-8969-bfa315d5f915"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4927763-fc63-49f9-8437-9161306f6190"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1645d105-8a7b-4a8d-9d37-8f30f5ee0c21"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f402b0c-7834-485f-bf1f-269bf9482018"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a743144-b793-438d-992d-070bb8d03f54"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37a0989a-873a-4147-863b-b330d653dc5b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f1d70f4-449d-4810-a644-413cbf8fc3d7"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ae60d7d-af65-448b-8552-98375392e6a2"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6137215e-1054-48c7-b7ed-adb2aea4172f"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ef22b51-9775-4f20-8090-9b0d3cfe0cb1"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Player"",
             ""id"": ""b9dc8eff-16f9-49ae-91da-be3e005717a0"",
             ""actions"": [
@@ -925,6 +1223,14 @@ namespace CarTag.Inputs
             m_Car_Accelerate = m_Car.FindAction("Accelerate", throwIfNotFound: true);
             m_Car_Brake = m_Car.FindAction("Brake", throwIfNotFound: true);
             m_Car_Handbrake = m_Car.FindAction("Handbrake", throwIfNotFound: true);
+            // RCC
+            m_RCC = asset.FindActionMap("RCC", throwIfNotFound: true);
+            m_RCC_Steer = m_RCC.FindAction("Steer", throwIfNotFound: true);
+            m_RCC_CameraLook = m_RCC.FindAction("CameraLook", throwIfNotFound: true);
+            m_RCC_Accelerate = m_RCC.FindAction("Accelerate", throwIfNotFound: true);
+            m_RCC_Brake = m_RCC.FindAction("Brake", throwIfNotFound: true);
+            m_RCC_Handbrake = m_RCC.FindAction("Handbrake", throwIfNotFound: true);
+            m_RCC_ChangeCamera = m_RCC.FindAction("ChangeCamera", throwIfNotFound: true);
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
@@ -1057,6 +1363,79 @@ namespace CarTag.Inputs
             }
         }
         public CarActions @Car => new CarActions(this);
+
+        // RCC
+        private readonly InputActionMap m_RCC;
+        private IRCCActions m_RCCActionsCallbackInterface;
+        private readonly InputAction m_RCC_Steer;
+        private readonly InputAction m_RCC_CameraLook;
+        private readonly InputAction m_RCC_Accelerate;
+        private readonly InputAction m_RCC_Brake;
+        private readonly InputAction m_RCC_Handbrake;
+        private readonly InputAction m_RCC_ChangeCamera;
+        public struct RCCActions
+        {
+            private @CarTagInputs m_Wrapper;
+            public RCCActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Steer => m_Wrapper.m_RCC_Steer;
+            public InputAction @CameraLook => m_Wrapper.m_RCC_CameraLook;
+            public InputAction @Accelerate => m_Wrapper.m_RCC_Accelerate;
+            public InputAction @Brake => m_Wrapper.m_RCC_Brake;
+            public InputAction @Handbrake => m_Wrapper.m_RCC_Handbrake;
+            public InputAction @ChangeCamera => m_Wrapper.m_RCC_ChangeCamera;
+            public InputActionMap Get() { return m_Wrapper.m_RCC; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(RCCActions set) { return set.Get(); }
+            public void SetCallbacks(IRCCActions instance)
+            {
+                if (m_Wrapper.m_RCCActionsCallbackInterface != null)
+                {
+                    @Steer.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnSteer;
+                    @Steer.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnSteer;
+                    @Steer.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnSteer;
+                    @CameraLook.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnCameraLook;
+                    @CameraLook.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnCameraLook;
+                    @CameraLook.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnCameraLook;
+                    @Accelerate.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnAccelerate;
+                    @Accelerate.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnAccelerate;
+                    @Accelerate.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnAccelerate;
+                    @Brake.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnBrake;
+                    @Brake.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnBrake;
+                    @Brake.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnBrake;
+                    @Handbrake.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
+                    @Handbrake.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
+                    @Handbrake.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
+                    @ChangeCamera.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
+                    @ChangeCamera.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
+                    @ChangeCamera.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
+                }
+                m_Wrapper.m_RCCActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Steer.started += instance.OnSteer;
+                    @Steer.performed += instance.OnSteer;
+                    @Steer.canceled += instance.OnSteer;
+                    @CameraLook.started += instance.OnCameraLook;
+                    @CameraLook.performed += instance.OnCameraLook;
+                    @CameraLook.canceled += instance.OnCameraLook;
+                    @Accelerate.started += instance.OnAccelerate;
+                    @Accelerate.performed += instance.OnAccelerate;
+                    @Accelerate.canceled += instance.OnAccelerate;
+                    @Brake.started += instance.OnBrake;
+                    @Brake.performed += instance.OnBrake;
+                    @Brake.canceled += instance.OnBrake;
+                    @Handbrake.started += instance.OnHandbrake;
+                    @Handbrake.performed += instance.OnHandbrake;
+                    @Handbrake.canceled += instance.OnHandbrake;
+                    @ChangeCamera.started += instance.OnChangeCamera;
+                    @ChangeCamera.performed += instance.OnChangeCamera;
+                    @ChangeCamera.canceled += instance.OnChangeCamera;
+                }
+            }
+        }
+        public RCCActions @RCC => new RCCActions(this);
 
         // Player
         private readonly InputActionMap m_Player;
@@ -1285,6 +1664,15 @@ namespace CarTag.Inputs
             void OnAccelerate(InputAction.CallbackContext context);
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
+        }
+        public interface IRCCActions
+        {
+            void OnSteer(InputAction.CallbackContext context);
+            void OnCameraLook(InputAction.CallbackContext context);
+            void OnAccelerate(InputAction.CallbackContext context);
+            void OnBrake(InputAction.CallbackContext context);
+            void OnHandbrake(InputAction.CallbackContext context);
+            void OnChangeCamera(InputAction.CallbackContext context);
         }
         public interface IPlayerActions
         {
