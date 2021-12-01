@@ -356,12 +356,12 @@ public class RCC_Camera : MonoBehaviour{
 			break;
 		// === MY CODE START ===
 		case RCC_Settings.ControllerType.Custom:
-				rCCInputHandler = FindObjectOfType<CarTag.Input.RCCInputHandler>();
+				//rCCInputHandler = transform.parent.GetComponentInChildren<CarTag.Input.RCCInputHandler>();
+				//rCCInputHandler = FindObjectOfType<CarTag.Input.RCCInputHandler>();
+				rCCInputHandler = playerCar.GetComponentInParent<CarTag.Input.RCCInputHandler>();
+
 				orbitX += rCCInputHandler.CameraX * orbitXSpeed;
 				orbitY += rCCInputHandler.CameraY * orbitYSpeed;
-                if (false) {
-					ChangeCamera();
-				}
 				break;
 		// === MY CODE END ===
 		}

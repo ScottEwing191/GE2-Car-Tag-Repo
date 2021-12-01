@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +14,12 @@ namespace CarTag.Abilities {
         [SerializeField] private ParticleSystem rocketEffect;
         [SerializeField] private ParticleSystem explosionEffect;
         [SerializeField] private LayerMask collidableLayers;
+        
 
         Rigidbody thisRigidbody;
         private float timeLeftTillExplode;
         private bool hasExploded = false;
+        private Player spawner;                 // The player which spawned the rocket
 
         private void Start() {
             //thisRigidbody = GetComponent<Rigidbody>();
@@ -45,11 +48,30 @@ namespace CarTag.Abilities {
             }
         }
 
+        internal void SetSpawner(Player thisPlayer) {
+            spawner = thisPlayer;
+        }
+
         private void OnCollisionEnter(Collision collision) {
+            //--                    Is colliding with an object which is already on the collidable layer
             if (!hasExploded && collidableLayers == (collidableLayers | 1 << collision.gameObject.layer)) {
-                Vector3 contactPosition = collision.GetContact(0).point;
-                Explode(contactPosition);
+                if (!IsCollidingWithSpawner(collision.gameObject)) {                                        // dont explode when hitting car that fired rocket
+                    Vector3 contactPosition = collision.GetContact(0).point;
+                    Explode(contactPosition); 
+                }
             }
+        }
+
+        //--Check if the object that the rocket collided with has a Player script attached to its parents. And checks if the that player is the same as the player who 
+        //--fired the rocket.
+        private bool IsCollidingWithSpawner(GameObject collidedWith) {
+            Player playerCollidedWith = GameManager.Instance.PlayerManager.GetPlayerFromGameObject(collidedWith);
+            if (playerCollidedWith != null) {
+                if (playerCollidedWith == spawner) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void Explode(Vector3 explodePosition) {

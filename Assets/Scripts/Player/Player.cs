@@ -23,6 +23,7 @@ namespace CarTag {
         public PlayerUIController PlayerUIController { get; set; }
         public PlayerAbilityController PlayerAbilityController { get; set; }
         public PlayerScore PlayerScore { get; set; }
+        public RCC_CarControllerV3 RCC_CarController { get; set; }
 
 
         //Properties
@@ -39,6 +40,7 @@ namespace CarTag {
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
             PlayerScore = GetComponentInChildren<PlayerScore>();
+            RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
         }
 
         public bool IsThisPlayerCurrentRunner() {

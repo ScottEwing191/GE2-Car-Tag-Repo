@@ -39,7 +39,9 @@ namespace CarTag.Abilities {
             }
             currentRocket = Instantiate(abilityPrefab, spawnTransform.position, spawnTransform.rotation).GetComponent<Rocket>();
             LayerMask collidableLayers = collisionCheckLayers;
-            float carSpeed = playerAbilityController.thisPlayer.CarController.CurrentSpeed;
+            //float carSpeed = playerAbilityController.thisPlayer.CarController.CurrentSpeed;
+            float carSpeed = playerAbilityController.thisPlayer.RCC_CarController.GetComponent<Rigidbody>().velocity.magnitude;
+            currentRocket.GetComponent<Rocket>().SetSpawner(playerAbilityController.thisPlayer);
             currentRocket.StartRocket(carSpeed);
             AbilityUsed();
         }

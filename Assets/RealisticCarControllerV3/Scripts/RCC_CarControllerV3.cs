@@ -999,7 +999,7 @@ public class RCC_CarControllerV3 : RCC_Core {
 
 				//inputs = RCC_InputManager.GetInputs();
 				// === MY CODE START ===
-				rCCInputHandler = GetComponent<CarTag.Input.RCCInputHandler>();
+				rCCInputHandler = GetComponentInParent<CarTag.Input.RCCInputHandler>();
                 if (rCCInputHandler != null) {
 					inputs = rCCInputHandler.GetInputs();
                 }

@@ -15,10 +15,12 @@ namespace CarTag.Input
         public float CameraX { get; private set; }
         public float CameraY { get; private set; }
 
-        private RCC_Camera camera;
+        [SerializeField] private RCC_Camera rccCamera;
 
         private void Start() {
-            camera = FindObjectOfType<RCC_Camera>();
+            //rccCamera = transform.parent.GetComponentInChildren<RCC_Camera>();
+            //rccCamera = FindObjectOfType<RCC_Camera>();
+
         }
 
 
@@ -31,16 +33,17 @@ namespace CarTag.Input
             Vector2 value = context.action.ReadValue<Vector2>();
             CameraX = value.x;
             CameraY = value.y;
-
+            //print("LOOK: " + gameObject.name);
         }
         public void OnAccelerate(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<float>();
             Accelerate = value;
+            //print("Accelerate: " + gameObject.name);
         }
         public void OnBrake(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<float>();
             Brake = value;
-            print("Might have to make value positive");
+            //print("Might have to make value positive");
         }
         public void OnHandbrake(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<float>();
@@ -57,7 +60,7 @@ namespace CarTag.Input
         }
         public void OnChangeCanera(InputAction.CallbackContext context) {
             if (context.started) {
-                camera.ChangeCamera();
+                rccCamera.ChangeCamera();
             }
         }
 
