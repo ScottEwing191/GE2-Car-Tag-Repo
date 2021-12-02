@@ -165,8 +165,11 @@ namespace CarTag.PlayerSpace {
         /// do nothing)
         /// </summary>
         private void RespawnChasers(Player newRunner, Player newChaser) {
-            Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
-            Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
+            //Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
+            //Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
+            Vector3 respawnPos = newChaser.RCC_CarController.transform.position;
+            Quaternion respawnRot = newChaser.RCC_CarController.transform.rotation;
+
             for (int i = 0; i < players.Count; i++) {
                 if (players[i] == newRunner /*|| players[i] == newChaser*/) {                   // dont need to respawn runner or chaser
                     players[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without

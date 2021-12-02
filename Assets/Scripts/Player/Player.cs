@@ -30,6 +30,16 @@ namespace CarTag {
         public PlayerRoleEnum PlayerRoll { 
             get { return playerRoll; } 
             set { playerRoll = value; } }     // keeps track of the current roll of the player
+        private void Awake() {
+            //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
+            RCC_CarControllerV3[]  rccCarControllers = GetComponentsInChildren<RCC_CarControllerV3>();
+            foreach (RCC_CarControllerV3 controller in rccCarControllers) {
+                if (controller.gameObject.activeInHierarchy) {
+                    RCC_CarController = controller;
+                    break;
+                }
+            }
+        }
 
         public void InitialSetup() {
             PlayerManager = FindObjectOfType<PlayerManager>();
@@ -40,7 +50,7 @@ namespace CarTag {
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
             PlayerScore = GetComponentInChildren<PlayerScore>();
-            RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
+            //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
         }
 
         public bool IsThisPlayerCurrentRunner() {

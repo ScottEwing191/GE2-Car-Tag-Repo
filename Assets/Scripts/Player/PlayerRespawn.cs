@@ -20,10 +20,17 @@ namespace CarTag.PlayerSpace
 
         private void Awake() {
             player = GetComponentInParent<Player>();
-            carRb = GetComponent<Rigidbody>();
-            startPosition = transform.position;
-            startRotation = transform.rotation;
-            SetRespawnLocation(transform.position, transform.rotation);
+            //carRb = GetComponent<Rigidbody>();
+            //startPosition = transform.position;
+            //startRotation = transform.rotation;
+            //SetRespawnLocation(transform.position, transform.rotation);
+        }
+
+        private void Start() {
+            carRb = player.RCC_CarController.GetComponent<Rigidbody>();
+            startPosition = player.RCC_CarController.transform.position;
+            startRotation = player.RCC_CarController.transform.rotation;
+            SetRespawnLocation(startPosition, startRotation);
         }
 
         public void RespawnAtCheckpoint() {
@@ -65,7 +72,6 @@ namespace CarTag.PlayerSpace
         /// </summary>
         private IEnumerator StopWheels() {
             yield return new WaitForFixedUpdate();
-            print(transform.gameObject.name);
             SetCarVelocity(0);                          // stops car from moving after respawning while on ramp
             SetWheelBrakeTorque(Mathf.Infinity);        // stops wheels from spinning, but stops acceleration from working
             yield return new WaitForFixedUpdate();
@@ -97,8 +103,13 @@ namespace CarTag.PlayerSpace
 
         private void SetCarTransform(Vector3 position, Quaternion rotation) {
             //--Set the position and rotation of the car to the respawn position and rotation
-            carRb.transform.position = position;
-            carRb.transform.rotation = rotation;
+            //carRb.transform.position = position;
+            //carRb.transform.rotation = rotation;
+            //transform.position = position;
+            //transform.rotation = rotation;
+            player.RCC_CarController.transform.position = position;
+            player.RCC_CarController.transform.rotation = rotation;
+
         }
 
         private void SetCarVelocity(float maxVelocity) {
@@ -123,7 +134,9 @@ namespace CarTag.PlayerSpace
         //--If the car is going to collide with another car at the respawn point then turn off the car's collision and start enumerator..
         //... which will turn it back on once the cars will not collide with each other
         private void CheckCollisionWithCars() {
-            if (player.PlayerCollision.CarCollisionCheck()) {
+            //if (player.PlayerCollision.CarCollisionCheck()) {
+            //--Changed line so that CarCollision Doen't need to be attached to car so I can use one car controller script instead of one for each car
+            if (player.PlayerCollision.CarCollisionCheck(player.RCC_CarController.transform.position, player.RCC_CarController.transform.rotation)) {
                 player.PlayerCollision.SetGameObjectListToLayer("Car No Collision");                    // turn off car collision
                 StartCoroutine(player.PlayerCollision.TurnOnCarCollision(0.1f));  // start enumerator to turn it back on
             }
@@ -135,7 +148,7 @@ namespace CarTag.PlayerSpace
         }
 
 
-        private void OnTriggerEnter(Collider other) {
+        public void TriggerEnter(Collider other) {
             //--When going through checkpoint record the respawn point atached to checkpoint 
             if (other.gameObject.CompareTag("Checkpoint")) {
                 Checkpoint cp = other.gameObject.GetComponentInParent<Checkpoint>();
