@@ -27,7 +27,9 @@ namespace CarTag.PlayerSpace {
             player = GetComponentInParent<Player>();
             collisionCheckCenter = tempBoxCollider.center;
             collisionCheckHalfSize = tempBoxCollider.size / 2;
-            collisionOnCheckMask = LayerMask.GetMask("Car Collision");
+            //collisionOnCheckMask = LayerMask.GetMask("Car Collision");
+            collisionOnCheckMask = LayerMask.GetMask("RCC");
+
         }
 
         private void Start() {
@@ -101,7 +103,8 @@ namespace CarTag.PlayerSpace {
 
                 yield return new WaitForFixedUpdate();
             }
-            SetGameObjectListToLayer("Car Collision");
+            //SetGameObjectListToLayer("Car Collision");
+            SetGameObjectListToLayer("RCC");
             rolesSwapped = false;       //this should happen when the new nunners collision is turned on NOT just any old car
         }
         public IEnumerator TurnOnCarCollision(float delay) {
