@@ -15,7 +15,8 @@ namespace CarTag {
         }
 
         private void OnCollisionEnter(Collision collision) {
-            thisPlayer.PlayerCollision.OnCollisionEnter(collision);
+            thisPlayer.PlayerCollision.CollisionEnter(collision);
+            print("Collision");
 
         }
     }

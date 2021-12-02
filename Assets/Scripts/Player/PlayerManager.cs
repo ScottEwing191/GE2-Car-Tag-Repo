@@ -39,7 +39,8 @@ namespace CarTag.PlayerSpace {
             SetupPlayers();
             FindCurrentRunner();
             runnerAtRoundStart = CurrentRunner;
-            AssignCarStats();
+            //AssignCarStats();
+            ChangeAllCars();
         }
 
         //--Use the number of players selected in the Main menu to disable the player Objects which are not required and remove them from te players list.
@@ -142,11 +143,24 @@ namespace CarTag.PlayerSpace {
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
-            SwapCarStats(newRunner, newChaser);
+            //SwapCarStats(newRunner, newChaser);
+            SwapCars(newRunner, newChaser);
             DisableChasers();
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime));
             UIManager.StartChaserCountdown(chaserRoleSwapWaitTime);
             StartCoroutine(StartChasersAfterRoleSwapWait());
+        }
+
+        private void SwapCars(Player newRunner, Player newChaser) {
+            newRunner.ChangePlayerCars.ChangeCar(true);
+            newChaser.ChangePlayerCars.ChangeCar(false);
+
+        }
+
+        private void ChangeAllCars() {
+            foreach (Player player in players) {
+                player.ChangePlayerCars.ChangeCar(player.IsThisPlayerCurrentRunner());
+            }
         }
 
         /// <summary>
@@ -221,6 +235,7 @@ namespace CarTag.PlayerSpace {
 
             }
             ResetRolesAfterRound();
+            ChangeAllCars();
         }
         /// <summary>
         /// Sets the player who will be the runner at the start of the next rond.

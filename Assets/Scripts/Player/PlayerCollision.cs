@@ -38,7 +38,7 @@ namespace CarTag.PlayerSpace {
 
         
 
-        public void OnCollisionEnter(Collision collision) {
+        public void CollisionEnter(Collision collision) {
             if (rolesSwapped) { return; }       // if the roles have already swapped (due to first collider on car) dont swap again (due to second)
 
             if (thisPlayer.PlayerRoll != PlayerRoleEnum.Chaser) { return; }       // this car must be a chaser to continue

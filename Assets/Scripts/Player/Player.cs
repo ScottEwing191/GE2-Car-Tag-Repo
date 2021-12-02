@@ -24,6 +24,7 @@ namespace CarTag {
         public PlayerAbilityController PlayerAbilityController { get; set; }
         public PlayerScore PlayerScore { get; set; }
         public RCC_CarControllerV3 RCC_CarController { get; set; }
+        public ChangePlayerCars ChangePlayerCars { get; set; }
 
 
         //Properties
@@ -39,6 +40,8 @@ namespace CarTag {
                     break;
                 }
             }
+            ChangePlayerCars = GetComponent<ChangePlayerCars>();
+
         }
 
         public void InitialSetup() {

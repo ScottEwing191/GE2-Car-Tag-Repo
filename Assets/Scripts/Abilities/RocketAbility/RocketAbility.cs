@@ -12,6 +12,11 @@ namespace CarTag.Abilities {
         Transform spawnTransform;
         Rocket currentRocket;
 
+        public Transform SpawnTransform {
+            get { return spawnTransform; }
+            set { spawnTransform = value; }
+        }
+
         protected override void Awake() {
             base.Awake();
             spawnTransform = runnerSpawnTransform;      //-- the runner and chaser will both spawn the rocket at the same transform 
