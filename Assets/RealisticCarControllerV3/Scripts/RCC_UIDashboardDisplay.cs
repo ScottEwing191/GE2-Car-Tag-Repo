@@ -62,7 +62,9 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
 	public Dropdown mobileControllers;
 
+	private CarTag.Player thisPlayer;
 	void Awake(){
+		thisPlayer = GetComponentInParent<CarTag.Player>();
 
 		inputs = GetComponent<RCC_DashboardInputs>();
 
@@ -176,8 +178,115 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 		}
 
 	}
-	
-	void LateUpdate () {
+	//=== MY MODIFIED LATE UPDATE ===
+	//-- I Changed RCC_SceneManager.Instance.activePlayerVehicle to thisPlayer.RCC_CarController. This allows it to work for multiple cars
+	void LateUpdate() {
+
+		if (thisPlayer.RCC_CarController) {
+
+			/*if (RPMLabel)
+				RPMLabel.text = inputs.RPM.ToString("0");*/
+
+			if (KMHLabel) {
+
+				if (RCCSettings.units == RCC_Settings.Units.KMH)
+					KMHLabel.text = inputs.KMH.ToString("0") + "\nKMH";
+				else
+					KMHLabel.text = (inputs.KMH * 0.62f).ToString("0") + "\nMPH";
+
+			}
+
+			/*if (GearLabel) {
+
+				if (!inputs.NGear && !inputs.changingGear)
+					GearLabel.text = inputs.direction == 1 ? (inputs.Gear + 1).ToString("0") : "R";
+				else
+					GearLabel.text = "N";
+
+			}
+
+			if (recordingLabel) {
+
+				switch (RCC_SceneManager.Instance.recordMode) {
+
+					case RCC_SceneManager.RecordMode.Neutral:
+
+						if (recordingLabel.gameObject.activeInHierarchy)
+							recordingLabel.gameObject.SetActive(false);
+
+						recordingLabel.text = "";
+
+						break;
+
+					case RCC_SceneManager.RecordMode.Play:
+
+						if (!recordingLabel.gameObject.activeInHierarchy)
+							recordingLabel.gameObject.SetActive(true);
+
+						recordingLabel.text = "Playing";
+						recordingLabel.color = Color.green;
+
+						break;
+
+					case RCC_SceneManager.RecordMode.Record:
+
+						if (!recordingLabel.gameObject.activeInHierarchy)
+							recordingLabel.gameObject.SetActive(true);
+
+						recordingLabel.text = "Recording";
+						recordingLabel.color = Color.red;
+
+						break;
+
+				}
+
+			}
+
+			if (ABS)
+				ABS.color = inputs.ABS == true ? Color.yellow : Color.white;
+			if (ESP)
+				ESP.color = inputs.ESP == true ? Color.yellow : Color.white;
+			if (Park)
+				Park.color = inputs.Park == true ? Color.red : Color.white;
+			if (Headlights)
+				Headlights.color = inputs.Headlights == true ? Color.green : Color.white;
+			if (heatIndicator)
+				heatIndicator.color = thisPlayer.RCC_CarController.engineHeat >= 100f ? Color.red : new Color(.1f, 0f, 0f);
+			if (fuelIndicator)
+				fuelIndicator.color = thisPlayer.RCC_CarController.fuelTank < 10f ? Color.red : new Color(.1f, 0f, 0f);
+			if (rpmIndicator)
+				rpmIndicator.color = thisPlayer.RCC_CarController.engineRPM >= thisPlayer.RCC_CarController.maxEngineRPM - 500f ? Color.red : new Color(.1f, 0f, 0f);
+
+			if (leftIndicator && rightIndicator) {
+
+				switch (inputs.indicators) {
+
+					case RCC_CarControllerV3.IndicatorsOn.Left:
+						leftIndicator.color = new Color(1f, .5f, 0f);
+						rightIndicator.color = new Color(.5f, .25f, 0f);
+						break;
+					case RCC_CarControllerV3.IndicatorsOn.Right:
+						leftIndicator.color = new Color(.5f, .25f, 0f);
+						rightIndicator.color = new Color(1f, .5f, 0f);
+						break;
+					case RCC_CarControllerV3.IndicatorsOn.All:
+						leftIndicator.color = new Color(1f, .5f, 0f);
+						rightIndicator.color = new Color(1f, .5f, 0f);
+						break;
+					case RCC_CarControllerV3.IndicatorsOn.Off:
+						leftIndicator.color = new Color(.5f, .25f, 0f);
+						rightIndicator.color = new Color(.5f, .25f, 0f);
+						break;
+
+				}
+
+			}*/
+
+		}
+
+	}
+	//=== ORIGINAL LATE UPDATE ===
+	/*void LateUpdate () {
 
 		if (RCC_SceneManager.Instance.activePlayerVehicle) {
 	
@@ -281,7 +390,7 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
 
 		}
 
-	}
+	}*/
 
 	public void SetDisplayType(DisplayType _displayType){
 
