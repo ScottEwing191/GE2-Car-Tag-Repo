@@ -16,14 +16,11 @@ namespace CarTag.Input
         public float CameraY { get; private set; }
 
         [SerializeField] private RCC_Camera rccCamera;
+        private Player thisPlayer;
 
-        private void Start() {
-            //rccCamera = transform.parent.GetComponentInChildren<RCC_Camera>();
-            //rccCamera = FindObjectOfType<RCC_Camera>();
-
+        private void Awake() {
+            thisPlayer = GetComponent<Player>();
         }
-
-
 
         public void OnSteer(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<Vector2>();
@@ -51,7 +48,8 @@ namespace CarTag.Input
         }
 
         public void OnBoost(InputAction.CallbackContext context) {
-            if (context.started) {
+            if (context.started && !thisPlayer.IsThisPlayerCurrentRunner()) {       // this is not the ideal place for this check but the alternatice was in the...
+                                                                                    // ... RCC_CarController which I didn't write
                 Boost = 1;
             }
             else if (context.canceled) {
@@ -67,7 +65,9 @@ namespace CarTag.Input
 
         internal RCC_Inputs GetInputs() {
             RCC_Inputs inputs = new RCC_Inputs();
-            inputs.SetInput(Accelerate, Brake, Steering, Handbrake);
+            inputs.SetInput(Accelerate, Brake, Steering, 0, Handbrake, Boost);
+            //inputs.SetInput(Accelerate, Brake, Steering, Handbrake);
+
             return inputs;
         }
     }

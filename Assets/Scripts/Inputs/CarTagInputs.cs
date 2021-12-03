@@ -335,6 +335,14 @@ namespace CarTag.Inputs
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Boost"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfd69441-0a90-4c77-b171-d674b99588fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -579,6 +587,28 @@ namespace CarTag.Inputs
                     ""action"": ""ChangeCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9215e202-d2eb-4d95-98e4-60b9ffd57a37"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6da3ae9-541b-4854-a4b6-68106bffdca6"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -664,7 +694,7 @@ namespace CarTag.Inputs
                 {
                     ""name"": """",
                     ""id"": ""9c3234fa-0680-48d4-a1aa-bf01b7806af6"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -1231,6 +1261,7 @@ namespace CarTag.Inputs
             m_RCC_Brake = m_RCC.FindAction("Brake", throwIfNotFound: true);
             m_RCC_Handbrake = m_RCC.FindAction("Handbrake", throwIfNotFound: true);
             m_RCC_ChangeCamera = m_RCC.FindAction("ChangeCamera", throwIfNotFound: true);
+            m_RCC_Boost = m_RCC.FindAction("Boost", throwIfNotFound: true);
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
@@ -1373,6 +1404,7 @@ namespace CarTag.Inputs
         private readonly InputAction m_RCC_Brake;
         private readonly InputAction m_RCC_Handbrake;
         private readonly InputAction m_RCC_ChangeCamera;
+        private readonly InputAction m_RCC_Boost;
         public struct RCCActions
         {
             private @CarTagInputs m_Wrapper;
@@ -1383,6 +1415,7 @@ namespace CarTag.Inputs
             public InputAction @Brake => m_Wrapper.m_RCC_Brake;
             public InputAction @Handbrake => m_Wrapper.m_RCC_Handbrake;
             public InputAction @ChangeCamera => m_Wrapper.m_RCC_ChangeCamera;
+            public InputAction @Boost => m_Wrapper.m_RCC_Boost;
             public InputActionMap Get() { return m_Wrapper.m_RCC; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1410,6 +1443,9 @@ namespace CarTag.Inputs
                     @ChangeCamera.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
                     @ChangeCamera.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
                     @ChangeCamera.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
+                    @Boost.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnBoost;
+                    @Boost.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnBoost;
+                    @Boost.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnBoost;
                 }
                 m_Wrapper.m_RCCActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1432,6 +1468,9 @@ namespace CarTag.Inputs
                     @ChangeCamera.started += instance.OnChangeCamera;
                     @ChangeCamera.performed += instance.OnChangeCamera;
                     @ChangeCamera.canceled += instance.OnChangeCamera;
+                    @Boost.started += instance.OnBoost;
+                    @Boost.performed += instance.OnBoost;
+                    @Boost.canceled += instance.OnBoost;
                 }
             }
         }
@@ -1673,6 +1712,7 @@ namespace CarTag.Inputs
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
             void OnChangeCamera(InputAction.CallbackContext context);
+            void OnBoost(InputAction.CallbackContext context);
         }
         public interface IPlayerActions
         {

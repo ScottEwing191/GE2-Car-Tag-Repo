@@ -320,6 +320,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "dfd69441-0a90-4c77-b171-d674b99588fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -564,6 +572,28 @@
                     "action": "ChangeCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9215e202-d2eb-4d95-98e4-60b9ffd57a37",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6da3ae9-541b-4854-a4b6-68106bffdca6",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -649,7 +679,7 @@
                 {
                     "name": "",
                     "id": "9c3234fa-0680-48d4-a1aa-bf01b7806af6",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
