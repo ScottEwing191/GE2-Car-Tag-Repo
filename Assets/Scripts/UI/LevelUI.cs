@@ -89,6 +89,7 @@ namespace CarTag.UI
 
         public void NextRoundButton() {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+            //Time.timeScale = 1;
             GameManager.Instance.StartNewRound();
 
         }

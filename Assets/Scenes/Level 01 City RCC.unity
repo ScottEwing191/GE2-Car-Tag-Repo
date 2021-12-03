@@ -595,9 +595,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 4579098903956981260, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
+    - target: {fileID: 4579098903956947610, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579098903956981260, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4579098904736390757, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_IsActive
@@ -3289,7 +3293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4959233617535448418, guid: 4c1d1996440f1a245851148e07079be9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 4959233617535448418, guid: 4c1d1996440f1a245851148e07079be9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7919,7 +7923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 3
   chaserStartWaitTime: 5
-  distanceToWin: 20000
+  distanceToWin: 6000
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:
@@ -10448,7 +10452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4959233617535448418, guid: 4c1d1996440f1a245851148e07079be9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 4959233617535448418, guid: 4c1d1996440f1a245851148e07079be9, type: 3}
       propertyPath: m_LocalPosition.z
