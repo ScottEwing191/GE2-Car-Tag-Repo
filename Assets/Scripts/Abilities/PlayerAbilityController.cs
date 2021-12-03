@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Abilities;
 using CarTag.Abilities.BoxSpawn;
-
+using System;
 
 namespace CarTag.Abilities {
     public enum InputState { STARTED, PERFORMED, CANCELLED }
@@ -40,7 +40,7 @@ namespace CarTag.Abilities {
         }
 
         public void OnAbilityInputStarted() {
-            if (cooldownOver) {
+            if (cooldownOver && thisPlayer.IsPlayerEnabled) {
                 CurrentAbility.OnAbilityButtonPressed("");
             }
         }
@@ -58,6 +58,11 @@ namespace CarTag.Abilities {
                     newIndex = 0;
                 }
                 CurrentAbility = abilities[newIndex];
+                //--Check if the new CUrrent ability will work with the player current role
+                if (!IsAbilityCompatibleWithPlayerRole()) {
+                    NextAbility();
+                    return;                 // makes sure the UI is not set for each ability which is not compatable
+                }
                 thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, newIndex);     // update the UI
             }
             //--If Can't Switch Ability
@@ -74,6 +79,10 @@ namespace CarTag.Abilities {
                     newIndex = abilities.Count - 1;
                 }
                 CurrentAbility = abilities[newIndex];
+                if (!IsAbilityCompatibleWithPlayerRole()) {
+                    PreviousAbility();
+                    return;
+                }
                 thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, newIndex);     // update the UI
             }
             //--If Can't Switch Ability
@@ -82,7 +91,16 @@ namespace CarTag.Abilities {
             }
         }
 
-
+        //--Returns True if the current ability is compatable with the players current role
+        private bool IsAbilityCompatibleWithPlayerRole() {
+            if (thisPlayer.IsThisPlayerCurrentRunner() && CurrentAbility.IsRunnerAbility) {     // player = runner | current ability is compatible with runner
+                return true;
+            }
+            else if (!thisPlayer.IsThisPlayerCurrentRunner() && CurrentAbility.IsChaserAbility) {   // player = chaser | current ability is compatible with chaser
+                return true;
+            }
+            return false;
+        }
 
         private int GetCurrentAbilityIndex() {
             for (int i = 0; i < abilities.Count; i++) {

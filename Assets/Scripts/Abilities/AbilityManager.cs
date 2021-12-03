@@ -15,6 +15,7 @@ namespace CarTag.Abilities
         public List<PlayerAbilityController> PlayerAbilityControllers { get; set; }
         public PlayerManager PlayerManager { get; private set; }
         public UIManager UIManager { get; set; }
+        public RoundManager RoundManager { get; set; }
 
 
 
@@ -24,6 +25,7 @@ namespace CarTag.Abilities
             PlayerAbilityControllers = new List<PlayerAbilityController>();
             UIManager = GameManager.Instance.UIManager;
             PlayerManager = GameManager.Instance.PlayerManager;
+            RoundManager = GameManager.Instance.RoundManager;
             foreach (Player player in PlayerManager.Players) {
                 PlayerAbilityControllers.Add(player.GetComponentInChildren<PlayerAbilityController>());
             }

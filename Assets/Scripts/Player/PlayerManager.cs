@@ -141,6 +141,7 @@ namespace CarTag.PlayerSpace {
 
         //=== ROLE SWAP START ===
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
+            InvokeRoleSwapEvents();
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
             //SwapCarStats(newRunner, newChaser);
@@ -149,6 +150,12 @@ namespace CarTag.PlayerSpace {
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime));
             UIManager.StartChaserCountdown(chaserRoleSwapWaitTime);
             StartCoroutine(StartChasersAfterRoleSwapWait());
+        }
+
+        private void InvokeRoleSwapEvents() {
+            foreach (var p in players) {
+                p.InvokeRoleSwapEvent();
+            }
         }
 
         private void SwapCars(Player newRunner, Player newChaser) {
@@ -205,31 +212,24 @@ namespace CarTag.PlayerSpace {
         //=== ENABLE/DISABLE CARS START ===
         public void DisableCars() {
             foreach (Player p in players) {
-                //carStatsController.DisableCar(p.CarController);
-                p.RCC_CarController.canControl = false;
+                p.DisablePlayer();
             }
         }
         private void DisableChasers() {
             foreach (Player p in players) {
                 if (p != CurrentRunner) {
-                    //carStatsController.DisableCar(p.CarController);
-                    p.RCC_CarController.canControl = false;
-
+                    p.DisablePlayer();
                 }
             }
         }
 
         public void EnableRunner() {
-            //carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
-            CurrentRunner.RCC_CarController.canControl = true;
+            CurrentRunner.EnablePlayer();
         }
         public void EnableChasers() {
-            //carStatsController.EnableCar(CurrentRunner.CarController, carStatsController.RunnerStats);
             foreach (Player p in players) {
                 if (p != CurrentRunner) {
-                    //carStatsController.EnableCar(p.CarController, carStatsController.ChaserStats);
-                    p.RCC_CarController.canControl = true;
-
+                    p.EnablePlayer();
                 }
             }
         }

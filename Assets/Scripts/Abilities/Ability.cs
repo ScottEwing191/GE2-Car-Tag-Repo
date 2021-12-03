@@ -9,6 +9,9 @@ namespace CarTag.Abilities
         protected PlayerAbilityController playerAbilityController;
         protected int maxUses = 4;
         protected int usesLeft = 4;
+        protected bool isRunnerAbility = true;
+        protected bool isChaserAbility = true;
+
 
         //--Properties
         public int MaxUses { get { return maxUses; } }
@@ -16,6 +19,8 @@ namespace CarTag.Abilities
             get { return usesLeft; }
             set { usesLeft = value; }
         }
+        public bool IsRunnerAbility { get { return isRunnerAbility; } }
+        public bool IsChaserAbility { get { return isChaserAbility; } }
 
 
         protected virtual void Awake() {

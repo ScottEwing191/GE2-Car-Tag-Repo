@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityStandardAssets.Vehicles.Car;
 using CarTag.UI;
@@ -11,6 +12,8 @@ using CarTag.ScoreSystem;
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
+        public event Action roleSwapEvent = delegate { }; 
+        
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
 
         // Auto-implemented properties
@@ -25,6 +28,7 @@ namespace CarTag {
         public PlayerScore PlayerScore { get; set; }
         public RCC_CarControllerV3 RCC_CarController { get; set; }
         public ChangePlayerCars ChangePlayerCars { get; set; }
+        public bool  IsPlayerEnabled { get; set; }
 
 
         //Properties
@@ -56,11 +60,23 @@ namespace CarTag {
             //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
         }
 
+        public void InvokeRoleSwapEvent() {
+            roleSwapEvent.Invoke();
+        }
+
         public bool IsThisPlayerCurrentRunner() {
             if (this == PlayerManager.CurrentRunner) {
                 return true;
             }
             else { return false; }
+        }
+        public void EnablePlayer() {
+            RCC_CarController.canControl = true;
+            IsPlayerEnabled = true;
+        }
+        public void DisablePlayer() {
+            RCC_CarController.canControl = false;
+            IsPlayerEnabled = false;
         }
     }
 }
