@@ -18,7 +18,7 @@ namespace CarTag.Abilities {
         protected override void Awake() {
             base.Awake();
             thisPlayer = GetComponentInParent<Player>();
-            isRunnerAbility = false;
+            //isRunnerAbility = false;
         }
 
         private void Start() {
@@ -28,10 +28,12 @@ namespace CarTag.Abilities {
         }
 
         private void OnEnable() {
-            thisPlayer.roleSwapEvent += OnRoleSwap;
+            thisPlayer.roleSwapEvent += TryDisableSloMo;
+            thisPlayer.roundEndEvent += TryDisableSloMo;
         }
         private void OnDisable() {
-            thisPlayer.roleSwapEvent -= OnRoleSwap;
+            thisPlayer.roleSwapEvent -= TryDisableSloMo;
+            thisPlayer.roundEndEvent -= TryDisableSloMo;
 
         }
         //--Can be implemented by each Spawnable ability to determine if they can be activated
@@ -52,9 +54,7 @@ namespace CarTag.Abilities {
             return true;
         }
 
-        public override void RoleStartSetup(bool isRunner) {
-
-        }
+        
         public override void OnAbilityButtonPressed<T>(T obj) {
             if (!CanStartAbility()) {
                 return;
@@ -91,14 +91,12 @@ namespace CarTag.Abilities {
             playerAbilityController.CurrentAbilityUsed(usesLeft);
         }
 
-        private void OnRoleSwap() {
+        //--Called either when there is a role swap or the round is over. If the slomoability is active while either of these happen then the slomo will be disabled.
+        private void TryDisableSloMo() {
             print("Ability Role Swap");
             if (slowTimeRoutine != null) {
                 DisableSlowMo();
             }
-        }
-        public override void Reset() {
-
         }
     }
 }

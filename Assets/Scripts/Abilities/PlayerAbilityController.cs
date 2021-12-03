@@ -4,6 +4,7 @@ using UnityEngine;
 using CarTag.Abilities;
 using CarTag.Abilities.BoxSpawn;
 using System;
+using System.Linq;
 
 namespace CarTag.Abilities {
     public enum InputState { STARTED, PERFORMED, CANCELLED }
@@ -34,6 +35,7 @@ namespace CarTag.Abilities {
         public void InitialSetup() {
             AbilityManager = GameManager.Instance.AbilityManager;
             thisPlayer = GetComponentInParent<Player>();
+            
             foreach (Ability ability in abilities) {
                 ability.RoleStartSetup(thisPlayer.IsThisPlayerCurrentRunner());
             }
@@ -48,7 +50,8 @@ namespace CarTag.Abilities {
         public void OnAbilityInputCancelled() {
             CurrentAbility.OnAbilityButtonReleased("");
         }
-
+        //--Called from input handler. Will set the the current ability ti the next ability in the list. If next ability is incompatable with player role it will move onto the...
+        //--one after that and so on. Will also loop back to the start of the list.
         public void NextAbility() {
             //--If Can Switch Ability
             if (CurrentAbility.CanSwitchFrom()) {
@@ -63,7 +66,8 @@ namespace CarTag.Abilities {
                     NextAbility();
                     return;                 // makes sure the UI is not set for each ability which is not compatable
                 }
-                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, newIndex);     // update the UI
+                int abilityCompatableIndex = GetAbilityCompatableIndex();
+                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
             }
             //--If Can't Switch Ability
             else {
@@ -83,7 +87,9 @@ namespace CarTag.Abilities {
                     PreviousAbility();
                     return;
                 }
-                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, newIndex);     // update the UI
+                int abilityCompatableIndex = GetAbilityCompatableIndex();
+
+                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
             }
             //--If Can't Switch Ability
             else {
@@ -115,13 +121,31 @@ namespace CarTag.Abilities {
             foreach (Ability ability in abilities) {
                 ability.RoleStartSetup(thisPlayer.IsThisPlayerCurrentRunner());
             }
-            this.thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft);
+
+            if (!IsAbilityCompatibleWithPlayerRole()) {     // if the player has an ability selected which is not compatable with current role then move onto next ability
+                NextAbility();
+            }
+            int abilityIndex = GetAbilityCompatableIndex();
+
+            thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
             //-Reset use ability timer
             if (abilityTimerRoutine != null) {
                 StopCoroutine(abilityTimerRoutine);
                 abilityTimerRoutine = null;
                 cooldownOver = true;
             }
+        }
+
+        //--Get the index of the current ability but only out of the Abilities which are compatable with the current runner
+        private int GetAbilityCompatableIndex() {
+            int index = -1;
+            if (thisPlayer.IsThisPlayerCurrentRunner()) {
+                index = abilities.Where(i => i.isRunnerAbility).ToList().FindIndex(a => a == CurrentAbility);
+            }
+            else {
+                index = abilities.Where(i => i.isChaserAbility).ToList().FindIndex(a => a == CurrentAbility);
+            }
+            return index;
         }
 
         public void CurrentAbilityUsed(int usesLeft) {

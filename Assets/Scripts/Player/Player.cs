@@ -12,8 +12,10 @@ using CarTag.ScoreSystem;
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
-        public event Action roleSwapEvent = delegate { }; 
-        
+        public event Action roleSwapEvent = delegate { };
+        public event Action roundEndEvent = delegate { };
+
+
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
 
         // Auto-implemented properties
@@ -63,7 +65,9 @@ namespace CarTag {
         public void InvokeRoleSwapEvent() {
             roleSwapEvent.Invoke();
         }
-
+        public void InvokeRoundEndEvent() {
+            roundEndEvent.Invoke();
+        }
         public bool IsThisPlayerCurrentRunner() {
             if (this == PlayerManager.CurrentRunner) {
                 return true;

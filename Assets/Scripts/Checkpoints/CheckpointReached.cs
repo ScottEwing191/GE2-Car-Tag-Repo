@@ -14,7 +14,7 @@ namespace CarTag.Checkpoints {
             if (!CheckIfCorrectPlayer(player)) { return; }                                  // Check if the correct player collided
 
             if (CheckIfCorrectCheckpoint(triggeredheckpoint, player.PlayerListIndex)) {     // Check if the correct checkpoint was collided with
-                CheckpointSucessfullyReached(triggeredheckpoint, player.PlayerListIndex);   // Successfull Checkpoint Reached
+                CheckpointSucessfullyReached(player, triggeredheckpoint, player.PlayerListIndex);   // Successfull Checkpoint Reached
             }
             else {
                 WrongCheckpoint();                                                          // Wrong checkpoint was reached
@@ -47,7 +47,8 @@ namespace CarTag.Checkpoints {
         /// </summary>
         /// <param name="cp">The checkpoint which has just been reached</param>
         /// <param name="queueListIndex">The index of the player who collided with the checkpoint</param>
-        private void CheckpointSucessfullyReached(Checkpoint cp, int queueListIndex) {
+        private void CheckpointSucessfullyReached(Player player, Checkpoint cp, int queueListIndex) {
+            player.PlayerRespawn.SetRespawnLocation(cp.respawnPosition, cp.respawnRotation);
             checkpointManager.CheckpointQueues[queueListIndex].Dequeue();        // remove checkpoint from the queue
             cp.CheckpointReached(queueListIndex);                         // call destroy checkpoint method. May want to have animation or something later
             checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(queueListIndex);

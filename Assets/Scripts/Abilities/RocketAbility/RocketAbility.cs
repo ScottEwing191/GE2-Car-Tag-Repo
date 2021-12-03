@@ -6,8 +6,8 @@ using UnityEngine;
 namespace CarTag.Abilities {
     public class RocketAbility : SpawnableAbility {
         //--Serialized Fields
-        [SerializeField] private int runnerMaxUses = 3;
-        [SerializeField] private int chaserMaxUses = 3;
+        //[SerializeField] private int runnerMaxUses = 3;
+        //[SerializeField] private int chaserMaxUses = 3;
         //--Private
         Transform spawnTransform;
         Rocket currentRocket;

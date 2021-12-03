@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace CarTag.Abilities
 {
     public abstract class Ability : MonoBehaviour
     {
+        //[SerializeField] protected bool isRunnerAbility = true;
+        public bool isRunnerAbility = false;
+        public bool isChaserAbility = false;
+
+        [ShowIf("isRunnerAbility")] public int runnerMaxUses = 3;                   // The number of times the runner can use this ability
+
+        [ShowIf("isChaserAbility")] public int chaserMaxUses = 3;                   // The number of times the chaser can use this ability
         protected PlayerAbilityController playerAbilityController;
-        protected int maxUses = 4;
-        protected int usesLeft = 4;
-        protected bool isRunnerAbility = true;
-        protected bool isChaserAbility = true;
+        //protected int maxUses = 4;                                          // This is current in Use
+        protected int usesLeft = 4;                                         
 
 
         //--Properties
-        public int MaxUses { get { return maxUses; } }
+        //public int MaxUses { get { return maxUses; } }
         public int UsesLeft { 
             get { return usesLeft; }
             set { usesLeft = value; }
@@ -28,7 +34,10 @@ namespace CarTag.Abilities
         }
 
         public virtual void RoleStartSetup(bool isRunner) {
-
+            usesLeft = chaserMaxUses;
+            if (isRunner) {
+                usesLeft = runnerMaxUses;
+            }
         }
         public virtual void OnAbilityButtonPressed<T>(T obj) {
 

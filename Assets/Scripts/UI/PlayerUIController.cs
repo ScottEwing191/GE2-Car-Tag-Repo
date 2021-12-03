@@ -21,13 +21,13 @@ namespace CarTag.UI {
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
-            AbilityUI = GetComponent<AbilityUI>();
+            AbilityUI = GetComponentInChildren<AbilityUI>();
             ScreenFadeUI = GetComponentInChildren<ScreenFadeUI>();
             thisPlayer = GetComponentInParent<Player>();
         }
 
         public void InitialSetup() {
-            AbilityUI.InitialSetup(playerUI.AbilityUIElements, thisPlayer.PlayerAbilityController.CurrentAbility.UsesLeft);
+            AbilityUI.InitialSetup(thisPlayer.PlayerAbilityController.CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner());
         } 
         //--Methods
         /// <summary>

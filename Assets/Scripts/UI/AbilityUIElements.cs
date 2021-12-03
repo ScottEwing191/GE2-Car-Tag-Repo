@@ -12,29 +12,33 @@ namespace CarTag.UI
     public struct AbilityUIElements 
     {
         //--Selected Ability
+        [SerializeField] private GameObject abilityUIElementsObjects;       // the parent object that all elemnts are bellow
         [SerializeField] private Image timerFilledImage;
         [Tooltip("A list of icons attached to the selected ability gameobject. Only the currently selected icon will be visible")]
         [SerializeField] private List<GameObject> selectedIcons;
         [SerializeField] private List<GameObject> usesLeftIndicators;
         [SerializeField] private List<AbilityToSelectUI> abilitiesToSelect;
 
+        public GameObject AbilityUIElementsObjects {
+            get { return abilityUIElementsObjects; }
+        }
         public Image TimerFilledImage {
             get { return timerFilledImage; }
-            set { timerFilledImage = value; }
+            //set { timerFilledImage = value; }
         }
 
         public List<GameObject> SelectedIcons {
             get { return selectedIcons; }
-            set { selectedIcons = value; }
+            //set { selectedIcons = value; }
         }
 
         public List<GameObject> UsesLeftIndicators {
             get { return usesLeftIndicators; }
-            set { usesLeftIndicators = value; }
+            //set { usesLeftIndicators = value; }
         }
         public List<AbilityToSelectUI> AbilitiesToSelect {
             get { return abilitiesToSelect; }
-            set { abilitiesToSelect = value; }
+            //set { abilitiesToSelect = value; }
         }
     }
 
@@ -46,11 +50,11 @@ namespace CarTag.UI
 
         public RectTransform RectTransform {
             get { return rectTransform; }
-            set { rectTransform = value; }
+            //set { rectTransform = value; }
         }
         public GameObject SelectedIndicator {
             get { return selectedIndicator; }
-            set { selectedIndicator = value; }
+            //set { selectedIndicator = value; }
         }
 
     }

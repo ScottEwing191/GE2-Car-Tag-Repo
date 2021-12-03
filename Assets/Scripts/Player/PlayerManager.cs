@@ -44,29 +44,6 @@ namespace CarTag.PlayerSpace {
         }
 
         //--Use the number of players selected in the Main menu to disable the player Objects which are not required and remove them from te players list.
-        /*private void SetupPlayersList() {
-            int playersInGame = -1;
-            MainMenu.PlayersPlaying playersPlaying = FindObjectOfType<MainMenu.PlayersPlaying>();
-            if (playersPlaying != null) {
-                playersInGame = playersPlaying.NumberOfPlayers;
-                Destroy(playersPlaying.gameObject);
-            }
-            else {
-                //Debug.LogError("Players Playing script from the Main Menu was Not found");
-                playersInGame = defaultPlayersInGame;
-            }
-            //--Keep the desired number of players in the list and remove the rest
-            int loopLegth = players.Count;
-            for (int i = 0; i < loopLegth; i++) {
-                if (i < playersInGame) {                
-                    continue;
-                }
-                //players[i].gameObject.SetActive(false);
-                players[players.Count - 1].gameObject.SetActive(false);     //disable the last player in the list
-                players.RemoveAt(players.Count - 1);
-            }
-        }*/
-
         private void SetupPlayersList() {
             int playersInGame = -1;
             MainMenu.PlayersPlaying playersPlaying = FindObjectOfType<MainMenu.PlayersPlaying>();
@@ -94,9 +71,7 @@ namespace CarTag.PlayerSpace {
             }
         }
 
-        /// <summary>
         /// Finds which one of the players in the scene is the current runner
-        /// </summary>
         private void FindCurrentRunner() {
             // Gets the current Runner 
             int runners = 0;        // counts the number of runners to make sure there is only one
@@ -114,20 +89,6 @@ namespace CarTag.PlayerSpace {
             }
         }
 
-        /// <summary>
-        /// Assign the Runner or Chaser stats to the appropriate car controllers
-        /// </summary>
-        /*private void AssignCarStats() {
-            foreach (Player p in players) {
-                if (p == CurrentRunner) {
-                    carStatsController.AssignStats(p.CarController, carStatsController.RunnerStats);
-                }
-                else {
-                    carStatsController.AssignStats(p.CarController, carStatsController.ChaserStats);
-
-                }
-            }
-        }*/
         //=== SET UP END ===
 
         /// <summary>
@@ -144,7 +105,6 @@ namespace CarTag.PlayerSpace {
             InvokeRoleSwapEvents();
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
-            //SwapCarStats(newRunner, newChaser);
             SwapCars(newRunner, newChaser);
             DisableChasers();
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime));
@@ -186,13 +146,11 @@ namespace CarTag.PlayerSpace {
         /// do nothing)
         /// </summary>
         private void RespawnChasers(Player newRunner, Player newChaser) {
-            //Vector3 respawnPos = newChaser.PlayerRespawn.transform.position;
-            //Quaternion respawnRot = newChaser.PlayerRespawn.transform.rotation;
             Vector3 respawnPos = newChaser.RCC_CarController.transform.position;
             Quaternion respawnRot = newChaser.RCC_CarController.transform.rotation;
 
             for (int i = 0; i < players.Count; i++) {
-                if (players[i] == newRunner /*|| players[i] == newChaser*/) {                   // dont need to respawn runner or chaser
+                if (players[i] == newRunner ) {                                             // dont need to respawn runner
                     players[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without
                     continue;                                                               // ...actually respawning them
                 }
@@ -238,7 +196,7 @@ namespace CarTag.PlayerSpace {
         public void ResetPlayersAfterRound() {
             foreach (var p in players) {
                 p.PlayerRespawn.RespawnAfterRound();
-
+                p.InvokeRoundEndEvent();                    // tell player to invoke the round end event
             }
             ResetRolesAfterRound();
             ChangeAllCars();

@@ -485,14 +485,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.28699875
-      objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.67700195
-      objectReference: {fileID: 0}
     - target: {fileID: 3419433717639827399, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -565,29 +557,9 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 4579098903956947610, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579098903956981260, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579098904736390757, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4618919499051950299, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956887266066843998, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: angularVelStrength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956887266066843998, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: liniearVelStrength
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5125244788158976108, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
@@ -957,7 +929,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32702
+  m_Name: pb_Mesh1338862
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1388,14 +1360,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.28699875
-      objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.67700195
-      objectReference: {fileID: 0}
     - target: {fileID: 3419433717639827399, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1436,10 +1400,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 4364563130619619052, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 140
-      objectReference: {fileID: 0}
     - target: {fileID: 4406564692823918469, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1447,18 +1407,6 @@ PrefabInstance:
     - target: {fileID: 4406564692823918469, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579098903957037016, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: displayType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956887266066843998, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: angularVelStrength
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956887266066843998, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: liniearVelStrength
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -2878,7 +2826,7 @@ MonoBehaviour:
   - {fileID: 2120756334}
   - {fileID: 1360085619}
   chaserRoleSwapWaitTime: 3
-  defaultPlayersInGame: 2
+  defaultPlayersInGame: 4
 --- !u!114 &778535459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3561,10 +3509,6 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.x
       value: -0.28700256
       objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.67700195
-      objectReference: {fileID: 0}
     - target: {fileID: 3715526135144224120, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3600,10 +3544,6 @@ PrefabInstance:
     - target: {fileID: 4310443648493058430, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364563130619619052, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 4406564692823918469, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6944,10 +6884,6 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.x
       value: -0.28700256
       objectReference: {fileID: 0}
-    - target: {fileID: 3265368985105034527, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_ConnectedAnchor.z
-      value: 0.67700195
-      objectReference: {fileID: 0}
     - target: {fileID: 3715526135144224120, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6983,10 +6919,6 @@ PrefabInstance:
     - target: {fileID: 4310443648493058430, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364563130619619052, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 4406564692823918469, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.x
