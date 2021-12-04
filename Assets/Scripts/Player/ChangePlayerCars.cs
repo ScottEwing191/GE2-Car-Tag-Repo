@@ -60,8 +60,8 @@ namespace CarTag {
                 //--Set Rocket Spawn Transform
                 rocketAbility.SpawnTransform = runnerSpawnTransform;
 
-                //Make Sure Car Changing to is enabled
-                //player.EnablePlayer();
+                //--Make Sure Car Changing to is enabled
+                player.EnablePlayer();
 
             }
             //-- If New Chaser i.e changing to chaser
@@ -90,7 +90,7 @@ namespace CarTag {
                 rocketAbility.SpawnTransform = chaserSpawnTransform;
 
                 //Make Sure Car Changing to is enabled
-                //player.EnablePlayer();
+                player.EnablePlayer();
 
             }
 

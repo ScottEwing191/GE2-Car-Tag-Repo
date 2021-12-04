@@ -22,11 +22,6 @@ namespace CarTag.PlayerSpace
             player = GetComponentInParent<Player>();
         }
 
-        private void Update() {
-            if (player.PlayerListIndex == 1) {
-                print(player.gameObject.name + " UPDATE Start Position:" + startPosition);
-            }
-        }
 
         private void Start() {
             carRb = player.RCC_CarController.GetComponent<Rigidbody>();

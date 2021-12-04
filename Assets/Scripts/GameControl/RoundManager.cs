@@ -51,7 +51,6 @@ namespace CarTag {
         }
         [SerializeField] float distanceTravelled;
         private void Update() {
-            //if (initialSetupDone) {
             distanceTravelled = RoadManager.Distance.TotalDistance;
             UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
             if (RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
@@ -59,10 +58,7 @@ namespace CarTag {
                 RoadManager.DoFixedUpdate = false;
                 IsRoundRunning = false;
                 RoundWin();
-
-                print("Runner Wins");
             }
-            //}
         }
 
         private bool CheckIfShouldStartOvertime() {

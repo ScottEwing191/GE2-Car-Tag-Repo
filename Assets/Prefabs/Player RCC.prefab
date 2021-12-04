@@ -40248,12 +40248,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2339425154543311640}
+  runnerCarController: {fileID: 9020441039908829711}
+  chaserCarController: {fileID: 3379657997441611093}
   rocketAbility: {fileID: 5602261291504920343}
   runnerSpawnTransform: {fileID: 6022327950275107027}
   chaserSpawnTransform: {fileID: 6776468912666986503}
   rcc_Camera: {fileID: 5696500274330211354}
-  runnerCarController: {fileID: 9020441039908829711}
-  chaserCarController: {fileID: 3379657997441611093}
   runnerRigidbody: {fileID: 9020441039921618687}
   chaserRigidbody: {fileID: 3436405978907308583}
 --- !u!1 &7123898511558155596
@@ -42018,6 +42018,7 @@ GameObject:
   - component: {fileID: 2216396234691546335}
   - component: {fileID: 3701562857328354030}
   - component: {fileID: 7948986747552145348}
+  - component: {fileID: 4893646172870362056}
   m_Layer: 0
   m_Name: Player Collision
   m_TagString: Untagged
@@ -42102,6 +42103,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1.35, z: 4.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4893646172870362056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744182884347714666}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5930e215dd8461e4280c9bb00873f6c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runnerController: {fileID: 9020441039908829711}
+  chaserController: {fileID: 3379657997441611093}
 --- !u!1 &8821027116716145896
 GameObject:
   m_ObjectHideFlags: 0
@@ -58403,11 +58418,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
---- !u!224 &4406564692331811362 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1563747654708781101, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
-  m_PrefabInstance: {fileID: 2924189697434661391}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4406564692331811361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1563747654708781102, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
@@ -58419,6 +58429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &4406564692331811362 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1563747654708781101, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
+  m_PrefabInstance: {fileID: 2924189697434661391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5696500274340028874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58701,6 +58716,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f83e716c4a87742b483568857a7b833c, type: 3}
+--- !u!224 &9136419688333766259 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 910801096074628581, guid: f83e716c4a87742b483568857a7b833c, type: 3}
+  m_PrefabInstance: {fileID: 8244056313501606806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9136419689265280837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 910801095177983187, guid: f83e716c4a87742b483568857a7b833c, type: 3}
@@ -58723,8 +58743,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &9136419688333766259 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 910801096074628581, guid: f83e716c4a87742b483568857a7b833c, type: 3}
-  m_PrefabInstance: {fileID: 8244056313501606806}
-  m_PrefabAsset: {fileID: 0}

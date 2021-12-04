@@ -95,7 +95,6 @@ namespace CarTag.UI
         }
         public void ReturnToMenuButton() {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
-            print("Game Over");
             SceneManager.LoadScene(0);
         }
         // === SCOREBOARD END ===

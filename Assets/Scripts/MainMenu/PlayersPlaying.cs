@@ -10,7 +10,6 @@ namespace CarTag.MainMenu
         private void Awake() {
             NumberOfPlayers = 2;
             DontDestroyOnLoad(this.gameObject);
-            print("Player: " + NumberOfPlayers);
         }
     }
 }

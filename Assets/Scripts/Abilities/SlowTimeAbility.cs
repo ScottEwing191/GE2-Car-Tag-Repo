@@ -93,7 +93,6 @@ namespace CarTag.Abilities {
 
         //--Called either when there is a role swap or the round is over. If the slomoability is active while either of these happen then the slomo will be disabled.
         private void TryDisableSloMo() {
-            print("Ability Role Swap");
             if (slowTimeRoutine != null) {
                 DisableSlowMo();
             }
