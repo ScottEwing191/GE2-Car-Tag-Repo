@@ -49,10 +49,18 @@ namespace CarTag.Road {
         }
 
         public void ResetDistanceTravelled() {
+
             TotalDistance = 0;
             pointsDistance = 0;
             maxDistplacement = 0;
             firstCall = true;
         }
+        /*private IEnumerator ResetDistanceTravelledRoutine() {
+            yield return new WaitForEndOfFrame();
+            TotalDistance = 0;
+            pointsDistance = 0;
+            maxDistplacement = 0;
+            firstCall = true;
+        }*/
     }
 }

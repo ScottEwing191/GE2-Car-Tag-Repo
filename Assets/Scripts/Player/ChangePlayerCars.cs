@@ -46,6 +46,15 @@ namespace CarTag {
         [SerializeField] private Rigidbody runnerRigidbody;
         [SerializeField] private Rigidbody chaserRigidbody;
 
+        private void Start() {
+            // Setting up car controller settings
+            //--RUNNER
+            runnerCarController.maxspeed = 120;
+            //--CHASER
+            chaserCarController.wheelTypeChoise = RCC_CarControllerV3.WheelType.AWD;
+            //chaserCarController.maxEngineTorque = 10;
+
+        }
 
         public void ChangeCar(bool isNewRunner) {
             //-- If New Runner i.e changing to runner
@@ -72,6 +81,9 @@ namespace CarTag {
                 //--Set Rocket Spawn Transform
                 rocketAbility.SpawnTransform = runnerSpawnTransform;
 
+                //Make Sure Car Changing to is enabled
+                player.EnablePlayer();
+
             }
             //-- If New Chaser i.e changing to chaser
             else {
@@ -97,6 +109,10 @@ namespace CarTag {
 
                 //--Set Rocket Spawn Transform
                 rocketAbility.SpawnTransform = chaserSpawnTransform;
+
+                //Make Sure Car Changing to is enabled
+                player.EnablePlayer();
+
             }
 
 
