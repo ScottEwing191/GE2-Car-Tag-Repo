@@ -38,13 +38,6 @@ namespace CarTag.Road {
 
         }
 
-
-
-        private void Update() {
-            //RoadSpawnData = GameManager.Instance.PlayerManager.CurrentRunner.RoadSpawnData;
-            print("RSD" + PlayerManager.CurrentRunner.RoadSpawnData.transform.parent.name);
-        }
-
         private void FixedUpdate() {
 
             if (!InitialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup

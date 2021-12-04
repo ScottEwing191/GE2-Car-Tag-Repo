@@ -226,8 +226,8 @@ MonoBehaviour:
   boostKB: 102
   slowMotionKB: 103
   changeCameraKB: 99
-  recordKB: 114
-  playbackKB: 112
+  recordKB: 0
+  playbackKB: 0
   lookBackKB: 98
   trailerAttachDetach: 116
   Xbox_verticalInput: Xbox_Vertical
