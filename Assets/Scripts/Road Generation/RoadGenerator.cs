@@ -40,6 +40,7 @@ namespace CarTag.Road
         // Return true if road is generated
         internal bool TryGenerateRoad() {
             splineComputer.type = splineType;
+            Debug.Break();
             currentPosition = roadManager.RoadSpawnData.Position;            
 
             // Car quicly goes off ground then back on when going onto ramp. This causes two points to be added quickly 

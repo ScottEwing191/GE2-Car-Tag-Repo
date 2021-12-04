@@ -53,7 +53,7 @@ namespace CarTag.PlayerSpace {
             //--Turn of the collision on the chaser (soon to be runner)
             rolesSwapped = true;
             StartCoroutine(TurnOffCollisionWithDelay(collisionDisableTime));
-
+            Debug.Break();
             //--Tell the GameManager To manage the Role Swap Behaviour 
             GameManager.Instance.ManageRoleSwap(thisPlayer, thisPlayer.PlayerManager.GetPlayerFromGameObject(collision.gameObject));
         }

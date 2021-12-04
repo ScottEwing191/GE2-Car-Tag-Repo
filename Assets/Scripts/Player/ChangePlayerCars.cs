@@ -9,38 +9,17 @@ namespace CarTag {
     public class ChangePlayerCars : MonoBehaviour {
         [SerializeField] private Player player;
 
-        /*[Header("Car Game Objects")]
-        [SerializeField] private GameObject runnerCar;
-        [SerializeField] private GameObject chaserCar;*/
-
-        /*[Header ("Player Collision")]
-        [SerializeField] private PlayerCollision runnerCollisionScript;
-        [SerializeField] private PlayerCollision chaserCollisionScript;*/
-
-        /*[Header("Player Respawn")]
-        [SerializeField] private PlayerRespawn runnerRespawnScript;
-        [SerializeField] private PlayerRespawn chaserRespawnScript;*/
-
-        /*[Header("Road Spawn Data ")]
-        [SerializeField] private RoadSpawnData roadSpawnData;
-        [SerializeField] private FollowCar roadSpawnDataFollowCar;
-        [SerializeField] private List<WheelCollider> runnerRearWheels = new List<WheelCollider>();
-        [SerializeField] private List<WheelCollider> chaserRearWheels = new List<WheelCollider>();*/
-
+        [Header("Car Controllers")]
+        [SerializeField] public RCC_CarControllerV3 runnerCarController;
+        [SerializeField] public RCC_CarControllerV3 chaserCarController;
+        
         [Header("Rocket Ability")]
         [SerializeField] private RocketAbility rocketAbility;
         [SerializeField] private Transform runnerSpawnTransform;
         [SerializeField] private Transform chaserSpawnTransform;
 
-        /*[Header("Box Spawn Ability")]
-        [SerializeField] private FollowCar boxSpawnFollowCar;
-        [SerializeField] private Transform runnerTargetCar;
-        [SerializeField] private Transform chaserTargetCar;*/
-
         [Header("Camera")]
         [SerializeField] private RCC_Camera rcc_Camera;
-        [SerializeField] private RCC_CarControllerV3 runnerCarController;
-        [SerializeField] private RCC_CarControllerV3 chaserCarController;
 
         [Header("Car Rigidbodies")]
         [SerializeField] private Rigidbody runnerRigidbody;
@@ -82,7 +61,7 @@ namespace CarTag {
                 rocketAbility.SpawnTransform = runnerSpawnTransform;
 
                 //Make Sure Car Changing to is enabled
-                player.EnablePlayer();
+                //player.EnablePlayer();
 
             }
             //-- If New Chaser i.e changing to chaser
@@ -111,7 +90,7 @@ namespace CarTag {
                 rocketAbility.SpawnTransform = chaserSpawnTransform;
 
                 //Make Sure Car Changing to is enabled
-                player.EnablePlayer();
+                //player.EnablePlayer();
 
             }
 

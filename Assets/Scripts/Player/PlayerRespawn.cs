@@ -22,6 +22,12 @@ namespace CarTag.PlayerSpace
             player = GetComponentInParent<Player>();
         }
 
+        private void Update() {
+            if (player.PlayerListIndex == 1) {
+                print(player.gameObject.name + " UPDATE Start Position:" + startPosition);
+            }
+        }
+
         private void Start() {
             carRb = player.RCC_CarController.GetComponent<Rigidbody>();
             startPosition = player.RCC_CarController.transform.position;
@@ -100,8 +106,19 @@ namespace CarTag.PlayerSpace
 
         private void SetCarTransform(Vector3 position, Quaternion rotation) {
             //--Set the position and rotation of the car to the respawn position and rotation
-            player.RCC_CarController.transform.position = position;
+            player.ChangePlayerCars.runnerCarController.transform.position = position;
+            player.ChangePlayerCars.runnerCarController.transform.rotation = rotation;
+
+            player.ChangePlayerCars.chaserCarController.transform.position = position;
+            player.ChangePlayerCars.chaserCarController.transform.rotation = rotation;
+            /*player.RCC_CarController.transform.position = position;
             player.RCC_CarController.transform.rotation = rotation;
+            if (player.PlayerListIndex == 1) {
+                print(player.gameObject.name + " Set Car Position: " + position);
+                print(player.gameObject.name + " Start Position: " + startPosition);
+                Debug.Break();
+            }*/
+
         }
 
         private void SetCarVelocity(float maxVelocity) {
