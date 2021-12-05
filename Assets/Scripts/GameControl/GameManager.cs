@@ -61,10 +61,8 @@ namespace CarTag {
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
+            RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
-            //--Audio
-            //--UI
             UIManager.RoleSwapReset(newRunner, newChaser);
             AbilityManager.ResetAbilities();
         }
@@ -87,7 +85,6 @@ namespace CarTag {
             PlayerManager.ResetPlayersAfterRound();
             RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.ResetCheckpoints();
-            //DynamicObjectManager.ResetObjects();
             UIManager.RoundStartReset();
             AbilityManager.ResetAbilities();
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
