@@ -59,7 +59,6 @@ namespace CarTag.Input
 
         public void OnPauseMenu(InputAction.CallbackContext context) {
             if (context.started) {
-                print("Pause Menu");
                 InputManager.UIManager.LevelUI.DoPauseMenu();
             }
         }

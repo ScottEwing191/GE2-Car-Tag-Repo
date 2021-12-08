@@ -69,6 +69,7 @@ namespace CarTag {
         }
 
         public void ManageRoundOver() {
+            Cursor.visible = true;
             PlayerManager.DisableCars();                                // display cars while scoreboard is up
             bool gameOver = ScoreManager.UpdateScoreCheckIfGameOver(PlayerManager.CurrentRunner);        // update scores after round
             // If gameOver is true then the UI button which the player presses to advance to the next round will be disabled leaving a button to return to Menu

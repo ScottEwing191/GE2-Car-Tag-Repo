@@ -38,10 +38,13 @@ namespace CarTag.UI
                 SetScoreboardButtons(true);
                 Time.timeScale = 0;
                 shouldOpenPauseMenu = false;
+                Cursor.visible = true;
+
             }
             else {
                 SetScoreboardButtons(false);
                 scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+                Cursor.visible = false;             // not working somehow
                 Time.timeScale = 1;
                 shouldOpenPauseMenu = true;
             }

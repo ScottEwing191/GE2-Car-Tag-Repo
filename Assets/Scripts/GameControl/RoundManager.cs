@@ -37,6 +37,7 @@ namespace CarTag {
         public IEnumerator RoundStart() {
             RoadManager.DoFixedUpdate = true;
             IsRoundRunning = true;
+            Cursor.visible = false;
             PlayerManager.DisableCars();                                    // all cars disabled
             UIManager.StartRunnerCountdown(runnerStartWaitTime);
             UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
