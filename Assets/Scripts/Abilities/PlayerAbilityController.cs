@@ -35,7 +35,11 @@ namespace CarTag.Abilities {
         public void InitialSetup() {
             AbilityManager = GameManager.Instance.AbilityManager;
             thisPlayer = GetComponentInParent<Player>();
-            
+            //-- if the initial ability is not compatable with the players current role then move onto the next one.
+            if (!IsAbilityCompatibleWithPlayerRole()) {
+                NextAbility();
+            }
+
             foreach (Ability ability in abilities) {
                 ability.RoleStartSetup(thisPlayer.IsThisPlayerCurrentRunner());
             }

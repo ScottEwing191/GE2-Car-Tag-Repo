@@ -14,19 +14,14 @@ namespace CarTag.Abilities {
         [SerializeField] private ParticleSystem rocketEffect;
         [SerializeField] private ParticleSystem explosionEffect;
         [SerializeField] private LayerMask collidableLayers;
-        
+        [SerializeField] private Light rocketLight;
 
         Rigidbody thisRigidbody;
         private float timeLeftTillExplode;
         private bool hasExploded = false;
         private Player spawner;                 // The player which spawned the rocket
 
-        private void Start() {
-            //thisRigidbody = GetComponent<Rigidbody>();
-            //timeLeftTillExplode = fuseTime;
-            //StartRocket(rocketSpeed, transform.rotation);
 
-        }
         public void StartRocket(float carSpeed) {
             thisRigidbody = GetComponent<Rigidbody>();
             timeLeftTillExplode = fuseTime;
@@ -91,43 +86,12 @@ namespace CarTag.Abilities {
                 }
             }
             hasExploded = true;
-            thisRigidbody.AddForce(-thisRigidbody.velocity, ForceMode.VelocityChange);      // stop rocket        
+            thisRigidbody.AddForce(-thisRigidbody.velocity, ForceMode.VelocityChange);      // stop rocket    
             rocketEffect.Stop();
             rocketEffect.gameObject.SetActive(false);                                       
             explosionEffect.Play();
+            rocketLight.enabled = false;
             Destroy(gameObject, explosionEffect.main.duration);                             // destroy the Gameobject after the explosion effect has played
-        }
-
-
-        //--Use this if I ever want to make sure that the rocket cant collide with the car that fired it
-       /* private LayerMask RemoveCurrentPlayerFromMask(LayerMask collidableLayers, int thisPlayerIndex) {
-            int currentLayer = -1;
-            switch (thisPlayerIndex) {
-                case 0:
-                    currentLayer = LayerMask.NameToLayer("Player 1");
-                    break;
-                case 1:
-                    currentLayer = LayerMask.NameToLayer("Player 2");
-
-                    break;
-                case 2:
-                    currentLayer = LayerMask.NameToLayer("Player 3");
-
-                    break;
-                case 3:
-                    currentLayer = LayerMask.NameToLayer("Player 4");
-
-                    break;
-                default:
-                    Debug.LogError("Must update Rocket ability for use with more than4 players");
-                    break;
-            }
-            collidableLayers = collidableLayers ^ (1 << currentLayer);
-            return collidableLayers;
-        }*/
-
-        private void OnDrawGizmosSelected() {
-            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
     }
 }

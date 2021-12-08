@@ -329,6 +329,14 @@ namespace CarTag.Inputs
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""LookBack"",
+                    ""type"": ""Button"",
+                    ""id"": ""90a1a9d2-1927-491d-8d3d-0f908401fc8a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""ChangeCamera"",
                     ""type"": ""Button"",
                     ""id"": ""448b26bc-ca4a-476b-9dcf-5f4e8f3d400c"",
@@ -607,6 +615,28 @@ namespace CarTag.Inputs
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c73b0dc-32db-4c4c-b1a3-aa8f2cc387b8"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LookBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fdfd43c-6835-4bdf-8988-6ff977c80ac2"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LookBack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1260,6 +1290,7 @@ namespace CarTag.Inputs
             m_RCC_Accelerate = m_RCC.FindAction("Accelerate", throwIfNotFound: true);
             m_RCC_Brake = m_RCC.FindAction("Brake", throwIfNotFound: true);
             m_RCC_Handbrake = m_RCC.FindAction("Handbrake", throwIfNotFound: true);
+            m_RCC_LookBack = m_RCC.FindAction("LookBack", throwIfNotFound: true);
             m_RCC_ChangeCamera = m_RCC.FindAction("ChangeCamera", throwIfNotFound: true);
             m_RCC_Boost = m_RCC.FindAction("Boost", throwIfNotFound: true);
             // Player
@@ -1403,6 +1434,7 @@ namespace CarTag.Inputs
         private readonly InputAction m_RCC_Accelerate;
         private readonly InputAction m_RCC_Brake;
         private readonly InputAction m_RCC_Handbrake;
+        private readonly InputAction m_RCC_LookBack;
         private readonly InputAction m_RCC_ChangeCamera;
         private readonly InputAction m_RCC_Boost;
         public struct RCCActions
@@ -1414,6 +1446,7 @@ namespace CarTag.Inputs
             public InputAction @Accelerate => m_Wrapper.m_RCC_Accelerate;
             public InputAction @Brake => m_Wrapper.m_RCC_Brake;
             public InputAction @Handbrake => m_Wrapper.m_RCC_Handbrake;
+            public InputAction @LookBack => m_Wrapper.m_RCC_LookBack;
             public InputAction @ChangeCamera => m_Wrapper.m_RCC_ChangeCamera;
             public InputAction @Boost => m_Wrapper.m_RCC_Boost;
             public InputActionMap Get() { return m_Wrapper.m_RCC; }
@@ -1440,6 +1473,9 @@ namespace CarTag.Inputs
                     @Handbrake.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
                     @Handbrake.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
                     @Handbrake.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnHandbrake;
+                    @LookBack.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnLookBack;
+                    @LookBack.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnLookBack;
+                    @LookBack.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnLookBack;
                     @ChangeCamera.started -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
                     @ChangeCamera.performed -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
                     @ChangeCamera.canceled -= m_Wrapper.m_RCCActionsCallbackInterface.OnChangeCamera;
@@ -1465,6 +1501,9 @@ namespace CarTag.Inputs
                     @Handbrake.started += instance.OnHandbrake;
                     @Handbrake.performed += instance.OnHandbrake;
                     @Handbrake.canceled += instance.OnHandbrake;
+                    @LookBack.started += instance.OnLookBack;
+                    @LookBack.performed += instance.OnLookBack;
+                    @LookBack.canceled += instance.OnLookBack;
                     @ChangeCamera.started += instance.OnChangeCamera;
                     @ChangeCamera.performed += instance.OnChangeCamera;
                     @ChangeCamera.canceled += instance.OnChangeCamera;
@@ -1711,6 +1750,7 @@ namespace CarTag.Inputs
             void OnAccelerate(InputAction.CallbackContext context);
             void OnBrake(InputAction.CallbackContext context);
             void OnHandbrake(InputAction.CallbackContext context);
+            void OnLookBack(InputAction.CallbackContext context);
             void OnChangeCamera(InputAction.CallbackContext context);
             void OnBoost(InputAction.CallbackContext context);
         }

@@ -9,9 +9,11 @@ namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
         [SerializeField] private List<GameObject> playerObjects = new List<GameObject>();
         private List<Player> players = new List<Player>();
-
+        [SerializeField] private float chaserRoleSwapStartWaitTime = 5.0f;
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
-        [SerializeField] private float chaserRoleSwapWaitTime = 4.0f;
+        private float chaserRoleSwapWaitTime = 5.0f;
+        [Tooltip("The time the chaser has to wait after a role swap get higher each time. This is the amount the time increases by each time")]
+        [SerializeField] private float increaseChaserWaitTimeBy = 1;
         [SerializeField] private int defaultPlayersInGame = 2;
 
         private CarStatsController carStatsController;
@@ -41,6 +43,7 @@ namespace CarTag.PlayerSpace {
             runnerAtRoundStart = CurrentRunner;
             //AssignCarStats();
             ChangeAllCars();
+            chaserRoleSwapWaitTime = chaserRoleSwapStartWaitTime;
         }
 
         //--Use the number of players selected in the Main menu to disable the player Objects which are not required and remove them from te players list.
@@ -110,6 +113,7 @@ namespace CarTag.PlayerSpace {
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime));
             UIManager.StartChaserCountdown(chaserRoleSwapWaitTime);
             StartCoroutine(StartChasersAfterRoleSwapWait());
+            chaserRoleSwapWaitTime += increaseChaserWaitTimeBy;         // increase the time the chaser will have to wait for the next role swap
         }
 
         private void InvokeRoleSwapEvents() {
@@ -200,6 +204,7 @@ namespace CarTag.PlayerSpace {
             }
             ResetRolesAfterRound();
             ChangeAllCars();
+            chaserRoleSwapWaitTime = chaserRoleSwapStartWaitTime;
         }
         /// <summary>
         /// Sets the player who will be the runner at the start of the next rond.

@@ -63,6 +63,8 @@ namespace CarTag {
                 //--Make Sure Car Changing to is enabled
                 player.EnablePlayer();
 
+                //--Repair Car
+                runnerCarController.repairNow = true;
             }
             //-- If New Chaser i.e changing to chaser
             else {
@@ -92,14 +94,9 @@ namespace CarTag {
                 //Make Sure Car Changing to is enabled
                 player.EnablePlayer();
 
+                //--Repair Car
+                chaserCarController.repairNow = true;
             }
-
-
         }
-
-
-
-
-
     }
 }

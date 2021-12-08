@@ -46,9 +46,10 @@ namespace CarTag {
             PlayerManager.InitialSetup();                                //Setup player Runners
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
-            AbilityManager.InitialSetup();
             ScoreManager.InitialSetup();                //must come before UI Manager
             UIManager.InitalSetup();
+            AbilityManager.InitialSetup();              // was Before UI Manager. Dont remember if that was required for something. It now must be after the UI Manager due to...
+                                                        //... PlayerAbilityController InitalSetup() Calling the UI System.
             RoundManager.InitalSetup();
             StartCoroutine(RoundManager.RoundStart());
         }

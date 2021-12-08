@@ -11,27 +11,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 124694042674b0348bc97b7acc6ae410
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestLevel.unity
     guid: f91f86af879debe44bba362b9312eac8
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC City AIO.unity
     guid: 0ca122300a1ebf1479d3dede98437169
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC City.unity
     guid: 523256c5a87c92d47ae0c39224fc0431
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC City (Car Selection).unity
     guid: 5e31dbb8aee8b8c42bf3b80d66382547
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC City (Car Selection with
       Load Next Scene).unity
     guid: a0b314d8fbd5b14448f3aefa6259ccfa
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC Blank API.unity
     guid: 2862a92e799a28c4dbcbc1e767264a74
-  - enabled: 1
+  - enabled: 0
     path: Assets/RealisticCarControllerV3/Demo Scenes/RCC Blank Test Scene.unity
     guid: 8552673b36d658b499bac0ead9e759c4
+  - enabled: 1
+    path: Assets/Scenes/Level 01 City RCC.unity
+    guid: 2f3b0057648bf174baead87b928b93cf
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5b4b317882914be4cbf1912735be79ec, type: 2}

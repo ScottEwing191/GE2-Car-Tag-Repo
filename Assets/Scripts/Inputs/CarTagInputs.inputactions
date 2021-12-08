@@ -314,6 +314,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "LookBack",
+                    "type": "Button",
+                    "id": "90a1a9d2-1927-491d-8d3d-0f908401fc8a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "ChangeCamera",
                     "type": "Button",
                     "id": "448b26bc-ca4a-476b-9dcf-5f4e8f3d400c",
@@ -592,6 +600,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c73b0dc-32db-4c4c-b1a3-aa8f2cc387b8",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LookBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fdfd43c-6835-4bdf-8988-6ff977c80ac2",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LookBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -228,14 +228,14 @@
         <Point X="62.594" Y="23.182" />
         <Point X="61.237" Y="23.182" />
         <Point X="61.237" Y="19.061" />
-        <Point X="55.896" Y="19.061" Type="JumpStart" />
+        <Point X="55.895" Y="19.061" Type="JumpStart" />
         <Point X="55.729" Y="19.061" Type="JumpEnd" />
         <Point X="49.583" Y="19.061" Type="JumpStart" />
         <Point X="49.417" Y="19.061" Type="JumpEnd" />
         <Point X="44.335" Y="19.061" Type="JumpStart" />
         <Point X="44.158" Y="19.061" Type="JumpEnd" />
         <Point X="39.503" Y="19.061" Type="JumpStart" />
-        <Point X="39.336" Y="19.061" Type="JumpEnd" />
+        <Point X="39.337" Y="19.061" Type="JumpEnd" />
         <Point X="32.25" Y="19.061" />
       </Path>
     </AssociationLine>
@@ -293,7 +293,7 @@
         <Point X="49.417" Y="18.711" Type="JumpStart" />
         <Point X="49.583" Y="18.711" Type="JumpEnd" />
         <Point X="55.729" Y="18.711" Type="JumpStart" />
-        <Point X="55.896" Y="18.711" Type="JumpEnd" />
+        <Point X="55.895" Y="18.711" Type="JumpEnd" />
         <Point X="62.917" Y="18.711" Type="JumpStart" />
         <Point X="63.083" Y="18.711" Type="JumpEnd" />
         <Point X="63.354" Y="18.711" Type="JumpStart" />
@@ -335,7 +335,7 @@
   <Class Name="CarTag.PlayerSpace.PlayerManager">
     <Position X="30.25" Y="9.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>kAAAAAACAAIkIAACEDAGIIACABKgAAAIKABQAAAACgA=</HashCode>
+      <HashCode>kAAAAAACAAYkIAACEDAGIIBCABKgAAAIKABQAAAACgA=</HashCode>
       <FileName>Assets\Scripts\Player\PlayerManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -618,7 +618,7 @@
   <Class Name="CarTag.Abilities.Rocket">
     <Position X="53.75" Y="38.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ADQAJQAAACIAAAAAJAAAAAgAAAAAAAEMBAhACADAEAA=</HashCode>
+      <HashCode>ADQAJQAAAAAAAAAAJAAAAAgAAAAAAAEMBAhACADAEAA=</HashCode>
       <FileName>Assets\Scripts\Abilities\RocketAbility\Rocket.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -680,14 +680,14 @@
         <Point X="63.354" Y="19.061" Type="JumpEnd" />
         <Point X="63.083" Y="19.061" Type="JumpStart" />
         <Point X="62.917" Y="19.061" Type="JumpEnd" />
-        <Point X="55.896" Y="19.061" Type="JumpStart" />
+        <Point X="55.895" Y="19.061" Type="JumpStart" />
         <Point X="55.729" Y="19.061" Type="JumpEnd" />
         <Point X="49.583" Y="19.061" Type="JumpStart" />
         <Point X="49.417" Y="19.061" Type="JumpEnd" />
         <Point X="44.335" Y="19.061" Type="JumpStart" />
         <Point X="44.158" Y="19.061" Type="JumpEnd" />
         <Point X="39.503" Y="19.061" Type="JumpStart" />
-        <Point X="39.336" Y="19.061" Type="JumpEnd" />
+        <Point X="39.337" Y="19.061" Type="JumpEnd" />
         <Point X="32.25" Y="19.061" />
       </Path>
     </AssociationLine>
@@ -740,7 +740,7 @@
         <Point X="44.335" Y="19.061" Type="JumpStart" />
         <Point X="44.158" Y="19.061" Type="JumpEnd" />
         <Point X="39.503" Y="19.061" Type="JumpStart" />
-        <Point X="39.336" Y="19.061" Type="JumpEnd" />
+        <Point X="39.337" Y="19.061" Type="JumpEnd" />
         <Point X="32.25" Y="19.061" />
       </Path>
     </AssociationLine>
@@ -760,19 +760,19 @@
       <Path>
         <Point X="61.25" Y="24" />
         <Point X="61.25" Y="19.062" />
-        <Point X="55.896" Y="19.062" Type="JumpStart" />
+        <Point X="55.895" Y="19.062" Type="JumpStart" />
         <Point X="55.729" Y="19.062" Type="JumpEnd" />
         <Point X="49.583" Y="19.062" Type="JumpStart" />
         <Point X="49.417" Y="19.062" Type="JumpEnd" />
         <Point X="44.335" Y="19.062" Type="JumpStart" />
         <Point X="44.158" Y="19.062" Type="JumpEnd" />
         <Point X="39.503" Y="19.062" Type="JumpStart" />
-        <Point X="39.336" Y="19.062" Type="JumpEnd" />
+        <Point X="39.337" Y="19.062" Type="JumpEnd" />
         <Point X="32.25" Y="19.062" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQAAAAAARAAAAAAAEAAABECASggAAAAAAgMACIAAgEA=</HashCode>
+      <HashCode>AQAAAAAARAAAAAAAEAAABECASwgAAAAAAgMACIAAgEg=</HashCode>
       <FileName>Assets\Scripts\Inputs\RCCInputHandler.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -822,21 +822,10 @@
   </Struct>
   <Struct Name="CarTag.UI.PlayerUIElements">
     <Position X="38.25" Y="26" Width="1.5" />
-    <AssociationLine Name="abilityUIElements" Type="CarTag.UI.AbilityUIElements" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="39" Y="28.132" />
-        <Point X="39" Y="29.872" />
-        <Point X="39" Y="29.872" />
-        <Point X="39" Y="31" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAUAAgAAAAAAAAAAAAAAAgAAAAAABQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAgAAAAAAAAAAAAAAAgAAAAAAAQA=</HashCode>
       <FileName>Assets\Scripts\UI\PlayerUIElements.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="abilityUIElements" />
-    </ShowAsAssociation>
   </Struct>
   <Struct Name="CarTag.UI.RunnerUIElements">
     <Position X="45" Y="26" Width="1.5" />

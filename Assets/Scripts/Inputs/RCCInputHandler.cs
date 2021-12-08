@@ -14,6 +14,7 @@ namespace CarTag.Input
         public float Boost { get; private set; }
         public float CameraX { get; private set; }
         public float CameraY { get; private set; }
+        public bool LookBack { get; private set; }
 
         [SerializeField] private RCC_Camera rccCamera;
         private Player thisPlayer;
@@ -30,8 +31,16 @@ namespace CarTag.Input
             Vector2 value = context.action.ReadValue<Vector2>();
             CameraX = value.x;
             CameraY = value.y;
-            //print("LOOK: " + gameObject.name);
         }
+        public void OnLookBack(InputAction.CallbackContext context) {
+            if (context.started) {
+                LookBack = true;
+            }
+            else if (context.canceled) {
+                LookBack = false;
+            }
+        }
+
         public void OnAccelerate(InputAction.CallbackContext context) {
             var value = context.action.ReadValue<float>();
             Accelerate = value;
