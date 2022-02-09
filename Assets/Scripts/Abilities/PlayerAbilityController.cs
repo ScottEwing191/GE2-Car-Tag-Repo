@@ -17,6 +17,7 @@ namespace CarTag.Abilities {
         private Ability defaultAbility;
         private bool cooldownOver = true;
         private Coroutine abilityTimerRoutine;
+        public float timeElapsedSinceCooldownEnd = 0;                                   // this is used to gather telemetry data for GUR Module
 
         //--Auto-Implemented Properties
         public AbilityManager AbilityManager { get; set; }
@@ -138,6 +139,7 @@ namespace CarTag.Abilities {
                 abilityTimerRoutine = null;
                 cooldownOver = true;
             }
+            timeElapsedSinceCooldownEnd = 0;        //Reset 
         }
 
         //--Get the index of the current ability but only out of the Abilities which are compatable with the current runner
@@ -155,12 +157,23 @@ namespace CarTag.Abilities {
         public void CurrentAbilityUsed(int usesLeft) {
             abilityTimerRoutine = StartCoroutine(AbilityCooldown());
             thisPlayer.PlayerUIController.AbilityUI.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
+            //--Update the player Ability telemetry for Games User Research module
+            thisPlayer.PlayerScore.UpdateAbilityUsedTelemetry(CurrentAbility, timeElapsedSinceCooldownEnd);
+
         }
 
         public IEnumerator AbilityCooldown() {
             cooldownOver = false;
             yield return new WaitForSeconds(timeBetweenAbilityUse);
             cooldownOver = true;
+            timeElapsedSinceCooldownEnd = 0;
+        }
+
+        private void Update() {
+            //AbilityManager.RoundManager.IsRoundRunning;
+            if (thisPlayer.IsPlayerEnabled) {
+                timeElapsedSinceCooldownEnd += Time.deltaTime;
+            }
         }
     }
 }

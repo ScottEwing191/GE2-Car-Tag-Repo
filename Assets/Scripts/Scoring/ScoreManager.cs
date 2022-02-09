@@ -8,8 +8,8 @@ using Sirenix.OdinInspector;
 namespace CarTag.ScoreSystem {
     public class ScoreManager : MonoBehaviour {
         [SerializeField] int roundWinsToWinGame = 3;
-        public List<PlayerScore> debugScores = new List<PlayerScore>();
         public PlayerManager PlayerManager { get; set; }
+
         //--Auto-Implemented Properties
         public List<PlayerScore> PlayerScores { get; set; }
 
@@ -19,16 +19,34 @@ namespace CarTag.ScoreSystem {
 
             for (int i = 0; i < PlayerManager.Players.Count; i++) {
                 PlayerScores.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerScore>());
-                PlayerScores[i].roundDatas.Add(new RoundData(PlayerScores[i].ThisPlayer.IsThisPlayerCurrentRunner()));
+                PlayerScores[i].roundData.Add(new RoundData(PlayerScores[i].ThisPlayer.IsThisPlayerCurrentRunner()));
+            }
+        }
+
+        private void Update() {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.P)) {
+                SaveManager.Save(PlayerScores[0]);
+                SaveManager.Save(PlayerScores[1]);
+
+                //foreach (var s in PlayerScores) {
+                //    SaveManager.Save(s, s.PlayerName);
+                //}
+
             }
         }
 
         public bool UpdateScoreCheckIfGameOver(Player roundWinner) {
             //roundWinner.PlayerScore.PlayerScoreStats.RoundWins++;
             //if (roundWinner.PlayerScore.PlayerScoreStats.RoundWins >= roundWinsToWinGame) {
+
             roundWinner.PlayerScore.RoundWins++;
             if (roundWinner.PlayerScore.RoundWins >= roundWinsToWinGame) {
                 return true;
+            }
+            //--Add new round data if there is going to be another round
+            foreach (PlayerScore score in PlayerScores) {
+                RoundData roundData = new RoundData(score.ThisPlayer.IsThisPlayerCurrentRunner());
+                score.roundData.Add(roundData);
             }
             return false;
         }
@@ -46,38 +64,25 @@ namespace CarTag.ScoreSystem {
         }
 
 
-        //--On Ability use need to:
-        //--see what ability was used and increment the counter for that ability
-        //--record the time that the ability was avalaible before being used
 
-        //--After each Role swap need to:
-        //--Increment role swap counter on each player
-        //--record duration of role for each player
-        //--Create a RoleData and add it to add it to list
+
+        //--Called from GameManager on role swap
         public void SetScoresOnRoleSwap(Player newRunner) {
             foreach (PlayerScore score in PlayerScores) {
                 //--Set Role Swap Counter
-                if (score.roundDatas.Count > 0) {
-                    score.roundDatas[score.roundDatas.Count - 1].roleSwapsPerRound++;
+                if (score.roundData.Count > 0) {
+                    score.roundData[score.roundData.Count - 1].roleSwapsPerRound++;
                 }
                 else {
                     Debug.Log("Trying to increment role swap couter before list contains Round Data");
                 }
                 //--Record Duration of Role
+                score.SetRoleDuration();
                 //--Create a new abilities per role and add it to add it to list
                 RoleData newRoleData = new RoleData(score.ThisPlayer.IsThisPlayerCurrentRunner());
-                score.roundDatas[score.roundDatas.Count - 1].roleDatas.Add(newRoleData);
+                score.roundData[score.roundData.Count - 1].roleData.Add(newRoleData);
 
             }
-        }
-
-
-        //--After each round need to 
-        //--Add a new round data to the list
-
-
-        private void Update() {
-            debugScores = PlayerScores;
         }
     }
 }

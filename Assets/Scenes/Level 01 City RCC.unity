@@ -937,7 +937,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36076
+  m_Name: pb_Mesh32706
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2841,7 +2841,7 @@ MonoBehaviour:
   - {fileID: 522085085}
   - {fileID: 2120756334}
   - {fileID: 1360085619}
-  chaserRoleSwapStartWaitTime: 5
+  chaserRoleSwapStartWaitTime: 2
   increaseChaserWaitTimeBy: 1
   defaultPlayersInGame: 2
 --- !u!114 &778535459
@@ -6352,8 +6352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be095e49331eb904489fdcbdc9878754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runnerStartWaitTime: 3
-  chaserStartWaitTime: 5
+  runnerStartWaitTime: 1
+  chaserStartWaitTime: 1
   distanceToWin: 100
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped

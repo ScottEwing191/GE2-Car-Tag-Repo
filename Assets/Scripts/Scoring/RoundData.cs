@@ -6,11 +6,22 @@ namespace CarTag.ScoreSystem {
     [System.Serializable]
     public class RoundData {
 
-        public List<RoleData> roleDatas = new List<RoleData>();
         public int roleSwapsPerRound;
+        public List<RoleData> roleData = new List<RoleData>();
 
         public RoundData(bool isRunner) {
-            roleDatas.Add(new RoleData(isRunner));
+            roleData.Add(new RoleData(isRunner));
         }
+
+        public RoleData GetCurrentRoleData() {
+            if (roleData.Count > 0) {
+                return roleData[roleData.Count - 1];
+            }
+            else {
+                Debug.LogError("Trying to access RoleData before an instance has been added to the list");
+                return null;
+            }
+        }
+
     }
 }
