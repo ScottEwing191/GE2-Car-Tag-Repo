@@ -9,15 +9,25 @@ namespace CarTag.ScoreSystem
     public class PlayerScore : MonoBehaviour
     {
         Player thisPlayer;
+        public List<RoundData> roundDatas = new List<RoundData>();
+        public string PlayerName;
+        public int RoundWins;
         private PlayerScoreStats playerScoreStats = new PlayerScoreStats();
         public PlayerScoreStats PlayerScoreStats {
             get { return playerScoreStats; }
+        }
+        public Player ThisPlayer {
+            get { return thisPlayer; }
         }
 
         //--If I want to replace this if I let the player enter their own names
         private void Start() {
             thisPlayer = GetComponentInParent<Player>();
-            PlayerScoreStats.PlayerName = thisPlayer.gameObject.name;
+            //PlayerScoreStats.PlayerName = thisPlayer.gameObject.name;
+            PlayerName = thisPlayer.gameObject.name;
+
         }
+
+
     }
 }

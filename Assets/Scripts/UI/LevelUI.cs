@@ -57,8 +57,12 @@ namespace CarTag.UI
             SetPlayerPositionRowsActiveState(false);                                 // disable all Player Position Rows
             SetPlayerPositionRowsActiveState(true, playerScoresArray.Length);        // enable only the required player position rows
             for (int i = 0; i < numberOfPlayers; i++) {
-                scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerScoreStats.PlayerName);
-                scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].PlayerScoreStats.RoundWins.ToString());
+                //scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerScoreStats.PlayerName);
+                scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerName);
+
+                //scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].PlayerScoreStats.RoundWins.ToString());
+                scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].RoundWins.ToString());
+
             }
         }
         private void SetScoreboardButtons(bool hideNextRoundButton) {

@@ -559,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875473
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 4618919499051950299, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
@@ -1418,7 +1418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875473
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -3421,7 +3421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875473
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -6354,7 +6354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 3
   chaserStartWaitTime: 5
-  distanceToWin: 1500
+  distanceToWin: 100
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:
@@ -6929,7 +6929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875473
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits

@@ -65,6 +65,7 @@ namespace CarTag {
             RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
             UIManager.RoleSwapReset(newRunner, newChaser);
+            ScoreManager.SetScoresOnRoleSwap(newRunner);
             AbilityManager.ResetAbilities();
         }
 
