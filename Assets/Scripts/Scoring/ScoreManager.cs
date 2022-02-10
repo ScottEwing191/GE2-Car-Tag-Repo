@@ -25,12 +25,9 @@ namespace CarTag.ScoreSystem {
 
         private void Update() {
             if (UnityEngine.Input.GetKeyDown(KeyCode.P)) {
-                SaveManager.Save(PlayerScores[0]);
-                SaveManager.Save(PlayerScores[1]);
-
-                //foreach (var s in PlayerScores) {
-                //    SaveManager.Save(s, s.PlayerName);
-                //}
+                foreach (var s in PlayerScores) {
+                    SaveManager.Save(s);
+                }
 
             }
         }
@@ -41,14 +38,19 @@ namespace CarTag.ScoreSystem {
 
             roundWinner.PlayerScore.RoundWins++;
             if (roundWinner.PlayerScore.RoundWins >= roundWinsToWinGame) {
+                //Save Telemetry Data to file
+                SaveManager.SaveTelemetryData(PlayerScores);
                 return true;
             }
+            return false;
+        }
+
+        public void SetupScoresForNewRound() {
             //--Add new round data if there is going to be another round
             foreach (PlayerScore score in PlayerScores) {
                 RoundData roundData = new RoundData(score.ThisPlayer.IsThisPlayerCurrentRunner());
                 score.roundData.Add(roundData);
             }
-            return false;
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace CarTag.ScoreSystem {
 
 
         //--Called from GameManager on role swap
-        public void SetScoresOnRoleSwap(Player newRunner) {
+        public void SetScoresOnRoleSwap() {
             foreach (PlayerScore score in PlayerScores) {
                 //--Set Role Swap Counter
                 if (score.roundData.Count > 0) {

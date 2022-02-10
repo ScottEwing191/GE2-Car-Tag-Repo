@@ -6354,7 +6354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 1
   chaserStartWaitTime: 1
-  distanceToWin: 100
+  distanceToWin: 20
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:

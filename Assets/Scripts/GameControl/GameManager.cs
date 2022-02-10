@@ -65,7 +65,7 @@ namespace CarTag {
             RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
             UIManager.RoleSwapReset(newRunner, newChaser);
-            ScoreManager.SetScoresOnRoleSwap(newRunner);
+            ScoreManager.SetScoresOnRoleSwap();
             AbilityManager.ResetAbilities();
         }
 
@@ -90,6 +90,7 @@ namespace CarTag {
             CheckpointManager.ResetCheckpoints();
             UIManager.RoundStartReset();
             AbilityManager.ResetAbilities();
+            ScoreManager.SetupScoresForNewRound();
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent
             StartCoroutine(RoundManager.RoundStart());
