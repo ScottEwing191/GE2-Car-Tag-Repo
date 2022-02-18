@@ -14,7 +14,10 @@ namespace CarTag.ScoreSystem
         Player thisPlayer;
         public string PlayerName;
         public int RoundWins;
+        public int RocketHits;
+        public int RocketsFired;
         [SerializeField] public List<RoundData> roundData = new List<RoundData>();
+
         private float roleTime;     // how long has the player been in the current role
         private PlayerScoreStats playerScoreStats = new PlayerScoreStats();
         public PlayerScoreStats PlayerScoreStats {
@@ -25,7 +28,7 @@ namespace CarTag.ScoreSystem
         }
 
         //--If I want to replace this if I let the player enter their own names
-        private void Start() {
+        private void Awake() {
             thisPlayer = GetComponentInParent<Player>();
             //PlayerScoreStats.PlayerName = thisPlayer.gameObject.name;
             PlayerName = thisPlayer.gameObject.name;

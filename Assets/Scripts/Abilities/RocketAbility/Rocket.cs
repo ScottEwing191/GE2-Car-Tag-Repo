@@ -21,6 +21,7 @@ namespace CarTag.Abilities {
         private bool hasExploded = false;
         private Player spawner;                 // The player which spawned the rocket
 
+        public Player PlayerWhoFired { get; set; }      // Just using this for telemetry
 
         public void StartRocket(float carSpeed) {
             thisRigidbody = GetComponent<Rigidbody>();
@@ -31,9 +32,10 @@ namespace CarTag.Abilities {
             }
             rocketEffect.Play();
             thisRigidbody.AddForce(transform.forward * finalSpeed, ForceMode.VelocityChange);
+            PlayerWhoFired.PlayerScore.RocketsFired++;      //For Telemetry
         }
 
-        
+
         private void Update() {
             if (useFuse) {
                 timeLeftTillExplode -= Time.deltaTime;
@@ -52,8 +54,16 @@ namespace CarTag.Abilities {
             if (!hasExploded && collidableLayers == (collidableLayers | 1 << collision.gameObject.layer)) {
                 if (!IsCollidingWithSpawner(collision.gameObject)) {                                        // dont explode when hitting car that fired rocket
                     Vector3 contactPosition = collision.GetContact(0).point;
-                    Explode(contactPosition); 
+                    Explode(contactPosition);
+                    CheckSuccessfullHit(collision);
                 }
+            }
+        }
+
+        private void CheckSuccessfullHit(Collision collision) {
+            if (collision.gameObject.CompareTag("Player") || collision.gameObject.name.Contains("Box")) {
+                print("Succesful Hit");
+                PlayerWhoFired.PlayerScore.RocketHits++;            //For Telemetry
             }
         }
 

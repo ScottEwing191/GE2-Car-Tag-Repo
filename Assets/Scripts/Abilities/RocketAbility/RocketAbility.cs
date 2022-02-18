@@ -47,6 +47,7 @@ namespace CarTag.Abilities {
             //float carSpeed = playerAbilityController.thisPlayer.CarController.CurrentSpeed;
             float carSpeed = playerAbilityController.thisPlayer.RCC_CarController.GetComponent<Rigidbody>().velocity.magnitude;
             currentRocket.GetComponent<Rocket>().SetSpawner(playerAbilityController.thisPlayer);
+            currentRocket.PlayerWhoFired = playerAbilityController.thisPlayer;      // For GUR Telemetry
             currentRocket.StartRocket(carSpeed);
             AbilityUsed();
         }
