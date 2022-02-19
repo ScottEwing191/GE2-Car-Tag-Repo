@@ -39,6 +39,7 @@ namespace CarTag.UI
                 Time.timeScale = 0;
                 shouldOpenPauseMenu = false;
                 Cursor.visible = true;
+                scoreboardUIElements.MainMenuButton.Select();
 
             }
             else {
@@ -47,6 +48,7 @@ namespace CarTag.UI
                 Cursor.visible = false;             // not working somehow
                 Time.timeScale = 1;
                 shouldOpenPauseMenu = true;
+                scoreboardUIElements.NextRoundButton.Select();
             }
         }
 

@@ -670,6 +670,7 @@ MonoBehaviour:
   - {fileID: 6395320474826785265}
   - {fileID: 5602261291504920343}
   timeBetweenAbilityUse: 5
+  timeElapsedSinceCooldownEnd: 0
 --- !u!114 &6395320474826785265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,7 +1162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2736242665519883166
 Transform:
   m_ObjectHideFlags: 0
@@ -28425,7 +28426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4579098903945998424
 Transform:
   m_ObjectHideFlags: 0
@@ -34657,6 +34658,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f92ee0343b40641a00191f9514948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestType: 
+  PlayerName: 
+  RoundWins: 0
+  RocketHits: 0
+  RocketsFired: 0
+  roundData: []
 --- !u!1 &7028010503434394543
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ namespace CarTag.UI
         [SerializeField] private CanvasGroup scoreBoardGroup; 
         [SerializeField] private List<PlayerRowElements> playerRowElements;
         [SerializeField] private Button nextRoundButton;
+        [SerializeField] private Button mainMenuButton;
+
 
         public CanvasGroup ScoreBoardGroup {
             get { return scoreBoardGroup; }
@@ -26,7 +28,10 @@ namespace CarTag.UI
             get { return nextRoundButton; }
             set { nextRoundButton = value; }
         }
-
+        public Button MainMenuButton {
+            get { return mainMenuButton; }
+            set { mainMenuButton = value; }
+        }
 
     }
     [Serializable]
