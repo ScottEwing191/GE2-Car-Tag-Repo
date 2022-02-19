@@ -12,7 +12,7 @@ namespace CarTag {
         [Header("Car Controllers")]
         [SerializeField] public RCC_CarControllerV3 runnerCarController;
         [SerializeField] public RCC_CarControllerV3 chaserCarController;
-        
+
         [Header("Rocket Ability")]
         [SerializeField] private RocketAbility rocketAbility;
         [SerializeField] private Transform runnerSpawnTransform;
@@ -35,12 +35,12 @@ namespace CarTag {
 
         }
 
-        public void ChangeCar(bool isNewRunner) {
+        public void ChangeCar(bool isNewRunner, bool enablePlayer = true) {
             //-- If New Runner i.e changing to runner
             if (isNewRunner) {
                 player.RCC_CarController = runnerCarController;
                 rcc_Camera.playerCar = runnerCarController;
-                
+
                 //--Set Car Object Active
                 runnerCarController.gameObject.SetActive(true);
                 chaserCarController.gameObject.SetActive(false);
@@ -61,7 +61,11 @@ namespace CarTag {
                 rocketAbility.SpawnTransform = runnerSpawnTransform;
 
                 //--Make Sure Car Changing to is enabled
-                player.EnablePlayer();
+                //player.EnablePlayer();
+                if (enablePlayer)
+                    player.EnablePlayer();
+                else
+                    player.DisablePlayer();
 
                 //--Repair Car
                 runnerCarController.repairNow = true;
@@ -92,7 +96,11 @@ namespace CarTag {
                 rocketAbility.SpawnTransform = chaserSpawnTransform;
 
                 //Make Sure Car Changing to is enabled
-                player.EnablePlayer();
+                if (enablePlayer)
+                    player.EnablePlayer();
+                else
+                    player.DisablePlayer();
+
 
                 //--Repair Car
                 chaserCarController.repairNow = true;

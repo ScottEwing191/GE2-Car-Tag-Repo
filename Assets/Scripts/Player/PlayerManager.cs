@@ -135,7 +135,7 @@ namespace CarTag.PlayerSpace {
 
         private void ChangeAllCars() {
             foreach (Player player in players) {
-                player.ChangePlayerCars.ChangeCar(player.IsThisPlayerCurrentRunner());
+                player.ChangePlayerCars.ChangeCar(player.IsThisPlayerCurrentRunner(), false);
             }
         }
 

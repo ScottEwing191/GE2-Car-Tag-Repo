@@ -47,7 +47,7 @@ namespace CarTag.ScoreSystem {
             string type = "A Test";
             if (test != null) {
                 type = test.SelectedTest;
-                Destroy(test);
+                Destroy(test.gameObject);
             }
             return type;
         }
