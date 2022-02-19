@@ -26,6 +26,11 @@ namespace CarTag {
             get { return distanceToWin; }
             set { distanceToWin = value; }
         }
+        //=== JUST REQUIRED FOR TELEMETRY ===
+        public float ChaserStartWaitTime {
+            get { return chaserStartWaitTime; }
+            set { chaserStartWaitTime = value; }
+        }
 
         public void InitalSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;

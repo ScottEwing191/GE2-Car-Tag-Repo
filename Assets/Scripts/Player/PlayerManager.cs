@@ -26,6 +26,11 @@ namespace CarTag.PlayerSpace {
 
         //--Properties
         public List<Player> Players { get { return players; } }
+        //=== JUST REQUIRED FOR TELEMETRY ===
+        public float ChaserRoleSwapStartWaitTime {
+            get { return chaserRoleSwapStartWaitTime; }
+            set { chaserRoleSwapStartWaitTime = value; }
+        }
 
         //=== SET UP START ===
 

@@ -6447,9 +6447,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be095e49331eb904489fdcbdc9878754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runnerStartWaitTime: 1
-  chaserStartWaitTime: 5
-  distanceToWin: 20
+  runnerStartWaitTime: 3
+  chaserStartWaitTime: 8
+  distanceToWin: 1500
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:

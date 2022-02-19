@@ -4,6 +4,7 @@ using UnityEngine;
 using CarTag.PlayerSpace;
 using System.Linq;
 using Sirenix.OdinInspector;
+using System;
 
 namespace CarTag.ScoreSystem {
     public class ScoreManager : MonoBehaviour {
@@ -16,11 +17,39 @@ namespace CarTag.ScoreSystem {
         public void InitialSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;
             PlayerScores = new List<PlayerScore>();
-
+            string testType = GetTestType();
             for (int i = 0; i < PlayerManager.Players.Count; i++) {
                 PlayerScores.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerScore>());
+                //-- TELEMETRY CODE ---
                 PlayerScores[i].roundData.Add(new RoundData(PlayerScores[i].ThisPlayer.IsThisPlayerCurrentRunner()));
+                PlayerScores[i].TestType = testType;
             }
+            //=== Setting Head Start For A/B Testing. Not A Good Place To Do This
+            SetABTestingValues(testType);
+
+
+        }
+
+        private void SetABTestingValues(string testType) {
+            int chaserStartWait = 5;            // A test Values
+            int chaserSwapWait = 6;
+            if (testType == "B Test") {
+                chaserStartWait = 2;
+                chaserSwapWait = 3;
+            }
+
+            GameManager.Instance.RoundManager.ChaserStartWaitTime = chaserStartWait;
+            PlayerManager.ChaserRoleSwapStartWaitTime = chaserSwapWait;
+        }
+
+        private string GetTestType() {
+            MainMenu.AB_TestButtons test = FindObjectOfType<MainMenu.AB_TestButtons>();
+            string type = "A Test";
+            if (test != null) {
+                type = test.SelectedTest;
+                Destroy(test);
+            }
+            return type;
         }
 
         private void Update() {

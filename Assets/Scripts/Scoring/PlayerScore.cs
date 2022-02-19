@@ -12,6 +12,7 @@ namespace CarTag.ScoreSystem
     public class PlayerScore : MonoBehaviour
     {
         Player thisPlayer;
+        public string TestType;
         public string PlayerName;
         public int RoundWins;
         public int RocketHits;
