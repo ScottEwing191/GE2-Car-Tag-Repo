@@ -5,10 +5,8 @@ using UnityEngine.InputSystem;
 using CarTag.PlayerSpace;
 using CarTag.Abilities;
 
-namespace CarTag.Input
-{
-    public class PlayerInputHandler : MonoBehaviour
-    {
+namespace CarTag.Input {
+    public class PlayerInputHandler : MonoBehaviour {
         Player thisPlayer;
         [SerializeField] PlayerAbilityController abilityController;
 
@@ -20,24 +18,14 @@ namespace CarTag.Input
         }
 
         public void OnRespawn(InputAction.CallbackContext context) {
-            //print("Respawn");
-            if (context.started) {
-                //print("Respawn Started");
-                //--Start UI Respawn Display
-            }
+            if (Time.timeScale == 0) { return; }
             if (context.performed) {
-                //print("Respawn Performed");
                 thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
-
             }
-            if (context.canceled) {
-                //print("Respawn Cancelled");
-                //--Stop UI Respawn Display
-            }
-            
         }
 
         public void OnUseAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.OnAbilityInputStarted();
             }
@@ -47,11 +35,13 @@ namespace CarTag.Input
         }
 
         public void OnNextAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.NextAbility();
             }
         }
         public void OnPreviousAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.PreviousAbility();
             }

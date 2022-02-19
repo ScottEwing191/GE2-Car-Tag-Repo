@@ -47,7 +47,6 @@ namespace CarTag {
                 }
             }
             ChangePlayerCars = GetComponent<ChangePlayerCars>();
-
         }
 
         public void InitialSetup() {

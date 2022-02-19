@@ -27,12 +27,14 @@ namespace CarTag.UI
             SetScoreboardText(playerScoresArray, isGameOver);
             SetScoreboardButtons(isGameOver);
             StartCoroutine(screenFadeUI.CanvasGroupFadeRoutine(0, 1, scoreboardUIElements.ScoreBoardGroup));
+
         }
 
         public void DoPauseMenu() {
             if (!UIManager.RoundManager.IsRoundRunning) {
                 return;
             }
+            //--Opening Pause Menu
             if (shouldOpenPauseMenu) {
                 scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(true);
                 SetScoreboardButtons(true);
@@ -42,13 +44,13 @@ namespace CarTag.UI
                 scoreboardUIElements.MainMenuButton.Select();
 
             }
+            //--Closing Pause Menu
             else {
                 SetScoreboardButtons(false);
                 scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
                 Cursor.visible = false;             // not working somehow
                 Time.timeScale = 1;
                 shouldOpenPauseMenu = true;
-                scoreboardUIElements.NextRoundButton.Select();
             }
         }
 
@@ -70,10 +72,11 @@ namespace CarTag.UI
         private void SetScoreboardButtons(bool hideNextRoundButton) {
             if (hideNextRoundButton) {
                 scoreboardUIElements.NextRoundButton.gameObject.SetActive(false);
+                scoreboardUIElements.MainMenuButton.Select();
             }
             else {
                 scoreboardUIElements.NextRoundButton.gameObject.SetActive(true);
-
+                scoreboardUIElements.NextRoundButton.Select();
             }
         }
 

@@ -61,6 +61,7 @@ namespace CarTag.PlayerSpace
             SetRespawnLocation(startPosition, startRotation);
             SetCarTransform(startPosition, startRotation);
             SetCarVelocity(0);
+            //StopCar();
             StartCoroutine(StopWheels());
         }
         /// <summary>
@@ -127,6 +128,11 @@ namespace CarTag.PlayerSpace
 
             //--Set the Angular velocity of the car 
             carRb.AddTorque(-carRb.angularVelocity, ForceMode.VelocityChange);
+        }
+
+        private void StopCar() {
+            carRb.velocity = Vector3.zero;
+            carRb.angularVelocity = Vector3.zero;
         }
         private void SetWheelBrakeTorque(float torque) {
             foreach (WheelCollider wheel in wheels) {
