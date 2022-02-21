@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Car;
 using CarTag.UI;
+using UnityEngine.Events;
 //using UnityEngine.InputSystem;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
+        //private Action setPlayerControls;
         [SerializeField] private List<GameObject> playerObjects_ = new List<GameObject>();
         private List<Player> players_ = new List<Player>();
         [SerializeField] private float chaserRoleSwapStartWaitTime_ = 5.0f;
@@ -43,15 +45,25 @@ namespace CarTag.PlayerSpace {
         }*/
 
         public void Awake() {
-            
+            carStatsController_ = GetComponent<CarStatsController>();
+            SetupPlayersList();
+            //SetPlayersControlScheme();
+            //setPlayerControls?.Invoke();
+            print("PlayerManager" + gameObject.name);
+
+        }
+        private void OnEnable() {
+            //setPlayerControls += SetupPlayersList;
+            //setPlayerControls += SetPlayersControlScheme;
+        }
+        private void OnDisable() {
+            //setPlayerControls -= SetupPlayersList;
+            //setPlayerControls -= SetPlayersControlScheme;
         }
 
         public void InitialSetup() {
             UIManager = GameManager.Instance.UIManager;
-            carStatsController_ = GetComponent<CarStatsController>();
             //playerInputManager = GetComponent<PlayerInputManager>();
-            SetupPlayersList();
-            //SetPlayersControlScheme();
             SetupPlayers();
             FindCurrentRunner();
             runnerAtRoundStart_ = CurrentRunner;
@@ -61,7 +73,7 @@ namespace CarTag.PlayerSpace {
         }
 
         //--Use the number of players selected in the Main menu to disable the player Objects which are not required and remove them from te players list.
-        private void SetupPlayersList() {
+        public void SetupPlayersList() {
             int playersInGame = GetPlayersInGame();
             for (int i = 0; i < playerObjects_.Count; i++) {
                 playerObjects_[i].SetActive(false);
@@ -83,7 +95,7 @@ namespace CarTag.PlayerSpace {
             return playersInGame;
         }
 
-        private void SetPlayersControlScheme() {
+        public void SetPlayersControlScheme() {
             MainMenu.MainMenuData data = FindObjectOfType<MainMenu.MainMenuData>();
             if (data == null) { return; }
             for (int i = 0; i < players_.Count; i++) {

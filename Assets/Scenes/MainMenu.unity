@@ -592,16 +592,16 @@ MonoBehaviour:
     the CHASER.\n\nAt the beginning of each round the Runner will get a head start.
     The Runner's objective is to travel a set distance without getting caught.\nWhile
     driving, the runner will leave a trail of checkpoints behind them.\n\nThe Chaser's
-    objective is to catch the Runner before the Runner travels the distance. The
-    chaser must pass through all checkpoints left by the Runner.\nIf the Chaser catches
+    objective is to catch the Runner before the Runner travels the distance. \nThe
+    Chaser must pass through all checkpoints left by the Runner.\nIf the Chaser catches
     the Runner then each player will swap roles. \nThe Chaser becomes the new Runner
     and can continue driving immediately. \nThe Runner becomes the new Chaser and
-    must wait a few seconds before they can drive.\n\nThe round is one when the Runner
+    must wait a few seconds before they can drive.\n\nThe round is won when the Runner
     reaches the target distance. The round cannot be won as the Chaser. The first
     player to win three rounds wins the game.\n\nThere are four abilities in the
     game:\nBoth the Runner and Chaser can spawn piles of boxes to hinder the other
     player.\nThey can also both fire projectiles to blow up boxes. \n\nThe Chaser
-    has a Nitro ability and a slow motion ability."
+    has a nitro ability and a slow motion ability."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3015d2c5ebbad4fbc944c8238764609f, type: 2}
   m_sharedMaterial: {fileID: -6245147879248726382, guid: 3015d2c5ebbad4fbc944c8238764609f, type: 2}
