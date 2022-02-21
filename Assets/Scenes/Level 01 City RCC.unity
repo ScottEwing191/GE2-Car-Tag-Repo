@@ -559,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875427
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 4618919499051950299, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
@@ -683,7 +683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name
@@ -1254,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875427
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -1314,7 +1314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name
@@ -2676,14 +2680,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ca7ed45927768469d082c94600e0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObjects:
+  playerObjects_:
   - {fileID: 312603266}
   - {fileID: 522085085}
   - {fileID: 2120756334}
   - {fileID: 1360085619}
-  chaserRoleSwapStartWaitTime: 6
-  increaseChaserWaitTimeBy: 1
-  defaultPlayersInGame: 2
+  chaserRoleSwapStartWaitTime_: 5
+  increaseChaserWaitTimeBy_: 1
+  defaultPlayersInGame_: 2
 --- !u!114 &778535459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3425,7 +3429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875427
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -3482,6 +3486,10 @@ PrefabInstance:
     - target: {fileID: 7028810758769463621, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name
@@ -6970,7 +6978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875427
+      value: -31.875488
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274339583376, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -7030,7 +7038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name

@@ -44,7 +44,7 @@ namespace CarTag.ScoreSystem {
 
         private string GetTestType() {
             MainMenu.AB_TestButtons test = FindObjectOfType<MainMenu.AB_TestButtons>();
-            string type = "A Test";
+            string type = "B Test";
             if (test != null) {
                 type = test.SelectedTest;
                 Destroy(test.gameObject);

@@ -10,6 +10,7 @@ namespace CarTag.MainMenu
     {
         [SerializeField] private PlayersPlaying playersPlaying;
         [SerializeField] private ScreenFadeUI screenFadeUI;
+        [SerializeField] private MainMenuUIManager mainMenuUIManager;
         private bool selected = false;                      // stops the player from double clicking buttons
 
         
@@ -18,21 +19,24 @@ namespace CarTag.MainMenu
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 2;
-                StartCoroutine(LoadNextScene());
+                mainMenuUIManager.GoToControllerSelect();
+                //StartCoroutine(LoadNextScene());
             }
         }
         public void SelectThreePlayers() {
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 3;
-                StartCoroutine(LoadNextScene());
+                mainMenuUIManager.GoToControllerSelect();
+                //StartCoroutine(LoadNextScene());
             }
         }
         public void SelectFourPlayers() {
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 4;
-                StartCoroutine(LoadNextScene());
+                mainMenuUIManager.GoToControllerSelect();
+                //StartCoroutine(LoadNextScene());
             }
         }
 

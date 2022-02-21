@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.UI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace CarTag.MainMenu {
     public class MainMenuUIManager : MonoBehaviour {
         [SerializeField] private ScreenFadeUI screenFade;
+        [Header("Canves Groups")]
         [SerializeField] private CanvasGroup mainMenu;
         [SerializeField] private CanvasGroup controls;
         [SerializeField] private CanvasGroup rules;
+        [SerializeField] private CanvasGroup setControls;
 
+        [Header("Buttons")]
         [SerializeField] private Button defaultButton;
         [SerializeField] private Button controlsBackBtn;
         [SerializeField] private Button rulesBackBtn;
-
-
+        [SerializeField] private Button playButton;
 
         private void Awake() {
             Time.timeScale = 1;
@@ -45,11 +48,25 @@ namespace CarTag.MainMenu {
             StartCoroutine(SwitchCanvasGroup(rules, mainMenu));
             defaultButton.Select();
         }
+
+        public void GoToControllerSelect() {
+            StartCoroutine(SwitchCanvasGroup(mainMenu, setControls));
+            playButton.Select();
+        }
         public IEnumerator SwitchCanvasGroup(CanvasGroup fromGroup, CanvasGroup toGroup) {
             toGroup.gameObject.SetActive(true);
             StartCoroutine(screenFade.CanvasGroupFadeRoutine(0, 1, toGroup));
             yield return StartCoroutine(screenFade.CanvasGroupFadeRoutine(1, 0, fromGroup));
             fromGroup.gameObject.SetActive(false);
+        }
+
+        public void PlayButton() {
+            StartCoroutine(LoadNextScene());
+
+        }
+        public IEnumerator LoadNextScene() {
+            yield return StartCoroutine(screenFade.ScreenFadeRoutine(0, 1));
+            SceneManager.LoadScene("Level 01 City RCC");
         }
 
     }

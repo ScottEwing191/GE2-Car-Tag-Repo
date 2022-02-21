@@ -8,6 +8,7 @@ using CarTag.Road;
 using CarTag.PlayerSpace;
 using CarTag.Abilities;
 using CarTag.ScoreSystem;
+using UnityEngine.InputSystem;
 
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
@@ -30,16 +31,19 @@ namespace CarTag {
         public PlayerScore PlayerScore { get; set; }
         public RCC_CarControllerV3 RCC_CarController { get; set; }
         public ChangePlayerCars ChangePlayerCars { get; set; }
-        public bool  IsPlayerEnabled { get; set; }
+        public UnityEngine.InputSystem.PlayerInput PlayerInput { get; set; }
+
+        public bool IsPlayerEnabled { get; set; }
 
 
         //Properties
-        public PlayerRoleEnum PlayerRoll { 
-            get { return playerRoll; } 
-            set { playerRoll = value; } }     // keeps track of the current roll of the player
+        public PlayerRoleEnum PlayerRoll {
+            get { return playerRoll; }
+            set { playerRoll = value; }
+        }     // keeps track of the current roll of the player
         private void Awake() {
             //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
-            RCC_CarControllerV3[]  rccCarControllers = GetComponentsInChildren<RCC_CarControllerV3>();
+            RCC_CarControllerV3[] rccCarControllers = GetComponentsInChildren<RCC_CarControllerV3>();
             foreach (RCC_CarControllerV3 controller in rccCarControllers) {
                 if (controller.gameObject.activeInHierarchy) {
                     RCC_CarController = controller;
@@ -47,6 +51,10 @@ namespace CarTag {
                 }
             }
             ChangePlayerCars = GetComponent<ChangePlayerCars>();
+            /*PlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            if (gameObject.name == "Player 1") {
+               PlayerInput.defaultControlScheme = "KeyboardMouse";
+            }*/
         }
 
         public void InitialSetup() {
@@ -59,6 +67,11 @@ namespace CarTag {
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
             PlayerScore = GetComponentInChildren<PlayerScore>();
             //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
+
+        }
+        public void SetControlScheme(MainMenu.ControlType type) {
+            PlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            PlayerInput.defaultControlScheme = type.ToString();
         }
 
         public void InvokeRoleSwapEvent() {
