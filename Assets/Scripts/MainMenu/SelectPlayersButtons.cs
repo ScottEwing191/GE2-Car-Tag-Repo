@@ -19,24 +19,24 @@ namespace CarTag.MainMenu
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 2;
-                mainMenuUIManager.GoToControllerSelect();
-                //StartCoroutine(LoadNextScene());
+                //mainMenuUIManager.GoToControllerSelect();
+                StartCoroutine(LoadNextScene());
             }
         }
         public void SelectThreePlayers() {
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 3;
-                mainMenuUIManager.GoToControllerSelect();
-                //StartCoroutine(LoadNextScene());
+                //mainMenuUIManager.GoToControllerSelect();
+                StartCoroutine(LoadNextScene());
             }
         }
         public void SelectFourPlayers() {
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 4;
-                mainMenuUIManager.GoToControllerSelect();
-                //StartCoroutine(LoadNextScene());
+                //mainMenuUIManager.GoToControllerSelect();
+                StartCoroutine(LoadNextScene());
             }
         }
 

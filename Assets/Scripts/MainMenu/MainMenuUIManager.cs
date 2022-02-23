@@ -60,7 +60,7 @@ namespace CarTag.MainMenu {
             fromGroup.gameObject.SetActive(false);
         }
 
-        public void PlayButton() {
+        public void StartGame() {
             StartCoroutine(LoadNextScene());
 
         }

@@ -4,12 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Car;
 using CarTag.UI;
-using UnityEngine.Events;
-//using UnityEngine.InputSystem;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
-        //private Action setPlayerControls;
         [SerializeField] private List<GameObject> playerObjects_ = new List<GameObject>();
         private List<Player> players_ = new List<Player>();
         [SerializeField] private float chaserRoleSwapStartWaitTime_ = 5.0f;
@@ -18,7 +15,6 @@ namespace CarTag.PlayerSpace {
         [Tooltip("The time the chaser has to wait after a role swap get higher each time. This is the amount the time increases by each time")]
         [SerializeField] private float increaseChaserWaitTimeBy_ = 1;
         [SerializeField] private int defaultPlayersInGame_ = 2;
-        //private PlayerInputManager playerInputManager;
 
         private CarStatsController carStatsController_;
         private Player runnerAtRoundStart_;
@@ -36,29 +32,16 @@ namespace CarTag.PlayerSpace {
             get { return chaserRoleSwapStartWaitTime_; }
             set { chaserRoleSwapStartWaitTime_ = value; }
         }
+        public float ChaserRoleSwapWaitTime_ {
+            get { return chaserRoleSwapWaitTime_; }
+            set { chaserRoleSwapWaitTime_ = value; }
+        }
 
         //=== SET UP START ===
-
-        /*public void PreInitialSetup() {
-            SetupPlayersList();
-            // Get each player to Input Key to make sure controller is working
-        }*/
 
         public void Awake() {
             carStatsController_ = GetComponent<CarStatsController>();
             SetupPlayersList();
-            //SetPlayersControlScheme();
-            //setPlayerControls?.Invoke();
-            print("PlayerManager" + gameObject.name);
-
-        }
-        private void OnEnable() {
-            //setPlayerControls += SetupPlayersList;
-            //setPlayerControls += SetPlayersControlScheme;
-        }
-        private void OnDisable() {
-            //setPlayerControls -= SetupPlayersList;
-            //setPlayerControls -= SetPlayersControlScheme;
         }
 
         public void InitialSetup() {
@@ -95,14 +78,7 @@ namespace CarTag.PlayerSpace {
             return playersInGame;
         }
 
-        public void SetPlayersControlScheme() {
-            MainMenu.MainMenuData data = FindObjectOfType<MainMenu.MainMenuData>();
-            if (data == null) { return; }
-            for (int i = 0; i < players_.Count; i++) {
-                players_[i].SetControlScheme(data.PlayerControlTypes[i]);
-            }
-            Destroy(data.gameObject);
-        }
+       
         private void SetupPlayers() {
             for (int i = 0; i < players_.Count; i++) {
                 players_[i].InitialSetup();

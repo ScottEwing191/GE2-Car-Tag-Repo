@@ -40,6 +40,7 @@ namespace CarTag.ScoreSystem {
 
             GameManager.Instance.RoundManager.ChaserStartWaitTime = chaserStartWait;
             PlayerManager.ChaserRoleSwapStartWaitTime = chaserSwapWait;
+            PlayerManager.ChaserRoleSwapWaitTime_ = chaserSwapWait;
         }
 
         private string GetTestType() {

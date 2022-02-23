@@ -66,9 +66,9 @@ namespace CarTag.Input
             }
         }
         public void OnChangeCanera(InputAction.CallbackContext context) {
-            if (context.started) {
-                rccCamera.ChangeCamera();
-            }
+            //if (context.started) {
+            //    rccCamera.ChangeCamera();
+            //}
         }
 
 

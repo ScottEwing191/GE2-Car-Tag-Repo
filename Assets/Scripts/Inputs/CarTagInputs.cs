@@ -652,7 +652,7 @@ namespace CarTag.Inputs
                     ""id"": ""dd16b3e0-0d73-4be9-a6f2-fa6583e0ef92"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=2)""
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""UseAbility"",
