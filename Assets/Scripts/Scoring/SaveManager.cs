@@ -9,12 +9,14 @@ namespace CarTag.ScoreSystem {
         public static string directory = "/SaveData/";
         public static string fileName = "Game ";
         public static int fileNumber = 1;
-        public static string fileExt = ".txt";
+        public static string fileExt = ".json";
         public static string fileNameFull = fileName + fileNumber + fileExt;
 
 
         public static void Save(PlayerScore data) {
             string dir = Application.persistentDataPath + directory;
+            //string dir = Application.dataPath + directory;
+
             if (!Directory.Exists(dir)) {
                 Directory.CreateDirectory(dir);
             }

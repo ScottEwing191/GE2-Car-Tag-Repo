@@ -44,7 +44,7 @@ namespace CarTag {
         /// </summary>
         private void InitialSetup() {
             PlayerManager.InitialSetup();                                //Setup player Runners
-            RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
+            RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData); 
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
             ScoreManager.InitialSetup();                //must come before UI Manager
             UIManager.InitalSetup();
