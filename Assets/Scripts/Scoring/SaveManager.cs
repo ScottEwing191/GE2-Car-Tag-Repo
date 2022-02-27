@@ -14,8 +14,14 @@ namespace CarTag.ScoreSystem {
 
 
         public static void Save(PlayerScore data) {
-            string dir = Application.persistentDataPath + directory;
+            //string dir = Application.persistentDataPath + directory;
+            string dir = Application.dataPath + directory;
+            //Debug.Log("Data Path" + Application.dataPath);
+            //Debug.Log("Persistant Data Path" + Application.persistentDataPath);
+
+
             //string dir = Application.dataPath + directory;
+            Debug.Log("dir" + dir);
 
             if (!Directory.Exists(dir)) {
                 Directory.CreateDirectory(dir);
@@ -29,6 +35,8 @@ namespace CarTag.ScoreSystem {
 
                 File.WriteAllText(dir + fileNameFull, json);
             }
+            Debug.Log("dir 2" + dir);
+
         }
 
         internal static void SaveTelemetryData(List<PlayerScore> playerScores) {
@@ -39,7 +47,9 @@ namespace CarTag.ScoreSystem {
         }
 
         private static void SaveToNewFile(PlayerScore data) {
-            string dir = Application.persistentDataPath + directory;
+            //string dir = Application.persistentDataPath + directory;
+            string dir = Application.dataPath + directory;
+
             if (!Directory.Exists(dir)) {
                 Directory.CreateDirectory(dir);
             }

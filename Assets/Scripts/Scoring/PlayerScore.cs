@@ -19,7 +19,7 @@ namespace CarTag.ScoreSystem
         public int RocketsFired;
         [SerializeField] public List<RoundData> roundData = new List<RoundData>();
 
-        public float roleTime;     // how long has the player been in the current role
+        private float roleTime;     // how long has the player been in the current role
         private PlayerScoreStats playerScoreStats = new PlayerScoreStats();
         public PlayerScoreStats PlayerScoreStats {
             get { return playerScoreStats; }

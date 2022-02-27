@@ -683,7 +683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Keyboard&Mouse
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name
@@ -6411,7 +6411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 3
   chaserStartWaitTime: 8
-  distanceToWin: 20
+  distanceToWin: 1500
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:
