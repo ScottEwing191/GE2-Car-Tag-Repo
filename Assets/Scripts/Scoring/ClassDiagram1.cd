@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CarTag.ScoreSystem.PlayerScore">
+    <Position X="5.5" Y="2.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAUAAAAAAAAAAAACAAAAACAAAAECAACAACAACEAAA0g=</HashCode>
+      <FileName>Assets\Scripts\Scoring\PlayerScore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="roundData" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CarTag.ScoreSystem.RoundData">
+    <Position X="9.5" Y="2.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Scoring\RoundData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="roleData" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CarTag.ScoreSystem.RoleData">
+    <Position X="12.25" Y="2.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAACAAAEQ=</HashCode>
+      <FileName>Assets\Scripts\Scoring\RoleData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
