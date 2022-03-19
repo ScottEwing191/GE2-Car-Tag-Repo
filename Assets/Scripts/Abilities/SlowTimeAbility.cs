@@ -61,6 +61,7 @@ namespace CarTag.Abilities {
             }
             if (slowTimeRoutine != null) {      // End Ability when the player clicks again
                 StopCoroutine(slowTimeRoutine);
+                AbilityUsed();                  // Disabling slow midway through will cound as a use
                 DisableSlowMo();
                 return;
             }
@@ -70,8 +71,11 @@ namespace CarTag.Abilities {
         private IEnumerator SlowTimeRoutine() {
             Time.timeScale = slowTimeScale;
             SetCarController(angularVelStrength, liniearVelStrength);
+            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Turning Increased", slowDuration);
             yield return new WaitForSeconds(slowDuration);
+            AbilityUsed();
             DisableSlowMo();
+            
         }
 
         private void SetCarController(float angular, float linear) {
@@ -82,7 +86,11 @@ namespace CarTag.Abilities {
         private void DisableSlowMo() {
             Time.timeScale = 1;
             SetCarController(originalAngularStrength, originalLinearStrength);
-            AbilityUsed();
+            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StopTimerUI();
+            //AbilityUsed();
+            if (slowTimeRoutine !=null) {
+                StopCoroutine(slowTimeRoutine);
+            }
             slowTimeRoutine = null;
         }
 

@@ -26,7 +26,7 @@ namespace CarTag.ScoreSystem {
             }
             //=== Setting Head Start For A/B Testing. Not A Good Place To Do This
             //TURN BACK ON FOR TESTING
-            //SetABTestingValues(testType);
+            SetABTestingValues(testType);
 
 
         }

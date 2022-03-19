@@ -7,6 +7,7 @@ namespace CarTag.UI {
     public class AbilityUI : MonoBehaviour {
         [SerializeField] private AbilityUIElements runnerAbilityUIElements;
         [SerializeField] private AbilityUIElements chaserAbilityUIElements;
+        public AbilityActiveTimerUI AbilityActiveTimerUI { get; set; }
 
 
         //-- Private
@@ -14,6 +15,7 @@ namespace CarTag.UI {
         private Coroutine abilityCooldownTimerUIRoutine;
 
         private void Awake() {
+            AbilityActiveTimerUI = GetComponentInChildren<AbilityActiveTimerUI>();
         }
 
 
@@ -121,17 +123,17 @@ namespace CarTag.UI {
         private void SetSelectedText(int selectedIndex) {
             switch (selectedIndex) {
                 case 0: {
-                        activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
-                        break;
-
-                    }
-                case 1: {
                         activeAbilityUIElements.SelectedAbilityText.SetText("Boxes");
                         break;
 
                     }
+                case 1: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Rockets");
+                        break;
+
+                    }
                 case 2: {
-                        activeAbilityUIElements.SelectedAbilityText.SetText("Rockts");
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
                         break;
 
                     }
@@ -141,6 +143,9 @@ namespace CarTag.UI {
         }
 
         private void SetUsesLeftText(int usesLeft) {
+            if (usesLeft == -1) {
+                print("");
+            }
             activeAbilityUIElements.UsesLeftText.SetText(usesLeft.ToString());
         }
 

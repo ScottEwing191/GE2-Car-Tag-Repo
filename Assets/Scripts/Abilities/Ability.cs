@@ -59,6 +59,8 @@ namespace CarTag.Abilities
             return true;
         }
 
+        
+
         public virtual void Reset() {
 
         }
