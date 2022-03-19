@@ -44,6 +44,7 @@ namespace CarTag {
             IsRoundRunning = true;
             Cursor.visible = false;
             PlayerManager.DisableCars();                                    // all cars disabled
+            StartCoroutine(PlayerManager.CurrentRunner.PlayerCollision.TurnOffCollisionWithDelay(0));       //Turn off Car Collision for the Runner
             UIManager.StartRunnerCountdown(runnerStartWaitTime);
             UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
             UIManager.UpdateRunnerDistanceTracker(0, DistanceToWin);        // set distance tracker UI to 0 on round tart
@@ -52,6 +53,7 @@ namespace CarTag {
             checkDistance = true;
             yield return new WaitForSeconds(chaserStartWaitTime);           // wait till chaser can start
             PlayerManager.EnableChasers();                                  // chaser enabled
+            StartCoroutine(PlayerManager.CurrentRunner.PlayerCollision.TurnOnCarCollision(0));       //Turn On Car Collision for the Runner
             UIManager.SetupChaserCheckpointTrackers();
 
         }

@@ -25,7 +25,8 @@ namespace CarTag.ScoreSystem {
                 PlayerScores[i].TestType = testType;
             }
             //=== Setting Head Start For A/B Testing. Not A Good Place To Do This
-            SetABTestingValues(testType);
+            //TURN BACK ON FOR TESTING
+            //SetABTestingValues(testType);
 
 
         }

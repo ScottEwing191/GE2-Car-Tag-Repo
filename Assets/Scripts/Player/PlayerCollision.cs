@@ -41,7 +41,7 @@ namespace CarTag.PlayerSpace {
         public void CollisionEnter(Collision collision) {
             if (rolesSwapped) { return; }       // if the roles have already swapped (due to first collider on car) dont swap again (due to second)
 
-            if (thisPlayer.PlayerRoll != PlayerRoleEnum.Chaser) { return; }       // this car must be a chaser to continue
+            if (thisPlayer.PlayerRoll != PlayerRoleEnum.Chaser) { return; }       // this car must be a chaser to continue (This is the car which is turning into the runner)
 
             if (!collision.transform.CompareTag("Player")) { return; }        // other object must be a car to continue
 
@@ -80,7 +80,7 @@ namespace CarTag.PlayerSpace {
             }
         }
 
-        private IEnumerator TurnOffCollisionWithDelay(float delay) {
+        public IEnumerator TurnOffCollisionWithDelay(float delay) {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
