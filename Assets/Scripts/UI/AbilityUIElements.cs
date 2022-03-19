@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using TMPro;
 
 namespace CarTag.UI
 
@@ -14,10 +15,14 @@ namespace CarTag.UI
         //--Selected Ability
         [SerializeField] private GameObject abilityUIElementsObjects;       // the parent object that all elemnts are bellow
         [SerializeField] private Image timerFilledImage;
+        [SerializeField] private TextMeshProUGUI usesLeftText;
+        [SerializeField] private TextMeshProUGUI selectedAbilityText;
+
         [Tooltip("A list of icons attached to the selected ability gameobject. Only the currently selected icon will be visible")]
         [SerializeField] private List<GameObject> selectedIcons;
         [SerializeField] private List<GameObject> usesLeftIndicators;
         [SerializeField] private List<AbilityToSelectUI> abilitiesToSelect;
+
 
         public GameObject AbilityUIElementsObjects {
             get { return abilityUIElementsObjects; }
@@ -26,6 +31,9 @@ namespace CarTag.UI
             get { return timerFilledImage; }
             //set { timerFilledImage = value; }
         }
+
+        public TextMeshProUGUI UsesLeftText {get { return usesLeftText; }}
+        public TextMeshProUGUI SelectedAbilityText { get { return selectedAbilityText; } }
 
         public List<GameObject> SelectedIcons {
             get { return selectedIcons; }

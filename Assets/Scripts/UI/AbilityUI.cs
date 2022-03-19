@@ -22,15 +22,22 @@ namespace CarTag.UI {
             //SetDefaultValues();
             SetTimerFilledImage(1);
             SetUsesLeftIndicators(initialUsesLeft);
+            SetUsesLeftText(initialUsesLeft);
+            SetSelectedText(0);
             SetSelectedIcon(0);
             SetAbilitySelectedIndicator(0);
         }
+
+        
 
         //--Called each time an ability is used. Will update the Indicaters which show how many uses of an ability are left
         //--Starts coroutine to display time until an ability can be used again
         internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
             abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
+            //--Set USes Left Text
+
             SetUsesLeftIndicators(usesLeft);
+            SetUsesLeftText(usesLeft);
         }
         private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
             float timeLeft = cooldownTime;
@@ -46,7 +53,8 @@ namespace CarTag.UI {
             SetUsesLeftIndicators(usesLeft);
             SetAbilitySelectedIndicator(selectedIndex);
             SetSelectedIcon(selectedIndex);
-
+            SetUsesLeftText(usesLeft);
+            SetSelectedText(selectedIndex);
         }
 
 
@@ -60,6 +68,8 @@ namespace CarTag.UI {
             SetAbilitySelectedIndicator(selectedAbilityIndex);
             SetUsesLeftIndicators(usesLeft);
             SetTimerFilledImage(1);
+            SetUsesLeftText(usesLeft);
+            SetSelectedText(selectedAbilityIndex);
         }
 
         private void SetActiveAbilityElements(bool isRunner) {
@@ -108,6 +118,31 @@ namespace CarTag.UI {
             activeAbilityUIElements.TimerFilledImage.fillAmount = fillValue;
         }
 
+        private void SetSelectedText(int selectedIndex) {
+            switch (selectedIndex) {
+                case 0: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
+                        break;
+
+                    }
+                case 1: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Boxes");
+                        break;
+
+                    }
+                case 2: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Rockts");
+                        break;
+
+                    }
+                default: 
+                    break;
+            }
+        }
+
+        private void SetUsesLeftText(int usesLeft) {
+            activeAbilityUIElements.UsesLeftText.SetText(usesLeft.ToString());
+        }
 
 
     }
