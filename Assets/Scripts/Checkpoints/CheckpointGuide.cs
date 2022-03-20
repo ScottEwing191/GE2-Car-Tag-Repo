@@ -14,6 +14,7 @@ namespace CarTag.Checkpoints {
     public class CheckpointGuide : MonoBehaviour {
         public Player ThisPlayer { get; set; }
         CheckpointManager CheckpointManager { get; set; }
+        public PlayerCheckpointsController PlayerCheckpointsController { get; set; }
 
 
         private void Awake() {
@@ -22,6 +23,7 @@ namespace CarTag.Checkpoints {
         
         internal void InitialSetup() {
             CheckpointManager = ThisPlayer.PlayerManager.CheckpointManager;
+            PlayerCheckpointsController = GetComponentInParent<PlayerCheckpointsController>();
         }
 
         private void OnEnable() {

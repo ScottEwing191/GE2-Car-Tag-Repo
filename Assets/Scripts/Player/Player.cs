@@ -33,7 +33,8 @@ namespace CarTag {
         public PlayerScore PlayerScore { get; set; }
         public RCC_CarControllerV3 RCC_CarController { get; set; }
         public ChangePlayerCars ChangePlayerCars { get; set; }
-        public CheckpointGuide CheckpointGuide { get; set; }
+        //public CheckpointGuide CheckpointGuide { get; set; }
+        public PlayerCheckpointsController PlayerCheckpointsController { get; set; }
         public UnityEngine.InputSystem.PlayerInput PlayerInput { get; set; }
 
         public bool IsPlayerEnabled { get; set; }
@@ -65,8 +66,9 @@ namespace CarTag {
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
             PlayerScore = GetComponentInChildren<PlayerScore>();
-            CheckpointGuide =GetComponentInChildren<CheckpointGuide>();
-            CheckpointGuide.InitialSetup();
+            PlayerCheckpointsController = GetComponentInChildren<PlayerCheckpointsController>();
+            //CheckpointGuide =GetComponentInChildren<CheckpointGuide>();
+            //CheckpointGuide.InitialSetup();
             //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
 
         }

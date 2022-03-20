@@ -18,7 +18,8 @@ namespace CarTag.Checkpoints {
         public CheckpointSpawner CheckpointSpawner { get; private set; }
         public CheckpointVisibility CheckpointVisibility { get; set; }
         public CheckpointReached CheckpointReached { get; set; }
-        
+        public List<PlayerCheckpointsController> PlayerCheckpointsControllers { get; set; }
+
 
         // Properties
         public List<Queue<Checkpoint>> CheckpointQueues { get { return checkpointQueues; } }
@@ -27,6 +28,7 @@ namespace CarTag.Checkpoints {
             CheckpointSpawner = GetComponent<CheckpointSpawner>();
             CheckpointVisibility = new CheckpointVisibility(this, visibleCheckpoints);
             CheckpointReached = new CheckpointReached(this);
+            PlayerCheckpointsControllers = new List<PlayerCheckpointsController>();
         }
 
         public void InitialSetup(int numberOfQueues) {
@@ -34,6 +36,13 @@ namespace CarTag.Checkpoints {
             PlayerManager = GameManager.Instance.PlayerManager;
             for (int i = 0; i < numberOfQueues; i++) {
                 checkpointQueues.Add(new Queue<Checkpoint>());
+            }
+            //--Set up Player Checkpoints Controller Lists
+            foreach (Player player in PlayerManager.Players) {
+                PlayerCheckpointsControllers.Add(player.GetComponentInChildren<PlayerCheckpointsController>());
+            }
+            foreach (PlayerCheckpointsController p in PlayerCheckpointsControllers) {
+                p.InitialSetup();
             }
         }
 
@@ -112,7 +121,15 @@ namespace CarTag.Checkpoints {
             return shortest;
         }
 
-        
-        
+        /// <summary>
+        /// Update dates the guide arrow for each player
+        /// </summary>
+        /// Called when new checkpoint is spawned
+        public void UpdateCheckpointGuides() {
+            foreach (PlayerCheckpointsController controller in PlayerCheckpointsControllers) {
+                controller.CheckpointGuide.UpdateGuide();
+            }
+        }
+
     }
 }

@@ -248,11 +248,13 @@ namespace CarTag.PlayerSpace {
         /// <summary>
         /// Update dates the guide arrow for each player
         /// </summary>
-        public void UpdateCheckpointGuides() {
+       /* public void UpdateCheckpointGuides() {
             foreach (Player player in Players) {
-                player.CheckpointGuide.UpdateGuide();
+                print("Need to redo Checkpoint Guide Here too");
+                
+                //player.CheckpointGuide.UpdateGuide();
             }
-        }
+        }*/
 
     }
 }

@@ -66,22 +66,10 @@ namespace CarTag.Checkpoints
             checkpointManager.CheckpointQueues[queueListIndex].Dequeue();        // remove checkpoint from the queue
             cp.CheckpointReached(queueListIndex);                         // call destroy checkpoint method. May want to have animation or something later
             checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(queueListIndex);
-            thisPlayer.CheckpointGuide.UpdateGuide();
-            //SetCheckpointGuide(thisPlayer, queueListIndex);
+            thisPlayer.PlayerCheckpointsController.CheckpointGuide.UpdateGuide();       // update the checkpoint guid on the player that reached the checkpoint
         }
 
-        //The Checkpoint Guide is an arrow that points to the next checkpoint or the runner if all checkpoints have been reached
-       /* private void SetCheckpointGuide(Player thisPlayer, int queueListIndex)
-        {
-            if (checkpointManager.CheckpointQueues[queueListIndex].Count > 0)
-            {
-                thisPlayer.PlayerUIController.CheckpointGuideUI.Target = checkpointManager.CheckpointQueues[queueListIndex].Peek().transform;
-            }
-            else
-            {
-                thisPlayer.PlayerUIController.CheckpointGuideUI.Target = thisPlayer.PlayerManager.CurrentRunner.RCC_CarController.transform;
-            }
-        }*/
+      
 
         /// <summary>
         /// Handles what happens if the wrong checkpoint is reached
