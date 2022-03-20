@@ -71,7 +71,7 @@ namespace CarTag.Abilities {
         private IEnumerator SlowTimeRoutine() {
             Time.timeScale = slowTimeScale;
             SetCarController(angularVelStrength, liniearVelStrength);
-            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Turning Increased", slowDuration);
+            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Handling Increased", slowDuration);
             yield return new WaitForSeconds(slowDuration);
             AbilityUsed();
             DisableSlowMo();

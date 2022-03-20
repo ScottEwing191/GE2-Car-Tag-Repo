@@ -83,11 +83,12 @@ namespace CarTag.Abilities {
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, collidableLayers);
             foreach (var c in colliders) {
                 if (c.CompareTag("CollidesWithRocket")) {
+                    
                     Rigidbody rb = c.GetComponent<Rigidbody>();
                     if (rb == null) {
                         rb = c.GetComponentInParent<Rigidbody>();
                     }
-                    if (rb != null) {
+                    if (rb != null && !IsCollidingWithSpawner(c.transform.gameObject)) {
                         rb.AddExplosionForce(explosionForce, explodePosition, explosionRadius);
                     }
                     else {
