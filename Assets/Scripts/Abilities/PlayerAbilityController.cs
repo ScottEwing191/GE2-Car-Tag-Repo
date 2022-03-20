@@ -57,7 +57,7 @@ namespace CarTag.Abilities {
         }
         //--Called from input handler. Will set the the current ability ti the next ability in the list. If next ability is incompatable with player role it will move onto the...
         //--one after that and so on. Will also loop back to the start of the list.
-        public void NextAbility() {
+        public void NextAbility(bool recursiveCall = false) {
             //--If Can Switch Ability
             if (CurrentAbility.CanSwitchFrom()) {
                 int currentIndex = GetCurrentAbilityIndex();
@@ -65,12 +65,18 @@ namespace CarTag.Abilities {
                 if (newIndex >= abilities.Count) {      // loop the ability selection back around to the start of the list
                     newIndex = 0;
                 }
+                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
+                //--to call ChangeFromAbility on those abilities.
+                if (!recursiveCall) {
+                    CurrentAbility.ChangeFromAbility(); 
+                }
                 CurrentAbility = abilities[newIndex];
                 //--Check if the new CUrrent ability will work with the player current role
                 if (!IsAbilityCompatibleWithPlayerRole()) {
-                    NextAbility();
+                    NextAbility(true);
                     return;                 // makes sure the UI is not set for each ability which is not compatable
                 }
+                CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
                 thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
             }
@@ -79,7 +85,7 @@ namespace CarTag.Abilities {
 
             }
         }
-        public void PreviousAbility() {
+        public void PreviousAbility(bool recursiveCall = false) {
             //--If Can Switch Ability
             if (CurrentAbility.CanSwitchFrom()) {
                 int currentIndex = GetCurrentAbilityIndex();
@@ -87,13 +93,18 @@ namespace CarTag.Abilities {
                 if (newIndex < 0) {      // loop the ability selection back around to the end of the list
                     newIndex = abilities.Count - 1;
                 }
+                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
+                //--to call ChangeFromAbility on those abilities.
+                if (!recursiveCall) {
+                    CurrentAbility.ChangeFromAbility();
+                }
                 CurrentAbility = abilities[newIndex];
                 if (!IsAbilityCompatibleWithPlayerRole()) {
                     PreviousAbility();
                     return;
                 }
+                CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
-
                 thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
             }
             //--If Can't Switch Ability

@@ -11,6 +11,7 @@ namespace CarTag.Abilities {
         //--Private
         Transform spawnTransform;
         Rocket currentRocket;
+        private LineRenderer _lineRenderer;
 
         public Transform SpawnTransform {
             get { return spawnTransform; }
@@ -20,17 +21,36 @@ namespace CarTag.Abilities {
         protected override void Awake() {
             base.Awake();
             spawnTransform = runnerSpawnTransform;      //-- the runner and chaser will both spawn the rocket at the same transform 
+            _lineRenderer = GetComponentInChildren<LineRenderer>();
+
+            _lineRenderer.gameObject.SetActive(false);
         }
         public override void RoleStartSetup(bool isRunner) {
-            usesLeft = chaserMaxUses;
+            /*usesLeft = chaserMaxUses;
             if (isRunner) {
                 usesLeft = runnerMaxUses;
-            }
+            }*/
             // Destroy current rocket if one exists
             if (currentRocket != null) {
                 Destroy(currentRocket.gameObject);
             }
+            SetLineRendererParent();
+            base.RoleStartSetup(isRunner);
         }
+        public override void ChangeToAbility() {
+            //_lineRenderer.gameObject.SetActive(true);
+            base.ChangeFromAbility();
+        }
+
+        public override void ChangeFromAbility() {
+            //_lineRenderer.gameObject.SetActive(false);
+            base.ChangeFromAbility();
+        }
+
+        private void SetLineRendererParent() {
+            _lineRenderer.transform.parent = playerAbilityController.thisPlayer.RCC_CarController.transform;
+        }
+
         public override bool CanStartAbility() {
             if (usesLeft <= 0) {
                 return false;
@@ -49,7 +69,14 @@ namespace CarTag.Abilities {
             currentRocket.GetComponent<Rocket>().SetSpawner(playerAbilityController.thisPlayer);
             currentRocket.PlayerWhoFired = playerAbilityController.thisPlayer;      // For GUR Telemetry
             currentRocket.StartRocket(carSpeed);
+            _lineRenderer.gameObject.SetActive(true);        //Turn off line renderer once fired
             AbilityUsed();
+        }
+
+        public override void OnAbilityButtonReleased<T>(T obj) {
+
+            _lineRenderer.gameObject.SetActive(false);        //Turn off line renderer once fired
+
         }
 
         private void AbilityUsed() {

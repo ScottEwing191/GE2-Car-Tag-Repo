@@ -51,6 +51,13 @@ namespace CarTag.Abilities
 
         }
 
+        public virtual void ChangeToAbility() {
+
+        }
+        public virtual void ChangeFromAbility() {
+
+        }
+
         //--Can be implemented by each Spawnable ability to determine if they can be activated
         public virtual bool CanStartAbility() {
             return true;
