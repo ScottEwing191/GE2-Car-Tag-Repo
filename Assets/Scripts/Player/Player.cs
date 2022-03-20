@@ -8,12 +8,17 @@ using CarTag.Road;
 using CarTag.PlayerSpace;
 using CarTag.Abilities;
 using CarTag.ScoreSystem;
+using CarTag.Checkpoints;
+
 
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
         public event Action roleSwapEvent = delegate { };
         public event Action roundEndEvent = delegate { };
+        public event Action playerEnabledEvent = delegate { };
+        public event Action playerDisabledEvent = delegate { };
+
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
 
         // Auto-implemented properties
@@ -28,6 +33,7 @@ namespace CarTag {
         public PlayerScore PlayerScore { get; set; }
         public RCC_CarControllerV3 RCC_CarController { get; set; }
         public ChangePlayerCars ChangePlayerCars { get; set; }
+        public CheckpointGuide CheckpointGuide { get; set; }
         public UnityEngine.InputSystem.PlayerInput PlayerInput { get; set; }
 
         public bool IsPlayerEnabled { get; set; }
@@ -59,15 +65,17 @@ namespace CarTag {
             PlayerUIController = GetComponentInChildren<PlayerUIController>();
             PlayerAbilityController = GetComponentInChildren<PlayerAbilityController>();
             PlayerScore = GetComponentInChildren<PlayerScore>();
+            CheckpointGuide =GetComponentInChildren<CheckpointGuide>();
+            CheckpointGuide.InitialSetup();
             //RCC_CarController = GetComponentInChildren<RCC_CarControllerV3>();
 
         }
 
         public void InvokeRoleSwapEvent() {
-            roleSwapEvent.Invoke();
+            roleSwapEvent?.Invoke();
         }
         public void InvokeRoundEndEvent() {
-            roundEndEvent.Invoke();
+            roundEndEvent?.Invoke();
         }
         public bool IsThisPlayerCurrentRunner() {
             if (this == PlayerManager.CurrentRunner) {
@@ -78,10 +86,12 @@ namespace CarTag {
         public void EnablePlayer() {
             RCC_CarController.canControl = true;
             IsPlayerEnabled = true;
+            playerEnabledEvent?.Invoke();    
         }
         public void DisablePlayer() {
             RCC_CarController.canControl = false;
             IsPlayerEnabled = false;
+            playerDisabledEvent?.Invoke();
         }
     }
 }

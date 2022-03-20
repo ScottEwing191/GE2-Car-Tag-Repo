@@ -30,7 +30,7 @@ namespace CarTag.Checkpoints {
             //bool canSpawn = CanCheckpointSpawn();
             if (CanCheckpointSpawn()) {
                 var newCPScript = SpawnCheckpoint(cpPosition, cpRotation, runnerCheckpointListIndex);
-
+                checkpointManager.PlayerManager.UpdateCheckpointGuides();
                 return newCPScript;
             }
             else {

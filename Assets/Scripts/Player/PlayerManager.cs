@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CarTag.Car;
 using CarTag.UI;
+using CarTag.Checkpoints;
 
 namespace CarTag.PlayerSpace {
     public class PlayerManager : MonoBehaviour {
@@ -22,6 +23,7 @@ namespace CarTag.PlayerSpace {
         //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
         public UIManager UIManager { get; set; }
+        public CheckpointManager CheckpointManager { get; set; }
 
 
 
@@ -46,6 +48,7 @@ namespace CarTag.PlayerSpace {
 
         public void InitialSetup() {
             UIManager = GameManager.Instance.UIManager;
+            CheckpointManager = GameManager.Instance.CheckpointManager;
             //playerInputManager = GetComponent<PlayerInputManager>();
             SetupPlayers();
             FindCurrentRunner();
@@ -242,7 +245,14 @@ namespace CarTag.PlayerSpace {
             EnableChasers();
             UIManager.SetupChaserCheckpointTrackers();
         }
-
+        /// <summary>
+        /// Update dates the guide arrow for each player
+        /// </summary>
+        public void UpdateCheckpointGuides() {
+            foreach (Player player in Players) {
+                player.CheckpointGuide.UpdateGuide();
+            }
+        }
 
     }
 }

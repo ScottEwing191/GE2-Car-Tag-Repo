@@ -18,12 +18,14 @@ namespace CarTag.UI {
         public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }
         public AbilityUI AbilityUI { get; set; }
         public ScreenFadeUI ScreenFadeUI { get; set; }
+        public CheckpointGuideUI CheckpointGuideUI { get; private set; }
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
             AbilityUI = GetComponentInChildren<AbilityUI>();
             ScreenFadeUI = GetComponentInChildren<ScreenFadeUI>();
             thisPlayer = GetComponentInParent<Player>();
+            CheckpointGuideUI = GetComponentInChildren<CheckpointGuideUI>();
         }
 
         public void InitialSetup() {
