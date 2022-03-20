@@ -228,8 +228,8 @@
         <Point X="62.594" Y="23.182" />
         <Point X="61.237" Y="23.182" />
         <Point X="61.237" Y="19.061" />
-        <Point X="55.895" Y="19.061" Type="JumpStart" />
-        <Point X="55.729" Y="19.061" Type="JumpEnd" />
+        <Point X="55.615" Y="19.061" Type="JumpStart" />
+        <Point X="55.448" Y="19.061" Type="JumpEnd" />
         <Point X="49.583" Y="19.061" Type="JumpStart" />
         <Point X="49.417" Y="19.061" Type="JumpEnd" />
         <Point X="44.335" Y="19.061" Type="JumpStart" />
@@ -261,22 +261,6 @@
   </Class>
   <Class Name="CarTag.Player">
     <Position X="30.75" Y="18.5" Width="1.5" />
-    <AssociationLine Name="PlayerRespawn" Type="CarTag.PlayerSpace.PlayerRespawn" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="31.5" Y="23.395" />
-        <Point X="31.5" Y="24.306" />
-        <Point X="31.5" Y="24.306" />
-        <Point X="31.5" Y="24.75" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="PlayerCollision" Type="CarTag.PlayerSpace.PlayerCollision" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="31" Y="23.395" />
-        <Point X="31" Y="24.289" />
-        <Point X="28.969" Y="24.289" />
-        <Point X="28.969" Y="24.75" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="PlayerUIController" Type="CarTag.UI.PlayerUIController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="32.25" Y="18.711" />
@@ -292,8 +276,8 @@
         <Point X="44.335" Y="18.711" Type="JumpEnd" />
         <Point X="49.417" Y="18.711" Type="JumpStart" />
         <Point X="49.583" Y="18.711" Type="JumpEnd" />
-        <Point X="55.729" Y="18.711" Type="JumpStart" />
-        <Point X="55.895" Y="18.711" Type="JumpEnd" />
+        <Point X="55.448" Y="18.711" Type="JumpStart" />
+        <Point X="55.615" Y="18.711" Type="JumpEnd" />
         <Point X="62.917" Y="18.711" Type="JumpStart" />
         <Point X="63.083" Y="18.711" Type="JumpEnd" />
         <Point X="63.354" Y="18.711" Type="JumpStart" />
@@ -303,16 +287,8 @@
         <Point X="68.5" Y="19.595" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="PlayerRoll" Type="CarTag.PlayerRoleEnum" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="32.125" Y="23.395" />
-        <Point X="32.125" Y="24.302" />
-        <Point X="33.5" Y="24.302" />
-        <Point X="33.5" Y="24.75" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAAABBggAAgAAACBAREAAAAAAAAIIAAAABAAABQAQsg=</HashCode>
+      <HashCode>gAAARBggAAgAAACBAREAAAAAAAAIIAAAABAAABQAQsg=</HashCode>
       <FileName>Assets\Scripts\Player\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -335,12 +311,9 @@
   <Class Name="CarTag.PlayerSpace.PlayerManager">
     <Position X="30.25" Y="9.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>kAAAAAACAAYkIAACEDAGIIBCABKgAAAIKABQAAAACgA=</HashCode>
+      <HashCode>kAAAAAACRAJkoAACUDAGIIAiABSggABACgBQAAAAAkA=</HashCode>
       <FileName>Assets\Scripts\Player\PlayerManager.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="players" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CarTag.PlayerSpace.PlayerRespawn">
     <Position X="30.75" Y="24.75" Width="1.5" />
@@ -451,7 +424,7 @@
   <Class Name="CarTag.UI.AbilityUI">
     <Position X="36.5" Y="26" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAgAAAAAAAEAARIAAgkAAAEAEAAAAAEAAEAAAEA=</HashCode>
+      <HashCode>AAgAAAgAAAAAAAFAARIAAgkAAAEAEAQAAAEAAEAAAEA=</HashCode>
       <FileName>Assets\Scripts\UI\AbilityUI.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -605,32 +578,19 @@
       <FileName>Assets\Scripts\Abilities\BoxSpawnAbility\BoxesObstacle.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CarTag.Abilities.BoxSpawn.BoxSpawnAbility">
-    <Position X="56" Y="33" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAAYAAAAAABAAIAAEAAMgAAAhAAAoAAAgAgCAA=</HashCode>
-      <FileName>Assets\Scripts\Abilities\BoxSpawnAbility\BoxSpawnAbility.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="boxesObstacles" />
-    </ShowAsCollectionAssociation>
-  </Class>
   <Class Name="CarTag.Abilities.Rocket">
     <Position X="53.75" Y="38.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ADQAJQAAAAAAAAAAJAAAAAgAAAAAAAEMBAhACADAEAA=</HashCode>
+      <HashCode>ADQAJQAAAAAAAAAAJAAAAAgAAEAAAAEMBAhACCDAEAA=</HashCode>
       <FileName>Assets\Scripts\Abilities\RocketAbility\Rocket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CarTag.Abilities.RocketAbility">
     <Position X="53.75" Y="33" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIACAAAAAgAAAAAAAAgAAAgAAAIAAAAAACEA=</HashCode>
+      <HashCode>AgAAAAAAIAAAAAAAggAAAQAAAgAABgAAAIAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Abilities\RocketAbility\RocketAbility.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="currentRocket" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CarTag.Abilities.Ability">
     <Position X="55" Y="24.75" Width="1.5" />
@@ -641,14 +601,15 @@
   </Class>
   <Class Name="CarTag.Abilities.AbilityManager">
     <Position X="55" Y="9" Width="1.5" />
-    <AssociationLine Name="PlayerAbilityControllers" Type="CarTag.Abilities.PlayerAbilityController" FixedFromPoint="true">
-      <Path>
-        <Point X="55.812" Y="11.646" />
-        <Point X="55.812" Y="20" />
-      </Path>
-    </AssociationLine>
+    <NestedTypes>
+      <Enum Name="CarTag.Abilities.AbilityManager.AbilityType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Abilities\AbilityManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAIAAAAAABAAARQAAAAAAAAAAAEAAAAAAEA=</HashCode>
+      <HashCode>AABAABAAAAIAAAAAABAAARQAAAAAAAAAAAEAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Abilities\AbilityManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -656,7 +617,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="CarTag.Abilities.SpawnableAbility">
-    <Position X="55" Y="29.5" Width="1.5" />
+    <Position X="55" Y="29.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAJAAAAAIAAAAAAAAAQAAAAAAAAAAAIEA=</HashCode>
       <FileName>Assets\Scripts\Abilities\SpawnableAbility.cs</FileName>
@@ -665,7 +626,7 @@
   <Class Name="CarTag.RoundManager">
     <Position X="72.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIQCABAAABIAAIAAEBAAgAAAhAAAAAQAgAEAAAAAAQA=</HashCode>
+      <HashCode>AJQCABAAABIAAIAAEBAAgAAAhAAAAAQAgAEAAAAAAQA=</HashCode>
       <FileName>Assets\Scripts\GameControl\RoundManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -680,8 +641,8 @@
         <Point X="63.354" Y="19.061" Type="JumpEnd" />
         <Point X="63.083" Y="19.061" Type="JumpStart" />
         <Point X="62.917" Y="19.061" Type="JumpEnd" />
-        <Point X="55.895" Y="19.061" Type="JumpStart" />
-        <Point X="55.729" Y="19.061" Type="JumpEnd" />
+        <Point X="55.615" Y="19.061" Type="JumpStart" />
+        <Point X="55.448" Y="19.061" Type="JumpEnd" />
         <Point X="49.583" Y="19.061" Type="JumpStart" />
         <Point X="49.417" Y="19.061" Type="JumpEnd" />
         <Point X="44.335" Y="19.061" Type="JumpStart" />
@@ -692,7 +653,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAACAACAAAAACAAAAAA=</HashCode>
+      <HashCode>QAUAAAAAAAAAAAACAAAAACAAAAECAACAACAACEAAA0g=</HashCode>
       <FileName>Assets\Scripts\Scoring\PlayerScore.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -710,7 +671,7 @@
   <Class Name="CarTag.ScoreSystem.ScoreManager">
     <Position X="68.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAIAACAAABAAAAAAAAAAAAAAAAEAAAAAAIA=</HashCode>
+      <HashCode>AAAAABAAAAIAICAAAhAACAAAAAAAAAAAAAEBAAAEAIA=</HashCode>
       <FileName>Assets\Scripts\Scoring\ScoreManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -722,14 +683,6 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="BoxSpawnAbility" Type="CarTag.Abilities.BoxSpawn.BoxSpawnAbility" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="56.5" Y="22.309" />
-        <Point X="57.875" Y="22.309" />
-        <Point X="57.875" Y="33.5" />
-        <Point X="57.5" Y="33.5" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="thisPlayer" Type="CarTag.Player" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="55" Y="20.938" />
@@ -745,11 +698,10 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>BBAAABQACAACIAQAABUAABRAAAAgCAAAACAADAAAAEE=</HashCode>
+      <HashCode>BBQAABQACAACIAQAABUAABRAAAAgCAAAACAADAAAAEE=</HashCode>
       <FileName>Assets\Scripts\Abilities\PlayerAbilityController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="BoxSpawnAbility" />
       <Property Name="CurrentAbility" />
       <Property Name="thisPlayer" />
     </ShowAsAssociation>
@@ -760,8 +712,8 @@
       <Path>
         <Point X="61.25" Y="24" />
         <Point X="61.25" Y="19.062" />
-        <Point X="55.895" Y="19.062" Type="JumpStart" />
-        <Point X="55.729" Y="19.062" Type="JumpEnd" />
+        <Point X="55.615" Y="19.062" Type="JumpStart" />
+        <Point X="55.448" Y="19.062" Type="JumpEnd" />
         <Point X="49.583" Y="19.062" Type="JumpStart" />
         <Point X="49.417" Y="19.062" Type="JumpEnd" />
         <Point X="44.335" Y="19.062" Type="JumpStart" />
@@ -779,6 +731,16 @@
       <Field Name="thisPlayer" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="CarTag.Abilities.BoxSpawn.BoxSpawnAbility">
+    <Position X="56" Y="33" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAYAAAAAABAAIAAEAAMgAAAhAAAoAAAgAgCAA=</HashCode>
+      <FileName>Assets\Scripts\Abilities\BoxSpawnAbility\BoxSpawnAbility.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="boxesObstacles" />
+    </ShowAsCollectionAssociation>
+  </Class>
   <Struct Name="CarTag.Checkpoints.CheckpointData">
     <Position X="5.25" Y="20.75" Width="1.75" />
     <TypeIdentifier>
@@ -789,7 +751,7 @@
   <Struct Name="CarTag.UI.AbilityUIElements">
     <Position X="38.25" Y="31" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAABBAACAAAAACAAAAAAAAAIAAAAASAAAAAAgAAIA=</HashCode>
+      <HashCode>AEAAABBAACAAAAADAAAAAAABAIAAAAQSAAAEAAgAAIA=</HashCode>
       <FileName>Assets\Scripts\UI\AbilityUIElements.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -837,7 +799,7 @@
   <Struct Name="CarTag.UI.ScoreboardUIElements">
     <Position X="50.5" Y="26" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>QAABAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAEAAAQA=</HashCode>
+      <HashCode>QAABAAAAAAAAAAAAAAAAgAAAAQACAAEAAAAAAEAAAQA=</HashCode>
       <FileName>Assets\Scripts\UI\ScoreboardUIElements.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
