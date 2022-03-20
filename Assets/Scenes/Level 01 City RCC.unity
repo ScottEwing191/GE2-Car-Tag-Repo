@@ -1597,7 +1597,7 @@ PrefabInstance:
       objectReference: {fileID: 312603267}
     - target: {fileID: 5696500274330211354, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: TPSAutoFocus
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5696500274333478514, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Enabled
