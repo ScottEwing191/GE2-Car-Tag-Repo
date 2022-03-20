@@ -60,8 +60,8 @@ namespace CarTag.PlayerSpace
         public void RespawnAfterRound() {
             SetRespawnLocation(startPosition, startRotation);
             SetCarTransform(startPosition, startRotation);
-            SetCarVelocity(0);
-            //StopCar();
+            //SetCarVelocity(0);
+            StopCar();
             StartCoroutine(StopWheels());
         }
         /// <summary>

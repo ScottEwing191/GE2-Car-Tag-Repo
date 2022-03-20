@@ -92,7 +92,7 @@ namespace CarTag.Abilities {
                         rb.AddExplosionForce(explosionForce, explodePosition, explosionRadius);
                     }
                     else {
-                        Debug.Log("Rocket could not find a Rigidbody to explode on an object tagged with 'Collides With Rocket' ");
+                        //Debug.Log("Rocket could not find a Rigidbody to explode on an object tagged with 'Collides With Rocket' ");
                     }
                 }
             }
