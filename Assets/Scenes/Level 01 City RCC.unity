@@ -4613,7 +4613,7 @@ MonoBehaviour:
   - {fileID: 1360085619}
   chaserRoleSwapStartWaitTime_: 5
   increaseChaserWaitTimeBy_: 1
-  defaultPlayersInGame_: 2
+  defaultPlayersInGame_: 3
 --- !u!114 &778535459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8402,7 +8402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 3
   chaserStartWaitTime: 8
-  distanceToWin: 50
+  distanceToWin: 250
   distanceTravelled: 0
 --- !u!4 &1664892439 stripped
 Transform:
