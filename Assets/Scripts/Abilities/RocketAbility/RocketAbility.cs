@@ -5,13 +5,11 @@ using UnityEngine;
 
 namespace CarTag.Abilities {
     public class RocketAbility : SpawnableAbility {
-        //--Serialized Fields
-        //[SerializeField] private int runnerMaxUses = 3;
-        //[SerializeField] private int chaserMaxUses = 3;
         //--Private
         Transform spawnTransform;
         Rocket currentRocket;
         private LineRenderer _lineRenderer;
+        private bool isAimingRocket = false;         // true while the player is holding down the fire button (aiming the rocket)
 
         public Transform SpawnTransform {
             get { return spawnTransform; }
@@ -26,15 +24,13 @@ namespace CarTag.Abilities {
             _lineRenderer.gameObject.SetActive(false);
         }
         public override void RoleStartSetup(bool isRunner) {
-            /*usesLeft = chaserMaxUses;
-            if (isRunner) {
-                usesLeft = runnerMaxUses;
-            }*/
             // Destroy current rocket if one exists
             if (currentRocket != null) {
                 Destroy(currentRocket.gameObject);
             }
             SetLineRendererParent();
+            _lineRenderer.gameObject.SetActive(false);
+            isAimingRocket = false;         // stops rocket from firing if button was held before the role swap and released after 
             base.RoleStartSetup(isRunner);
         }
         public override void ChangeToAbility() {
@@ -47,6 +43,7 @@ namespace CarTag.Abilities {
             base.ChangeFromAbility();
         }
 
+        //--Sets the parent of the line rendere either to the Runner or Chaser Car Controller gameobjects
         private void SetLineRendererParent() {
             _lineRenderer.transform.parent = playerAbilityController.thisPlayer.RCC_CarController.transform;
         }
@@ -59,9 +56,26 @@ namespace CarTag.Abilities {
         }
 
         public override void OnAbilityButtonPressed<T>(T obj) {
-            if (!CanStartAbility()) {
-                return;
+            if (!CanStartAbility()) { return; }
+            isAimingRocket = true;
+            _lineRenderer.gameObject.SetActive(true);        //Turn off line renderer once fired
+        }
+        //--Set the length of the line renderer
+        //public override void OnAbilityButtonHeld<T>(T obj) {
+        private void Update() {
+            if (!isAimingRocket) { return; }    // Only fire rocket if aiming was succesfully started
+            RaycastHit hit;
+            Physics.Raycast(spawnTransform.position, spawnTransform.forward, out hit, 100, collisionCheckLayers.value);
+            float distance = 100;
+            if (hit.transform != null) {
+                distance = Vector3.Distance(spawnTransform.position, hit.transform.position);
             }
+            _lineRenderer.SetPosition(1, Vector3.forward * distance);
+        }
+        public override void OnAbilityButtonReleased<T>(T obj) {
+
+            if (!isAimingRocket) { return; }    // Only fire rocket if aiming was succesfully started
+
             currentRocket = Instantiate(abilityPrefab, spawnTransform.position, spawnTransform.rotation).GetComponent<Rocket>();
             LayerMask collidableLayers = collisionCheckLayers;
             //float carSpeed = playerAbilityController.thisPlayer.CarController.CurrentSpeed;
@@ -69,14 +83,11 @@ namespace CarTag.Abilities {
             currentRocket.GetComponent<Rocket>().SetSpawner(playerAbilityController.thisPlayer);
             currentRocket.PlayerWhoFired = playerAbilityController.thisPlayer;      // For GUR Telemetry
             currentRocket.StartRocket(carSpeed);
-            _lineRenderer.gameObject.SetActive(true);        //Turn off line renderer once fired
+            //_lineRenderer.gameObject.SetActive(true);        //Turn off line renderer once fired
             AbilityUsed();
-        }
-
-        public override void OnAbilityButtonReleased<T>(T obj) {
 
             _lineRenderer.gameObject.SetActive(false);        //Turn off line renderer once fired
-
+            isAimingRocket = false;
         }
 
         private void AbilityUsed() {
@@ -85,6 +96,6 @@ namespace CarTag.Abilities {
         }
 
 
-        
+
     }
 }

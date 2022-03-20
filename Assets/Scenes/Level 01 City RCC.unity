@@ -1090,7 +1090,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32740
+  m_Name: pb_Mesh36412
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1595,6 +1595,10 @@ PrefabInstance:
       propertyPath: playerCar
       value: 
       objectReference: {fileID: 312603267}
+    - target: {fileID: 5696500274330211354, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
+      propertyPath: TPSAutoFocus
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5696500274333478514, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4630,7 +4634,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32704
+  m_Name: pb_Mesh36376
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8857,7 +8861,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32768
+  m_Name: pb_Mesh36438
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
