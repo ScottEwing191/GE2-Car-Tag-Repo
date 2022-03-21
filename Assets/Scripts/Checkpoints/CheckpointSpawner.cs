@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace CarTag.Checkpoints {
     public class CheckpointSpawner : MonoBehaviour {
+        public Action OnCheckpointSpawned = delegate { };
         [AssetsOnly]
         [SerializeField] private GameObject checkpointPrefab;
         [SerializeField] private float spawnFrequency = 10;         // the checkpoint will spawn every 10th point on the spline
@@ -29,9 +31,10 @@ namespace CarTag.Checkpoints {
         internal Checkpoint TrySpawnCheckpoint(Vector3 cpPosition, Quaternion cpRotation, int runnerCheckpointListIndex) {
             //bool canSpawn = CanCheckpointSpawn();
             if (CanCheckpointSpawn()) {
-                var newCPScript = SpawnCheckpoint(cpPosition, cpRotation, runnerCheckpointListIndex);
+                var newCheckpoint = SpawnCheckpoint(cpPosition, cpRotation, runnerCheckpointListIndex);
                 checkpointManager.UpdateCheckpointGuides(); // update the checkpoint guide (only needed if the guide was previously pointing at the Runner )
-                return newCPScript;
+                OnCheckpointSpawned?.Invoke();
+                return newCheckpoint;
             }
             else {
                 return null;
@@ -54,16 +57,16 @@ namespace CarTag.Checkpoints {
                 position,
                 rotation,
                 checkpointManager.gameObject.transform);    // parent
-            Checkpoint newCPScript = newCP.GetComponent<Checkpoint>();              // Get one the checkpoint which will be added to each valid queue
+            Checkpoint newCheckpoint = newCP.GetComponent<Checkpoint>();              // Get one the checkpoint which will be added to each valid queue
             
             for (int i = 0; i < checkpointManager.CheckpointQueues.Count; i++) {
                 if (i == runnerCheckpointListIndex)                                 // Dont add checkpoint to runner queue
                     continue;
-            checkpointManager.CheckpointQueues[i].Enqueue(newCPScript);     // Add new Checkpoint to queue
+            checkpointManager.CheckpointQueues[i].Enqueue(newCheckpoint);     // Add new Checkpoint to queue
             }
             cpName++;
             newCP.name = "Checkpoint " + cpName.ToString();
-            return newCPScript;
+            return newCheckpoint;
         }
     }
 }

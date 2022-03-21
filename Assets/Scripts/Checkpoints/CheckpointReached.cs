@@ -8,6 +8,7 @@ namespace CarTag.Checkpoints
 {
     public class CheckpointReached
     {
+        public static Action OnCheckpointReached = delegate { };
         private CheckpointManager checkpointManager;
 
         public CheckpointReached(CheckpointManager checkpointManager)
@@ -67,6 +68,7 @@ namespace CarTag.Checkpoints
             cp.CheckpointReached(queueListIndex);                         // call destroy checkpoint method. May want to have animation or something later
             checkpointManager.CheckpointVisibility.UpdateVisibleCheckpoints(queueListIndex);
             thisPlayer.PlayerCheckpointsController.CheckpointGuide.UpdateGuide();       // update the checkpoint guid on the player that reached the checkpoint
+            OnCheckpointReached?.Invoke();
         }
 
       

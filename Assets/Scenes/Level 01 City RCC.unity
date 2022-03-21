@@ -7185,7 +7185,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-446180
+  m_Name: pb_Mesh-14546
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7869,7 +7869,7 @@ MonoBehaviour:
   - {fileID: 1360085619}
   chaserRoleSwapStartWaitTime_: 5
   increaseChaserWaitTimeBy_: 1
-  defaultPlayersInGame_: 3
+  defaultPlayersInGame_: 2
 --- !u!114 &778535459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8388,7 +8388,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-446156
+  m_Name: pb_Mesh-7084
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10711,7 +10711,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-446108
+  m_Name: pb_Mesh-10804
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14114,7 +14114,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-446132
+  m_Name: pb_Mesh-3870
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

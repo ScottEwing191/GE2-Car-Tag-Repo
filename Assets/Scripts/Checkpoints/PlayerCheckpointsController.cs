@@ -12,7 +12,7 @@ namespace CarTag.Checkpoints {
         public CheckpointManager CheckpointManager { get; set; }
         public Player ThisPlayer { get; set; }
         public CheckpointGuide CheckpointGuide { get; set; }
-        [ShowInInspector] public Queue<Checkpoint> CheckpointsQueue { get; private set; }
+        public Queue<Checkpoint> CheckpointsQueue { get; private set; }
 
 
 
