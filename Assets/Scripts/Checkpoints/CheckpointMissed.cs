@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//================================================================================================================================
+//--CheckpointMissed Will Keep track of how close the car is to the next checkpoint. If the car started to get further away from the cp. i.e, the player missed
+//--the checkpoint, the a button brompt will appear on screen the prompt the user to reset to the ast checkpoint
+//================================================================================================================================
+
 namespace CarTag.Checkpoints {
     public class CheckpointMissed : MonoBehaviour {
         //--Serialised Fields
@@ -22,7 +27,7 @@ namespace CarTag.Checkpoints {
 
         private void OnEnable() {
             CheckpointReached.OnCheckpointReached += OnCheckpointReached;
-            FindObjectOfType<CheckpointSpawner>().OnCheckpointSpawned -= OnCheckpointSpawned;       // I dont like this...
+            FindObjectOfType<CheckpointSpawner>().OnCheckpointSpawned += OnCheckpointSpawned;       // I dont like this...
         }
         private void OnDisable() {
             CheckpointReached.OnCheckpointReached -= OnCheckpointReached;
@@ -31,12 +36,11 @@ namespace CarTag.Checkpoints {
 
         public void UpdateTarget() {
             if (PlayerCheckpointsController.ThisPlayer.IsThisPlayerCurrentRunner()) { return; }
-
-            
+            if (PlayerCheckpointsController.CheckpointsQueue.Count == 0) { return; }
+            _minimumDst = float.MaxValue;
             TargetCheckpoint = PlayerCheckpointsController.CheckpointsQueue.Peek();
-            //TargetCheckpoint = PlayerCheckpointsController.CheckpointsQueue.ToArray()[0];
         }
-            
+
         //--Will keep track of how close the car is to the target checkpoint and if it start to get further away from the checkpoint it will display a hint to
         //--the player. The Hint disapears once the player get closer to the Target checkpoint again
         private void FixedUpdate() {
@@ -45,13 +49,16 @@ namespace CarTag.Checkpoints {
             Vector3 carPosition = PlayerCheckpointsController.ThisPlayer.RCC_CarController.transform.position;
             _currentDst = Vector3.Distance(carPosition, TargetCheckpoint.transform.position);
             _minimumDst = Mathf.Min(_minimumDst, _currentDst);
-            if (Mathf.Abs(_currentDst - _minimumDst) > thresholdDst && !isDisplayingHint) {
+            float difference = Mathf.Abs(_currentDst - _minimumDst);
+            if (difference > thresholdDst && !isDisplayingHint) {
                 //--Display Hint
                 print("Show Hint");
+                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetUI.ShowResetButtonUI();
                 isDisplayingHint = true;
             }
-            else if (isDisplayingHint) {
+            else if (difference < thresholdDst && isDisplayingHint) {
                 //--Hide Hint
+                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetUI.HideResetButtonUI();
                 print("Hide Hint");
                 isDisplayingHint = false;
             }

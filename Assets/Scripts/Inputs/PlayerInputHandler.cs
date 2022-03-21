@@ -19,8 +19,18 @@ namespace CarTag.Input {
 
         public void OnRespawn(InputAction.CallbackContext context) {
             if (Time.timeScale == 0) { return; }
+            float holdTime = 0.4f;
+            if (context.started) {
+                print("Started");
+                thisPlayer.PlayerUIController.CheckpointResetUI.StartResetHold(holdTime);
+            }
+            if (context.canceled) {
+                thisPlayer.PlayerUIController.CheckpointResetUI.StopResetHold();
+                print("Canceled");
+            }
             if (context.performed) {
                 thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
+                thisPlayer.PlayerUIController.CheckpointResetUI.StopResetHold();
             }
         }
 
