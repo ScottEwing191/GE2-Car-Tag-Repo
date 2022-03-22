@@ -11,29 +11,29 @@ using UnityEngine.UI;
 
 
 namespace CarTag.UI {
-    public class CheckpointResetUI : MonoBehaviour {
+    public class HoldButtonUI : MonoBehaviour {
         [SerializeField] private Image filledImage;
         private bool _isButtonHeld;
         private float _timer = 0.0f;
         private float _holdTime;
 
-        public void StartResetHold(float holdTime) {
+        public void StartButtonHold(float holdTime) {
             filledImage.gameObject.SetActive(true);
             _timer = 0;
             _holdTime = holdTime;
             _isButtonHeld = true;
             filledImage.fillAmount = 0;
         }
-        public void StopResetHold() {
+        public void StopButtonHold() {
             _isButtonHeld = false;
             filledImage.gameObject.SetActive(false);
         }
 
-        public void ShowResetButtonUI() {
+        public void ShowHoldButtonUI() {
             filledImage.gameObject.SetActive(true);
             filledImage.fillAmount = 0;
         }
-        public void HideResetButtonUI() { 
+        public void HideHoldButtonUI() { 
             filledImage.gameObject.SetActive(false);
         }
 

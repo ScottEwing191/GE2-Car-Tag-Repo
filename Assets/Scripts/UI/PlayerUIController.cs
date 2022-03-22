@@ -19,7 +19,7 @@ namespace CarTag.UI {
         public AbilityUI AbilityUI { get; set; }
         public ScreenFadeUI ScreenFadeUI { get; set; }
         public CheckpointGuideUI CheckpointGuideUI { get; private set; }
-        public CheckpointResetUI CheckpointResetUI { get; set; }
+        public HoldButtonUI CheckpointResetUI { get; set; }
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
@@ -27,7 +27,7 @@ namespace CarTag.UI {
             ScreenFadeUI = GetComponentInChildren<ScreenFadeUI>();
             thisPlayer = GetComponentInParent<Player>();
             CheckpointGuideUI = GetComponentInChildren<CheckpointGuideUI>();
-            CheckpointResetUI = GetComponentInChildren<CheckpointResetUI>();
+            CheckpointResetUI = GetComponentInChildren<HoldButtonUI>();
         }
 
         public void InitialSetup() {

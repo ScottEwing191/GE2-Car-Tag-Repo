@@ -12,12 +12,15 @@ namespace CarTag.ScoreSystem
     public class PlayerScore : MonoBehaviour
     {
         Player thisPlayer;
-        public string TestType;
-        public string PlayerName;
-        public int RoundWins;
-        public int RocketHits;
-        public int RocketsFired;
-        [SerializeField] public List<RoundData> roundData = new List<RoundData>();
+        public string Test_Type;
+        public string Player_Name;
+        public int Round_Wins;
+        public int Rocket_Hits;
+        public int Rockets_Fired;
+        public int Total_Slow_Mo_Uses;
+        public int Total_Box_Uses;
+        public int Total_Rocket_Uses;
+        [SerializeField] public List<RoundData> Round_Data = new List<RoundData>();
 
         private float roleTime;     // how long has the player been in the current role
         private PlayerScoreStats playerScoreStats = new PlayerScoreStats();
@@ -32,7 +35,7 @@ namespace CarTag.ScoreSystem
         private void Awake() {
             thisPlayer = GetComponentInParent<Player>();
             //PlayerScoreStats.PlayerName = thisPlayer.gameObject.name;
-            PlayerName = thisPlayer.gameObject.name;
+            Player_Name = thisPlayer.gameObject.name;
 
         }
         private void Update() {
@@ -44,19 +47,19 @@ namespace CarTag.ScoreSystem
         internal void UpdateAbilityUsedTelemetry(Ability currentAbility, float timeElapsedSinceCooldownEnd) {
             RoleData currentRole = GetCurrentRoundData().GetCurrentRoleData();
             if (currentAbility.GetType() == typeof(SlowTimeAbility)) {
-                currentRole.slowMoUses++;
+                currentRole.Slow_Mo_Uses++;
             }else if(currentAbility.GetType() == typeof(Abilities.BoxSpawn.BoxSpawnAbility)) {
-                currentRole.boxUses++;
+                currentRole.Box_Uses++;
             }
             else if (currentAbility.GetType() == typeof(RocketAbility)) {
-                currentRole.rocketUses++;
+                currentRole.Rocket_Uses++;
             }
-            currentRole.timeAvailableBeforeActivations.Add(timeElapsedSinceCooldownEnd);
+            //currentRole.timeAvailableBeforeActivations.Add(timeElapsedSinceCooldownEnd);
         }
 
         public RoundData GetCurrentRoundData() {
-            if (roundData.Count > 0) {
-                return roundData[roundData.Count - 1];
+            if (Round_Data.Count > 0) {
+                return Round_Data[Round_Data.Count - 1];
             }
             else {
                 Debug.LogError("Trying to access RoundData before an instance has been added to the list");
@@ -65,8 +68,18 @@ namespace CarTag.ScoreSystem
         }
 
         internal void SetRoleDuration() {
-            GetCurrentRoundData().GetCurrentRoleData().roleDuration = roleTime;
+            GetCurrentRoundData().GetCurrentRoleData().Role_Duration = roleTime;
             roleTime = 0;
+        }
+
+        public void CalculateTotalAbilityUses() {
+            foreach (var round in Round_Data) {
+                foreach (var role in round.Role_Data) {
+                    Total_Slow_Mo_Uses += role.Slow_Mo_Uses;
+                    Total_Box_Uses += role.Box_Uses;
+                    Total_Rocket_Uses += role.Rocket_Uses;
+                }
+            }
         }
     }
 }

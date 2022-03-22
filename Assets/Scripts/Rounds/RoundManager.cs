@@ -6,7 +6,7 @@ using CarTag.PlayerSpace;
 using CarTag.UI;
 using CarTag.Road;
 
-namespace CarTag {
+namespace CarTag.Rounds {
     public class RoundManager : MonoBehaviour {
         //--Serialized fields
         [SerializeField] private float runnerStartWaitTime = 3;      // countdown time before runner can start
@@ -20,12 +20,16 @@ namespace CarTag {
         public PlayerManager PlayerManager { get; private set; }
         public RoadManager RoadManager { get; set; }
         public bool IsRoundRunning { get; private set; }
+        //--Private 
+        private List<PlayerRoundController> playerRoundControllers = new List<PlayerRoundController>();
 
         //--Properties
         public float DistanceToWin {
             get { return distanceToWin; }
             set { distanceToWin = value; }
         }
+
+        public List<PlayerRoundController> PlayerRoundControllers { get { return playerRoundControllers; } }
         //=== JUST REQUIRED FOR TELEMETRY ===
         public float ChaserStartWaitTime {
             get { return chaserStartWaitTime; }
@@ -36,6 +40,12 @@ namespace CarTag {
             PlayerManager = GameManager.Instance.PlayerManager;
             UIManager = GameManager.Instance.UIManager;
             RoadManager = GameManager.Instance.RoadManager;
+            //--Setup Player Round Controllers
+            for (int i = 0; i < PlayerManager.Players.Count; i++) {
+                playerRoundControllers.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerRoundController>());
+                playerRoundControllers[i].InitialSetup();
+            }
+
             initialSetupDone = true;
         }
 

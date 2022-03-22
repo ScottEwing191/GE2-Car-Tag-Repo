@@ -134,8 +134,20 @@ namespace CarTag.PlayerSpace
         }
 
         private void StopCar() {
-            thisPlayer.RCC_CarController.rigid.velocity = Vector3.zero;
-            thisPlayer.RCC_CarController.rigid.angularVelocity = Vector3.zero;
+            //--This Does not completely stop the car if the car is sliding sideways
+            //thisPlayer.RCC_CarController.rigid.velocity = Vector3.zero;
+            //thisPlayer.RCC_CarController.rigid.angularVelocity = Vector3.zero;
+            
+            //--This Seams to stop the car completely. It sets the Velocity on both car rigidbodies. not just the current one. Not great that it accesses
+            //--ChangePlayerCars
+            
+            thisPlayer.ChangePlayerCars.runnerRigidbody.velocity = Vector3.zero;
+            thisPlayer.ChangePlayerCars.chaserRigidbody.velocity = Vector3.zero;
+
+            thisPlayer.ChangePlayerCars.runnerRigidbody.angularVelocity = Vector3.zero;
+            thisPlayer.ChangePlayerCars.chaserRigidbody.angularVelocity = Vector3.zero;
+
+
         }
         private void SetWheelBrakeTorque(float torque) {
             foreach (WheelCollider wheel in wheels) {

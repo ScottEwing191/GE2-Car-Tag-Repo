@@ -32,7 +32,7 @@ namespace CarTag.Abilities {
             }
             rocketEffect.Play();
             thisRigidbody.AddForce(transform.forward * finalSpeed, ForceMode.VelocityChange);
-            PlayerWhoFired.PlayerScore.RocketsFired++;      //For Telemetry
+            PlayerWhoFired.PlayerScore.Rockets_Fired++;      //For Telemetry
         }
 
 
@@ -63,7 +63,7 @@ namespace CarTag.Abilities {
         private void CheckSuccessfullHit(Collision collision) {
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.name.Contains("Box")) {
                 //print("Succesful Hit");
-                PlayerWhoFired.PlayerScore.RocketHits++;            //For Telemetry
+                PlayerWhoFired.PlayerScore.Rocket_Hits++;            //For Telemetry
             }
         }
 

@@ -22,8 +22,8 @@ namespace CarTag {
         [SerializeField] private RCC_Camera rcc_Camera;
 
         [Header("Car Rigidbodies")]
-        [SerializeField] private Rigidbody runnerRigidbody;
-        [SerializeField] private Rigidbody chaserRigidbody;
+        [SerializeField] public Rigidbody runnerRigidbody;
+        [SerializeField] public Rigidbody chaserRigidbody;
 
         private void Start() {
             // Setting up car controller settings

@@ -22,15 +22,15 @@ namespace CarTag.Input {
             float holdTime = 0.4f;
             if (context.started) {
                 print("Started");
-                thisPlayer.PlayerUIController.CheckpointResetUI.StartResetHold(holdTime);
+                thisPlayer.PlayerUIController.CheckpointResetUI.StartButtonHold(holdTime);
             }
             if (context.canceled) {
-                thisPlayer.PlayerUIController.CheckpointResetUI.StopResetHold();
+                thisPlayer.PlayerUIController.CheckpointResetUI.StopButtonHold();
                 print("Canceled");
             }
             if (context.performed) {
                 thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
-                thisPlayer.PlayerUIController.CheckpointResetUI.StopResetHold();
+                thisPlayer.PlayerUIController.CheckpointResetUI.StopButtonHold();
             }
         }
 

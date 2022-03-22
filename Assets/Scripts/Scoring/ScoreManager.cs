@@ -7,22 +7,25 @@ using Sirenix.OdinInspector;
 using System;
 
 namespace CarTag.ScoreSystem {
+    [System.Serializable]
     public class ScoreManager : MonoBehaviour {
         [SerializeField] int roundWinsToWinGame = 3;
         public PlayerManager PlayerManager { get; set; }
-
+        public PlayerScore[] playerScoresArray; 
         //--Auto-Implemented Properties
-        public List<PlayerScore> PlayerScores { get; set; }
+        //public List<PlayerScore> PlayerScores { get; set; }
+        public List<PlayerScore> PlayerScores  = new List<PlayerScore>();
+
 
         public void InitialSetup() {
             PlayerManager = GameManager.Instance.PlayerManager;
-            PlayerScores = new List<PlayerScore>();
+            //PlayerScores = new List<PlayerScore>();
             string testType = GetTestType();
             for (int i = 0; i < PlayerManager.Players.Count; i++) {
                 PlayerScores.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerScore>());
                 //-- TELEMETRY CODE ---
-                PlayerScores[i].roundData.Add(new RoundData(PlayerScores[i].ThisPlayer.IsThisPlayerCurrentRunner()));
-                PlayerScores[i].TestType = testType;
+                PlayerScores[i].Round_Data.Add(new RoundData(PlayerScores[i].ThisPlayer.IsThisPlayerCurrentRunner()));
+                PlayerScores[i].Test_Type = testType;
             }
             //=== Setting Head Start For A/B Testing. Not A Good Place To Do This
             //TURN BACK ON FOR TESTING
@@ -59,11 +62,13 @@ namespace CarTag.ScoreSystem {
             //roundWinner.PlayerScore.PlayerScoreStats.RoundWins++;
             //if (roundWinner.PlayerScore.PlayerScoreStats.RoundWins >= roundWinsToWinGame) {
 
-            roundWinner.PlayerScore.RoundWins++;
-            if (roundWinner.PlayerScore.RoundWins >= roundWinsToWinGame) {
+            roundWinner.PlayerScore.Round_Wins++;
+            if (roundWinner.PlayerScore.Round_Wins >= roundWinsToWinGame) {
                 SetAllPlayersRoleDuration();
                 //Save Telemetry Data to file
                 SaveManager.SaveTelemetryData(PlayerScores);
+                //SaveManager.SaveToNewFile(PlayerScores);
+                //SaveManager.SaveTelemetryData(this);
                 return true;
             }
             return false;
@@ -74,7 +79,7 @@ namespace CarTag.ScoreSystem {
             foreach (PlayerScore score in PlayerScores) {
                 score.SetRoleDuration();
                 RoundData roundData = new RoundData(score.ThisPlayer.IsThisPlayerCurrentRunner());
-                score.roundData.Add(roundData);
+                score.Round_Data.Add(roundData);
             }
         }
 
@@ -83,7 +88,7 @@ namespace CarTag.ScoreSystem {
         /// </summary>
         public PlayerScore[] GetPlayerScoresInDisplayOrder() {
             //var displayOrder = PlayerScores.OrderByDescending(i => i.PlayerScoreStats.RoundWins).ToArray();
-            var displayOrder = PlayerScores.OrderByDescending(i => i.RoundWins).ToArray();
+            var displayOrder = PlayerScores.OrderByDescending(i => i.Round_Wins).ToArray();
 
             return displayOrder;
 
@@ -97,8 +102,8 @@ namespace CarTag.ScoreSystem {
         public void SetScoresOnRoleSwap() {
             foreach (PlayerScore score in PlayerScores) {
                 //--Set Role Swap Counter
-                if (score.roundData.Count > 0) {
-                    score.roundData[score.roundData.Count - 1].roleSwapsPerRound++;
+                if (score.Round_Data.Count > 0) {
+                    score.Round_Data[score.Round_Data.Count - 1].Role_Swaps_Per_Round++;
                 }
                 else {
                     Debug.Log("Trying to increment role swap couter before list contains Round Data");
@@ -107,7 +112,7 @@ namespace CarTag.ScoreSystem {
                 score.SetRoleDuration();
                 //--Create a new abilities per role and add it to add it to list
                 RoleData newRoleData = new RoleData(score.ThisPlayer.IsThisPlayerCurrentRunner());
-                score.roundData[score.roundData.Count - 1].roleData.Add(newRoleData);
+                score.Round_Data[score.Round_Data.Count - 1].Role_Data.Add(newRoleData);
 
             }
         }
