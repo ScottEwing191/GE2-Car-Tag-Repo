@@ -224,7 +224,7 @@ MonoBehaviour:
   shiftGearDown: 306
   NGear: 110
   boostKB: 102
-  slowMotionKB: 103
+  slowMotionKB: 0
   changeCameraKB: 99
   recordKB: 0
   playbackKB: 0

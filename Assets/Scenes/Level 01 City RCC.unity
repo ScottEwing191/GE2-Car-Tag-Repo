@@ -983,7 +983,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh339908
+  m_Name: pb_Mesh-11182
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1254,7 +1254,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh335382
+  m_Name: pb_Mesh32800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3185,7 +3185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875732
+      value: -31.87561
       objectReference: {fileID: 0}
     - target: {fileID: 4618919499051950299, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Layer
@@ -3321,7 +3321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532593, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Keyboard&Mouse
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 7059749436452532606, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_Name
@@ -6161,7 +6161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875732
+      value: -31.87561
       objectReference: {fileID: 0}
     - target: {fileID: 5670146659748838919, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7349,7 +7349,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh333086
+  m_Name: pb_Mesh-15092
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8054,7 +8054,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh331762
+  m_Name: pb_Mesh32736
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8552,7 +8552,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh341660
+  m_Name: pb_Mesh-7294
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10612,7 +10612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875732
+      value: -31.87561
       objectReference: {fileID: 0}
     - target: {fileID: 5670146659748838919, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13738,7 +13738,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh333850
+  m_Name: pb_Mesh32774
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14110,7 +14110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runnerStartWaitTime: 3
   chaserStartWaitTime: 8
-  distanceToWin: 80
+  distanceToWin: 1500
   distanceTravelled: 0
 --- !u!43 &1650276442
 Mesh:
@@ -14118,7 +14118,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh343536
+  m_Name: pb_Mesh304068
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14370,7 +14370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b53e3b1251dfc458b4e874cacf87a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundWinsToWinGame: 10
+  roundWinsToWinGame: 3
   playerScoresArray: []
   PlayerScores: []
 --- !u!1 &1819102256
@@ -16415,7 +16415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579098905016348332, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.875732
+      value: -31.87561
       objectReference: {fileID: 0}
     - target: {fileID: 5670146659748838919, guid: 7d69864e64396ca4e9d181cfbbe559d8, type: 3}
       propertyPath: m_AnchoredPosition.x

@@ -19,14 +19,18 @@ namespace CarTag.Input {
 
         public void OnRespawn(InputAction.CallbackContext context) {
             if (Time.timeScale == 0) { return; }
+            if (thisPlayer.IsThisPlayerCurrentRunner()) { return; }
+            if (!thisPlayer.IsPlayerEnabled) { return; }
+
+
             float holdTime = 0.4f;
             if (context.started) {
-                print("Started");
+                //print("Started");
                 thisPlayer.PlayerUIController.CheckpointResetButtonUI.StartButtonHold(holdTime);
             }
             if (context.canceled) {
                 thisPlayer.PlayerUIController.CheckpointResetButtonUI.StopButtonHold();
-                print("Canceled");
+                //print("Canceled");
             }
             if (context.performed) {
                 thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
@@ -35,17 +39,18 @@ namespace CarTag.Input {
         }
         public void OnForfeit(InputAction.CallbackContext context) {
             if (Time.timeScale == 0) { return; }
+            if (thisPlayer.IsThisPlayerCurrentRunner()) { return; }
+            if (!thisPlayer.IsPlayerEnabled) { return; }
+
             float holdTime = 2.0f;
             if (context.started) {
-                print("Started");
                 thisPlayer.PlayerUIController.ForfeitButtonUI.StartButtonHold(holdTime);
             }
             if (context.canceled) {
                 thisPlayer.PlayerUIController.ForfeitButtonUI.StopButtonHold();
-                print("Canceled");
             }
             if (context.performed) {
-                //thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
+                GameManager.Instance.ScoreManager.GameForfeited();
                 GameManager.Instance.RoundManager.RoundWin();
                 thisPlayer.PlayerUIController.ForfeitButtonUI.StopButtonHold();
             }
