@@ -11,6 +11,9 @@ namespace CarTag.UI {
         [SerializeField] PlayerUIElements playerUI;
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
+        [SerializeField] HoldButtonUI checkpointResetButtonUI;
+        [SerializeField] HoldButtonUI forfeitButtonUI;
+
 
         private Player thisPlayer;          // used to gain acess to other controller script attached to the same player as this one
         
@@ -19,7 +22,19 @@ namespace CarTag.UI {
         public AbilityUI AbilityUI { get; set; }
         public ScreenFadeUI ScreenFadeUI { get; set; }
         public CheckpointGuideUI CheckpointGuideUI { get; private set; }
-        public HoldButtonUI CheckpointResetUI { get; set; }
+        //public HoldButtonUI CheckpointResetButtonUI { get; set; }
+
+        //--Properties
+
+        public HoldButtonUI CheckpointResetButtonUI {
+            get { return checkpointResetButtonUI; }
+            set { checkpointResetButtonUI = value; }
+        }
+        public HoldButtonUI ForfeitButtonUI {
+            get { return forfeitButtonUI; }
+            set { forfeitButtonUI = value; }
+        }
+
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
@@ -27,7 +42,7 @@ namespace CarTag.UI {
             ScreenFadeUI = GetComponentInChildren<ScreenFadeUI>();
             thisPlayer = GetComponentInParent<Player>();
             CheckpointGuideUI = GetComponentInChildren<CheckpointGuideUI>();
-            CheckpointResetUI = GetComponentInChildren<HoldButtonUI>();
+            //CheckpointResetButtonUI = GetComponentInChildren<HoldButtonUI>();
         }
 
         public void InitialSetup() {

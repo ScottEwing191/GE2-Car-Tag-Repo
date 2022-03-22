@@ -655,6 +655,14 @@ namespace CarTag.Inputs
                     ""interactions"": ""Hold""
                 },
                 {
+                    ""name"": ""Forfeit"",
+                    ""type"": ""Button"",
+                    ""id"": ""2344ac77-05da-4478-85e8-92f546679542"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=2)""
+                },
+                {
                     ""name"": ""UseAbility"",
                     ""type"": ""Button"",
                     ""id"": ""3befc815-2264-49ee-98ad-5cb605d04550"",
@@ -795,6 +803,28 @@ namespace CarTag.Inputs
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5457bb3b-d6b0-4d17-803f-b0e22dfbb39d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Forfeit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2221889e-cd92-42d9-b68b-9b3f005ff4f5"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Forfeit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1296,6 +1326,7 @@ namespace CarTag.Inputs
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Respawn = m_Player.FindAction("Respawn", throwIfNotFound: true);
+            m_Player_Forfeit = m_Player.FindAction("Forfeit", throwIfNotFound: true);
             m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
             m_Player_NextAbility = m_Player.FindAction("NextAbility", throwIfNotFound: true);
             m_Player_PreviousAbility = m_Player.FindAction("PreviousAbility", throwIfNotFound: true);
@@ -1519,6 +1550,7 @@ namespace CarTag.Inputs
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Respawn;
+        private readonly InputAction m_Player_Forfeit;
         private readonly InputAction m_Player_UseAbility;
         private readonly InputAction m_Player_NextAbility;
         private readonly InputAction m_Player_PreviousAbility;
@@ -1528,6 +1560,7 @@ namespace CarTag.Inputs
             private @CarTagInputs m_Wrapper;
             public PlayerActions(@CarTagInputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Respawn => m_Wrapper.m_Player_Respawn;
+            public InputAction @Forfeit => m_Wrapper.m_Player_Forfeit;
             public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
             public InputAction @NextAbility => m_Wrapper.m_Player_NextAbility;
             public InputAction @PreviousAbility => m_Wrapper.m_Player_PreviousAbility;
@@ -1544,6 +1577,9 @@ namespace CarTag.Inputs
                     @Respawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
                     @Respawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
                     @Respawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRespawn;
+                    @Forfeit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForfeit;
+                    @Forfeit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForfeit;
+                    @Forfeit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForfeit;
                     @UseAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
                     @UseAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
                     @UseAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseAbility;
@@ -1563,6 +1599,9 @@ namespace CarTag.Inputs
                     @Respawn.started += instance.OnRespawn;
                     @Respawn.performed += instance.OnRespawn;
                     @Respawn.canceled += instance.OnRespawn;
+                    @Forfeit.started += instance.OnForfeit;
+                    @Forfeit.performed += instance.OnForfeit;
+                    @Forfeit.canceled += instance.OnForfeit;
                     @UseAbility.started += instance.OnUseAbility;
                     @UseAbility.performed += instance.OnUseAbility;
                     @UseAbility.canceled += instance.OnUseAbility;
@@ -1757,6 +1796,7 @@ namespace CarTag.Inputs
         public interface IPlayerActions
         {
             void OnRespawn(InputAction.CallbackContext context);
+            void OnForfeit(InputAction.CallbackContext context);
             void OnUseAbility(InputAction.CallbackContext context);
             void OnNextAbility(InputAction.CallbackContext context);
             void OnPreviousAbility(InputAction.CallbackContext context);

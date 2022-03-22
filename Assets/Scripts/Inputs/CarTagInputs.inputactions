@@ -640,6 +640,14 @@
                     "interactions": "Hold"
                 },
                 {
+                    "name": "Forfeit",
+                    "type": "Button",
+                    "id": "2344ac77-05da-4478-85e8-92f546679542",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=2)"
+                },
+                {
                     "name": "UseAbility",
                     "type": "Button",
                     "id": "3befc815-2264-49ee-98ad-5cb605d04550",
@@ -780,6 +788,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "PauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5457bb3b-d6b0-4d17-803f-b0e22dfbb39d",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Forfeit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2221889e-cd92-42d9-b68b-9b3f005ff4f5",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Forfeit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

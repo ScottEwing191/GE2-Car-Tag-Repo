@@ -27842,7 +27842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.44239706, b: 0.9056604, a: 1}
+  m_Color: {r: 0.8676816, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -36843,6 +36843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7593663190874924487}
+  - component: {fileID: 8780163783725290314}
   m_Layer: 0
   m_Name: Forfeit Round
   m_TagString: Untagged
@@ -36873,6 +36874,19 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: 10}
   m_SizeDelta: {x: 325, y: 150}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &8780163783725290314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4756731512856155360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd7048c0013118478a2a64aa1961eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filledImage: {fileID: 3800976197050482407}
 --- !u!1 &4851148853452665654
 GameObject:
   m_ObjectHideFlags: 0
@@ -45280,6 +45294,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 90a1a9d2-1927-491d-8d3d-0f908401fc8a
     m_ActionName: RCC/LookBack[/DualShock4GamepadHID/rightStickPress,/Keyboard/leftAlt]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6759218305721846698}
+        m_TargetAssemblyTypeName: CarTag.Input.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnForfeit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2344ac77-05da-4478-85e8-92f546679542
+    m_ActionName: Player/Forfeit[/DualShock4GamepadHID/buttonNorth,/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: RCC
@@ -47055,6 +47085,8 @@ MonoBehaviour:
       layoutGroup: {fileID: 5763190651336183322}
     runnerDistanceTrackerSlider: {fileID: 2097200308768998911}
     textMeshProUGUI: {fileID: 1999201361947410319}
+  checkpointResetButtonUI: {fileID: 3765109221929461103}
+  forfeitButtonUI: {fileID: 8780163783725290314}
 --- !u!1 &8031320243919170349
 GameObject:
   m_ObjectHideFlags: 0
@@ -69844,11 +69876,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
---- !u!224 &2097200308768998908 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1563747654708781101, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
-  m_PrefabInstance: {fileID: 624114295831029201}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2097200308768998911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1563747654708781102, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
@@ -69860,6 +69887,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2097200308768998908 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1563747654708781101, guid: 5c9302b425e204abd95f258e0e8d551a, type: 3}
+  m_PrefabInstance: {fileID: 624114295831029201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2924189697434661391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70417,17 +70449,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f83e716c4a87742b483568857a7b833c, type: 3}
---- !u!114 &9136419689265280837 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 910801095177983187, guid: f83e716c4a87742b483568857a7b833c, type: 3}
-  m_PrefabInstance: {fileID: 8244056313501606806}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9136419688333766259 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 910801096074628581, guid: f83e716c4a87742b483568857a7b833c, type: 3}
@@ -70442,5 +70463,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9136419689265280837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 910801095177983187, guid: f83e716c4a87742b483568857a7b833c, type: 3}
+  m_PrefabInstance: {fileID: 8244056313501606806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

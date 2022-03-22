@@ -53,12 +53,12 @@ namespace CarTag.Checkpoints {
             if (difference > thresholdDst && !isDisplayingHint) {
                 //--Display Hint
                 print("Show Hint");
-                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetUI.ShowHoldButtonUI();
+                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetButtonUI.ShowHoldButtonUI();
                 isDisplayingHint = true;
             }
             else if (difference < thresholdDst && isDisplayingHint) {
                 //--Hide Hint
-                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetUI.HideHoldButtonUI();
+                PlayerCheckpointsController.ThisPlayer.PlayerUIController.CheckpointResetButtonUI.HideHoldButtonUI();
                 print("Hide Hint");
                 isDisplayingHint = false;
             }

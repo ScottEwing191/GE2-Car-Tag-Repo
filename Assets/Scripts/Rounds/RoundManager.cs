@@ -72,9 +72,9 @@ namespace CarTag.Rounds {
             distanceTravelled = RoadManager.Distance.TotalDistance;
             UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
             if (RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
-                checkDistance = false;
+                /*checkDistance = false;
                 RoadManager.DoFixedUpdate = false;
-                IsRoundRunning = false;
+                IsRoundRunning = false;*/
                 RoundWin();
             }
         }
@@ -84,6 +84,9 @@ namespace CarTag.Rounds {
         }
 
         public void RoundWin() {
+            checkDistance = false;
+            RoadManager.DoFixedUpdate = false;
+            IsRoundRunning = false;
             GameManager.Instance.ManageRoundOver();
         }
     }
