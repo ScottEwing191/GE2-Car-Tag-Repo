@@ -4,17 +4,20 @@ using UnityEngine;
 using CarTag.Abilities;
 using CarTag.UI;
 using CarTag.PlayerSpace;
+using CarTag.ScoreSystem;
+using CarTag.Rounds;
 
 
-namespace CarTag.Abilities
-{
-    public class AbilityManager : MonoBehaviour
-    {
 
+namespace CarTag.Abilities {
+    public class AbilityManager : MonoBehaviour {
+        public enum AbilityType { SLOWMO, BOX, ROCKET }
         //--Auto-Implemented Properties
         public List<PlayerAbilityController> PlayerAbilityControllers { get; set; }
         public PlayerManager PlayerManager { get; private set; }
         public UIManager UIManager { get; set; }
+        public RoundManager RoundManager { get; set; }
+        public ScoreManager ScoreManager { get; set; }
 
 
 
@@ -24,6 +27,8 @@ namespace CarTag.Abilities
             PlayerAbilityControllers = new List<PlayerAbilityController>();
             UIManager = GameManager.Instance.UIManager;
             PlayerManager = GameManager.Instance.PlayerManager;
+            RoundManager = GameManager.Instance.RoundManager;
+            ScoreManager = GameManager.Instance.ScoreManager;
             foreach (Player player in PlayerManager.Players) {
                 PlayerAbilityControllers.Add(player.GetComponentInChildren<PlayerAbilityController>());
             }
@@ -38,7 +43,7 @@ namespace CarTag.Abilities
             }
         }
 
-        
+
 
         public bool IsControllerAttachedToRunner(PlayerAbilityController controller) {
             if (controller == GetRunnerAbilityController()) {

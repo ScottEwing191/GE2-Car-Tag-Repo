@@ -16,7 +16,6 @@ namespace CarTag
             }
         }
 
-
         protected virtual void Awake() {
             instance = this as T;
         }

@@ -8,6 +8,8 @@ using CarTag.Checkpoints;
 using CarTag.UI;
 using CarTag.Abilities;
 using CarTag.ScoreSystem;
+using CarTag.Rounds;
+
 
 namespace CarTag {
     public class GameManager : MonoSingleton<GameManager> {
@@ -44,11 +46,12 @@ namespace CarTag {
         /// </summary>
         private void InitialSetup() {
             PlayerManager.InitialSetup();                                //Setup player Runners
-            RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData);
+            RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData); 
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
-            AbilityManager.InitialSetup();
             ScoreManager.InitialSetup();                //must come before UI Manager
             UIManager.InitalSetup();
+            AbilityManager.InitialSetup();              // was Before UI Manager. Dont remember if that was required for something. It now must be after the UI Manager due to...
+                                                        //... PlayerAbilityController InitalSetup() Calling the UI System.
             RoundManager.InitalSetup();
             StartCoroutine(RoundManager.RoundStart());
         }
@@ -61,15 +64,15 @@ namespace CarTag {
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
             PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.ResetRoad(newRunner.RoadSpawnData);               // Start Road Manager Role Swap Code
+            RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Start Road Manager Role Swap Code
             CheckpointManager.ResetCheckpoints();
-            //--Audio
-            //--UI
             UIManager.RoleSwapReset(newRunner, newChaser);
+            ScoreManager.SetScoresOnRoleSwap();
             AbilityManager.ResetAbilities();
         }
 
         public void ManageRoundOver() {
+            Cursor.visible = true;
             PlayerManager.DisableCars();                                // display cars while scoreboard is up
             bool gameOver = ScoreManager.UpdateScoreCheckIfGameOver(PlayerManager.CurrentRunner);        // update scores after round
             // If gameOver is true then the UI button which the player presses to advance to the next round will be disabled leaving a button to return to Menu
@@ -87,9 +90,9 @@ namespace CarTag {
             PlayerManager.ResetPlayersAfterRound();
             RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.ResetCheckpoints();
-            //DynamicObjectManager.ResetObjects();
             UIManager.RoundStartReset();
             AbilityManager.ResetAbilities();
+            ScoreManager.SetupScoresForNewRound();
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent
             StartCoroutine(RoundManager.RoundStart());

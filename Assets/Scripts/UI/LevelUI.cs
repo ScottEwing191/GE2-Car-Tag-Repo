@@ -14,6 +14,9 @@ namespace CarTag.UI
         private ScreenFadeUI screenFadeUI;
         private bool shouldOpenPauseMenu = true;
         private UIManager UIManager;
+        private bool _isPressingReturnToMenu = false;
+        private float _timer = 0;
+        private float _holdTime = 1f;
 
         private void Awake() {
             screenFadeUI = GetComponentInChildren<ScreenFadeUI>();
@@ -27,21 +30,28 @@ namespace CarTag.UI
             SetScoreboardText(playerScoresArray, isGameOver);
             SetScoreboardButtons(isGameOver);
             StartCoroutine(screenFadeUI.CanvasGroupFadeRoutine(0, 1, scoreboardUIElements.ScoreBoardGroup));
+
         }
 
         public void DoPauseMenu() {
             if (!UIManager.RoundManager.IsRoundRunning) {
                 return;
             }
+            //--Opening Pause Menu
             if (shouldOpenPauseMenu) {
                 scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(true);
                 SetScoreboardButtons(true);
                 Time.timeScale = 0;
                 shouldOpenPauseMenu = false;
+                Cursor.visible = true;
+                scoreboardUIElements.MainMenuButton.Select();
+
             }
+            //--Closing Pause Menu
             else {
                 SetScoreboardButtons(false);
                 scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+                Cursor.visible = false;             // not working somehow
                 Time.timeScale = 1;
                 shouldOpenPauseMenu = true;
             }
@@ -54,17 +64,22 @@ namespace CarTag.UI
             SetPlayerPositionRowsActiveState(false);                                 // disable all Player Position Rows
             SetPlayerPositionRowsActiveState(true, playerScoresArray.Length);        // enable only the required player position rows
             for (int i = 0; i < numberOfPlayers; i++) {
-                scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerScoreStats.PlayerName);
-                scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].PlayerScoreStats.RoundWins.ToString());
+                //scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].PlayerScoreStats.PlayerName);
+                scoreboardUIElements.PlayerRowElements[i].PlayerNameText.SetText(playerScoresArray[i].Player_Name);
+
+                //scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].PlayerScoreStats.RoundWins.ToString());
+                scoreboardUIElements.PlayerRowElements[i].PlayerRoundWinsText.SetText(playerScoresArray[i].Round_Wins.ToString());
+
             }
         }
         private void SetScoreboardButtons(bool hideNextRoundButton) {
             if (hideNextRoundButton) {
                 scoreboardUIElements.NextRoundButton.gameObject.SetActive(false);
+                scoreboardUIElements.MainMenuButton.Select();
             }
             else {
                 scoreboardUIElements.NextRoundButton.gameObject.SetActive(true);
-
+                scoreboardUIElements.NextRoundButton.Select();
             }
         }
 
@@ -89,13 +104,35 @@ namespace CarTag.UI
 
         public void NextRoundButton() {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+            //Time.timeScale = 1;
             GameManager.Instance.StartNewRound();
 
         }
         public void ReturnToMenuButton() {
             scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
-            print("Game Over");
             SceneManager.LoadScene(0);
+        }
+
+        public void MainMenuButtonPressed() {
+            _isPressingReturnToMenu = true;
+            _timer = 0;
+            scoreboardUIElements.MainMenuSlider.maxValue = _holdTime;
+            scoreboardUIElements.MainMenuSlider.value = 0;
+
+        }
+        private void Update() {
+            if (!_isPressingReturnToMenu) { return; }
+            _timer +=Time.unscaledDeltaTime;
+            scoreboardUIElements.MainMenuSlider.value = _timer;
+            if (_timer > _holdTime) {
+                scoreboardUIElements.ScoreBoardGroup.gameObject.SetActive(false);
+                SceneManager.LoadScene(0);
+            }
+            
+        }
+        public void MainMenuButtonReleased() {
+            _isPressingReturnToMenu = false;
+            scoreboardUIElements.MainMenuSlider.value = 0;
         }
         // === SCOREBOARD END ===
     }

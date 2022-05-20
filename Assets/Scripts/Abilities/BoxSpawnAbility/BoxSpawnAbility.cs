@@ -7,8 +7,8 @@ using CarTag.Abilities;
 namespace CarTag.Abilities.BoxSpawn {
     public class BoxSpawnAbility : SpawnableAbility {
         //--Serialized Fields
-        [SerializeField] private int runnerMaxUses = 4;
-        [SerializeField] private int chaserMaxUses = 4;
+        //[SerializeField] private int runnerMaxUses = 4;
+        //[SerializeField] private int chaserMaxUses = 4;
 
         //--Private
         private List<BoxesObstacle> boxesObstacles = new List<BoxesObstacle>();
@@ -26,6 +26,8 @@ namespace CarTag.Abilities.BoxSpawn {
             if (isRunner) {
                 usesLeft = runnerMaxUses;
             }
+
+            
 
             //--Stop Coroutines
             if (moveBoxesRoutine != null) {

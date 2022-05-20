@@ -5,6 +5,8 @@ using UnityEngine;
 using CarTag.PlayerSpace;
 using CarTag.Checkpoints;
 using CarTag.ScoreSystem;
+using CarTag.Rounds;
+
 
 namespace CarTag.UI {
     public class UIManager : MonoBehaviour {

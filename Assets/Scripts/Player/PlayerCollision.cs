@@ -18,46 +18,51 @@ namespace CarTag.PlayerSpace {
         [SerializeField] private BoxCollider tempBoxCollider;
         private Vector3 collisionCheckCenter;       // when chaser catches the runner, collision is briefly turned off. These define the box that is used to check ...
         private Vector3 collisionCheckHalfSize;         // ... if collision can be turned back on
-        private Player player;
+        private Player thisPlayer;
         private static bool rolesSwapped = false;   // there are 3 colliders on the car. When any 1 of them sucessfully collides with the runner then this variable...
                                                     // ... will be set to false and will stop the other two colliders from initiating a second Role Swap. Since this...
                                                     // ... variable is static it will also stop other chase cars from initiating a role swap after the initial Swap. 
 
         private void Awake() {
-            player = GetComponentInParent<Player>();
+            thisPlayer = GetComponentInParent<Player>();
             collisionCheckCenter = tempBoxCollider.center;
             collisionCheckHalfSize = tempBoxCollider.size / 2;
-            collisionOnCheckMask = LayerMask.GetMask("Car Collision");
+            //collisionOnCheckMask = LayerMask.GetMask("Car Collision");
+            collisionOnCheckMask = LayerMask.GetMask("RCC");
+
         }
 
         private void Start() {
             Destroy(tempBoxCollider);
         }
 
-        private void OnCollisionEnter(Collision collision) {
+        
+
+        public void CollisionEnter(Collision collision) {
             if (rolesSwapped) { return; }       // if the roles have already swapped (due to first collider on car) dont swap again (due to second)
 
-            if (player.PlayerRoll != PlayerRoleEnum.Chaser) { return; }       // this car must be a chaser to continue
+            if (!thisPlayer.IsPlayerEnabled) { return; }                            //TEST
+
+            if (thisPlayer.PlayerRoll != PlayerRoleEnum.Chaser) { return; }         // this car must be a chaser to continue (This is the car which is turning into the runner)
 
             if (!collision.transform.CompareTag("Player")) { return; }        // other object must be a car to continue
 
             if (!IsCollidingWithRunner(collision)) { return; }              // Must be colliding with the runner and not another chaser to continue
 
-            if (GameManager.Instance.CheckpointManager.CheckpointQueues[player.PlayerListIndex].Count != 0) { return; }  // Has this car been through all checkpoints
+            if (GameManager.Instance.CheckpointManager.CheckpointQueues[thisPlayer.PlayerListIndex].Count != 0) { return; }  // Has this car been through all checkpoints
 
             //--Chaser Has Sucesfully caught the runner
             //--Turn of the collision on the chaser (soon to be runner)
             rolesSwapped = true;
             StartCoroutine(TurnOffCollisionWithDelay(collisionDisableTime));
-
             //--Tell the GameManager To manage the Role Swap Behaviour 
-            GameManager.Instance.ManageRoleSwap(player, player.PlayerManager.GetPlayerFromGameObject(collision.gameObject));
+            GameManager.Instance.ManageRoleSwap(thisPlayer, thisPlayer.PlayerManager.GetPlayerFromGameObject(collision.gameObject));
         }
         /// <summary>
         /// Check if the car being collided with is a Runner or not
         /// </summary>
         private bool IsCollidingWithRunner(Collision collision) {
-            foreach (var p in player.PlayerManager.Players) {
+            foreach (var p in thisPlayer.PlayerManager.Players) {
                 if (p.gameObject == collision.gameObject.transform.parent.gameObject) {         // if this Player is the one we are colliding with
                     if (p.PlayerRoll == PlayerRoleEnum.Runner) {                                // .. and this player is the runner
                         return true;
@@ -77,7 +82,7 @@ namespace CarTag.PlayerSpace {
             }
         }
 
-        private IEnumerator TurnOffCollisionWithDelay(float delay) {
+        public IEnumerator TurnOffCollisionWithDelay(float delay) {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
@@ -97,11 +102,12 @@ namespace CarTag.PlayerSpace {
             if (delay != 0) {
                 yield return new WaitForSeconds(delay);
             }
-            while (CarCollisionCheck()) {
+            while (CarCollisionCheck(thisPlayer.RCC_CarController.transform.position, thisPlayer.RCC_CarController.transform.rotation)) {
 
                 yield return new WaitForFixedUpdate();
             }
-            SetGameObjectListToLayer("Car Collision");
+            //SetGameObjectListToLayer("Car Collision");
+            SetGameObjectListToLayer("RCC");
             rolesSwapped = false;       //this should happen when the new nunners collision is turned on NOT just any old car
         }
         public IEnumerator TurnOnCarCollision(float delay) {
@@ -109,15 +115,6 @@ namespace CarTag.PlayerSpace {
             yield return null;
         }
 
-        /// <summary>
-        /// Checks if the cars will be colliding with a given Layer
-        /// </summary>
-        /*public bool CarCollisionCheck(LayerMask mask) {
-            if (Physics.CheckBox(transform.position + collisionCheckCenter, collisionCheckHalfSize, transform.rotation, mask, QueryTriggerInteraction.Ignore)) {
-                return true;
-            }
-            return false;
-        }*/
 
         /// <summary>
         /// Two uses:
@@ -133,5 +130,16 @@ namespace CarTag.PlayerSpace {
             }
             return false;
         }
+        public bool CarCollisionCheck(Vector3 position, Quaternion rotation) {
+            if (Physics.CheckBox(position + collisionCheckCenter, collisionCheckHalfSize, rotation, collisionOnCheckMask, QueryTriggerInteraction.Ignore)) {
+                return true;
+            }
+            return false;
+        }
+
+        /*private void OnDrawGizmos() {
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireCube(transform.position + collisionCheckCenter, collisionCheckHalfSize * 2);
+        }*/
     }
 }

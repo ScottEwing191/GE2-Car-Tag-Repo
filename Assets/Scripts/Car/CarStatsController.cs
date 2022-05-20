@@ -14,7 +14,7 @@ namespace CarTag.Car
         public CarStats ChaserStats { get { return chaserStats; } }
 
         public void AssignStats(CarController carController, CarStats stats) {
-            carController.MaximumSteerAngle = stats.MaximumSteerAngle;
+            /*carController.MaximumSteerAngle = stats.MaximumSteerAngle;
             carController.SteerHelper = stats.SteerHelper;
             carController.TractionControl = stats.TractionControl;
             carController.FullTorqueOverAllWheels = stats.FullTorqueOverAllWheels;
@@ -23,16 +23,16 @@ namespace CarTag.Car
             carController.Downforce = stats.Downforce;
             carController.Topspeed = stats.Topspeed;
             carController.SlipLimit = stats.SlipLimit;
-            carController.BrakeTorque = stats.BrakeTorque;
+            carController.BrakeTorque = stats.BrakeTorque;*/
         }
 
         public void DisableCar(CarController carController) {
-            carController.FullTorqueOverAllWheels = 0;
-            carController.ReverseTorque = 0;
+            //carController.FullTorqueOverAllWheels = 0;
+            //carController.ReverseTorque = 0;
         }
         public void EnableCar(CarController carController, CarStats stats) {
-            carController.FullTorqueOverAllWheels = stats.FullTorqueOverAllWheels;
-            carController.ReverseTorque = stats.ReverseTorque;
+            //carController.FullTorqueOverAllWheels = stats.FullTorqueOverAllWheels;
+            //carController.ReverseTorque = stats.ReverseTorque;
         }
     }
 }

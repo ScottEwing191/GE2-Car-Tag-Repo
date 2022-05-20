@@ -12,7 +12,7 @@ namespace CarTag.UI
     {
         [SerializeField] private GameObject playerUIObject;
         [SerializeField] private TextMeshProUGUI countdownTimer;
-        [SerializeField] private AbilityUIElements abilityUIElements;
+        //[SerializeField] private AbilityUIElements abilityUIElements;
 
         //--Properties
         public GameObject PlayerUIObject {
@@ -23,9 +23,9 @@ namespace CarTag.UI
             get { return countdownTimer; }
             set { countdownTimer = value; }
         }
-        public AbilityUIElements AbilityUIElements {
+        /*public AbilityUIElements AbilityUIElements {
             get { return abilityUIElements; }
             set { abilityUIElements = value; }
-        }
+        }*/
     }
 }

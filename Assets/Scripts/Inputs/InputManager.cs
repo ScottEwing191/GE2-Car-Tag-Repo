@@ -15,7 +15,7 @@ namespace CarTag.Input {
         public UIManager UIManager { get; private set; }
 
         PlayerInput playerInput;
-        private InputActionMap carActionMap, playerActionMap, camerActionMap, UIActionMap;
+        private InputActionMap carActionMap, playerActionMap, cameraActionMap, UIActionMap;
 
         public CarInputHandler CarInput {
             get { return carInputHandler; }
@@ -28,16 +28,20 @@ namespace CarTag.Input {
             playerInput = GetComponent<PlayerInput>();
             carActionMap = playerInput.actions.FindActionMap("Car");
             playerActionMap = playerInput.actions.FindActionMap("Player");
-            camerActionMap = playerInput.actions.FindActionMap("Camera");
+            cameraActionMap = playerInput.actions.FindActionMap("Camera");
             UIActionMap = playerInput.actions.FindActionMap("UI");
 
-            carActionMap.Enable();
-            playerActionMap.Enable();
-            camerActionMap.Enable();
+            if (carActionMap != null)
+                carActionMap.Enable();
+            if (playerActionMap != null)
+                playerActionMap.Enable();
+            if (cameraActionMap != null)
+                cameraActionMap.Enable();
         }
 
         private void Start() {
-            UIManager = GameManager.Instance.UIManager;
+            if (GameManager.Instance != null)
+                UIManager = GameManager.Instance.UIManager;
         }
     }
 }

@@ -4,8 +4,12 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+/SaveData/*
 Assets/AssetStoreTools*
 
+#Save Data Files
+*.json
+*.json.meta
 # Visual Studio cache directory
 .vs/
 

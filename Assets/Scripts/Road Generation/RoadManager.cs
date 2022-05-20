@@ -4,20 +4,20 @@ using UnityEngine;
 using CarTag.Checkpoints;
 using System;
 using Dreamteck.Splines;
+using CarTag.PlayerSpace;
 
-namespace CarTag.Road
-{
-    public class RoadManager : MonoBehaviour
-    {
+namespace CarTag.Road {
+    public class RoadManager : MonoBehaviour {
         [SerializeField] private CheckpointManager checkpointManager;
 
         //private bool isResetting = false;       // dont try and place a point on the spline for the fram that the road is reset
-        
+
         //--Auto implemented properties
         public RoadGenerator RoadGenerator { get; set; }
-        public RoadSpawnData RoadSpawnData { get; set; }
+        public PlayerManager PlayerManager { get; set; }
+        //public RoadSpawnData RoadSpawnData { get; set; }
         public bool DoFixedUpdate { get; set; }                 // controlled by Round Manager True when round starts False when runner reaches target distance
-        
+
         //-- Private
         private Distance distance = new Distance();
         private RoadRemoval roadRemoval = new RoadRemoval();
@@ -29,23 +29,28 @@ namespace CarTag.Road
 
 
         public void InitialSetup(RoadSpawnData initialRoadSpawnData) {
+            PlayerManager = GameManager.Instance.PlayerManager;
             RoadGenerator = GetComponentInChildren<RoadGenerator>();
             checkpointManager = FindObjectOfType<CheckpointManager>();
-            RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
+            //RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
             RoadGenerator.InitialSetup(initialRoadSpawnData);
             InitialSetupDone = true;
-            
+
         }
-        
+
         private void FixedUpdate() {
 
             if (!InitialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
                 return;                                     // does ot get done on Start() anymore
             }
             if (DoFixedUpdate) {
+                RoadSpawnData roadSpawnData = PlayerManager.CurrentRunner.RoadSpawnData;
                 if (RoadGenerator.TryGenerateRoad()) {      // if the road was succesfully generated (i.e new point added to spline)
                     if (checkpointManager != null) {
-                        checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
+                        
+                        //checkpointManager.StartCheckpointSpawn(RoadSpawnData.Position, RoadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
+                        checkpointManager.StartCheckpointSpawn(roadSpawnData.Position, roadSpawnData.transform.rotation);    // tell checkpoint system to try and spawn a checkpoint
+
                     }
                     Vector3 newestPointInSpline = RoadGenerator.SplineComputer.GetPoint(RoadGenerator.SplineComputer.pointCount - 1).position;
                     distance.SetNewPointAddedDistance(newestPointInSpline);
@@ -53,7 +58,10 @@ namespace CarTag.Road
                 else {      // no new points were added to spline
                             //--uses the same values as used in road generator but will not add distance while car is in air.
                             //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
-                    distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
+                    
+                    //distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
+                    distance.SetNoPointAddedDistance(roadSpawnData.transform.position);
+
                 }
             }
         }
@@ -70,13 +78,19 @@ namespace CarTag.Road
         /// Removes all points from the spline, Sets the new RoadSpawnData and Resets the distance travelled
         /// </summary>
         public void ResetRoad(RoadSpawnData newRoadSpawnData) {
-            RoadSpawnData = newRoadSpawnData;    // Update RoadManager RoadSpawnData
+            StartCoroutine(RoleSwapRoutine());
+            //RoadSpawnData = newRoadSpawnData;    // Update RoadManager RoadSpawnData
             distance.ResetDistanceTravelled();
             SplinePoint[] emptySplinePoints = new SplinePoint[0];
             RoadGenerator.SplineComputer.SetPoints(emptySplinePoints);
             //isResetting = true;
         }
 
-        
+        //--Don't try and update the road for a second after the round resets or role is swapped
+        private IEnumerator RoleSwapRoutine() {
+            DoFixedUpdate = false;
+            yield return new WaitForSeconds(1);
+            DoFixedUpdate = true;
+        }
     }
 }

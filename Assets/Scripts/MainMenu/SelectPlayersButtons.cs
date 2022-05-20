@@ -10,6 +10,7 @@ namespace CarTag.MainMenu
     {
         [SerializeField] private PlayersPlaying playersPlaying;
         [SerializeField] private ScreenFadeUI screenFadeUI;
+        [SerializeField] private MainMenuUIManager mainMenuUIManager;
         private bool selected = false;                      // stops the player from double clicking buttons
 
         
@@ -18,6 +19,7 @@ namespace CarTag.MainMenu
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 2;
+                //mainMenuUIManager.GoToControllerSelect();
                 StartCoroutine(LoadNextScene());
             }
         }
@@ -25,6 +27,7 @@ namespace CarTag.MainMenu
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 3;
+                //mainMenuUIManager.GoToControllerSelect();
                 StartCoroutine(LoadNextScene());
             }
         }
@@ -32,13 +35,14 @@ namespace CarTag.MainMenu
             if (!selected) {
                 selected = true;
                 playersPlaying.NumberOfPlayers = 4;
+                //mainMenuUIManager.GoToControllerSelect();
                 StartCoroutine(LoadNextScene());
             }
         }
 
         public IEnumerator LoadNextScene() {
             yield return StartCoroutine(screenFadeUI.ScreenFadeRoutine(0, 1));
-            SceneManager.LoadScene("TestLevel");
+            SceneManager.LoadScene("Level 01 City RCC");
         }
     }
 }

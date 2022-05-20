@@ -4,26 +4,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace CarTag.UI {
-    public class AbilityUI :MonoBehaviour {
+    public class AbilityUI : MonoBehaviour {
+        [SerializeField] private AbilityUIElements runnerAbilityUIElements;
+        [SerializeField] private AbilityUIElements chaserAbilityUIElements;
+        public AbilityActiveTimerUI AbilityActiveTimerUI { get; set; }
+
+
         //-- Private
-        private AbilityUIElements abilityUIElements;
+        private AbilityUIElements activeAbilityUIElements;
         private Coroutine abilityCooldownTimerUIRoutine;
 
+        private void Awake() {
+            AbilityActiveTimerUI = GetComponentInChildren<AbilityActiveTimerUI>();
+        }
 
-        public void InitialSetup(AbilityUIElements abilityUIElements, int initialUsesLeft) {
-            this.abilityUIElements = abilityUIElements;
+
+        public void InitialSetup(int initialUsesLeft, bool isRunner) {
+            SetActiveAbilityElements(isRunner);
             //SetDefaultValues();
             SetTimerFilledImage(1);
             SetUsesLeftIndicators(initialUsesLeft);
+            SetUsesLeftText(initialUsesLeft);
+            SetSelectedText(0);
             SetSelectedIcon(0);
             SetAbilitySelectedIndicator(0);
         }
+
+        
 
         //--Called each time an ability is used. Will update the Indicaters which show how many uses of an ability are left
         //--Starts coroutine to display time until an ability can be used again
         internal void UpdateAbilityUIOnUse(float time, int usesLeft) {
             abilityCooldownTimerUIRoutine = StartCoroutine(AbilityCooldownTimerUIRoutine(time));
+            //--Set USes Left Text
+
             SetUsesLeftIndicators(usesLeft);
+            SetUsesLeftText(usesLeft);
         }
         private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
             float timeLeft = cooldownTime;
@@ -39,53 +55,100 @@ namespace CarTag.UI {
             SetUsesLeftIndicators(usesLeft);
             SetAbilitySelectedIndicator(selectedIndex);
             SetSelectedIcon(selectedIndex);
-
+            SetUsesLeftText(usesLeft);
+            SetSelectedText(selectedIndex);
         }
 
 
-        public void ResetAbilityUI(int usesLeft) {              // uses left will be the max number of uses for the current ability and may differ if the player
+        public void ResetAbilityUI(int usesLeft, bool isRunner, int selectedAbilityIndex) {              // uses left will be the max number of uses for the current ability and may differ if the player
             if (abilityCooldownTimerUIRoutine != null) {        // depending on if the player is the Runner or the Chaser
                 StopCoroutine(abilityCooldownTimerUIRoutine);
                 abilityCooldownTimerUIRoutine = null;
             }
+            SetActiveAbilityElements(isRunner);
+            SetSelectedIcon(selectedAbilityIndex);
+            SetAbilitySelectedIndicator(selectedAbilityIndex);
             SetUsesLeftIndicators(usesLeft);
             SetTimerFilledImage(1);
+            SetUsesLeftText(usesLeft);
+            SetSelectedText(selectedAbilityIndex);
+        }
+
+        private void SetActiveAbilityElements(bool isRunner) {
+            if (isRunner) {
+                chaserAbilityUIElements.AbilityUIElementsObjects.SetActive(false);
+                runnerAbilityUIElements.AbilityUIElementsObjects.SetActive(true);
+                activeAbilityUIElements = runnerAbilityUIElements;
+            }
+            else {
+                chaserAbilityUIElements.AbilityUIElementsObjects.SetActive(true);
+                runnerAbilityUIElements.AbilityUIElementsObjects.SetActive(false);
+                activeAbilityUIElements = chaserAbilityUIElements;
+            }
         }
 
         private void SetUsesLeftIndicators(int usesLeft) {
             //--the UI currently only has the capacity for show between 0 - 4 uses left so if there are more than 4 uses left it wil just show the 4 indicators
             usesLeft = Mathf.Clamp(usesLeft, 0, 4);
             for (int i = 0; i < 4; i++) {
-                abilityUIElements.UsesLeftIndicators[i].SetActive(false);
+                activeAbilityUIElements.UsesLeftIndicators[i].SetActive(false);
             }
             int usesLeftAsIndex = usesLeft - 1;
             for (int i = 0; i < usesLeft; i++) {
-                abilityUIElements.UsesLeftIndicators[i].SetActive(true);
+                activeAbilityUIElements.UsesLeftIndicators[i].SetActive(true);
             }
 
         }
         private void SetSelectedIcon(int selectedIconIndex) {
-            for (int i = 0; i < abilityUIElements.SelectedIcons.Count; i++) {
+            for (int i = 0; i < activeAbilityUIElements.SelectedIcons.Count; i++) {
                 if (i == selectedIconIndex)
-                    abilityUIElements.SelectedIcons[i].SetActive(true);
+                    activeAbilityUIElements.SelectedIcons[i].SetActive(true);
                 else
-                    abilityUIElements.SelectedIcons[i].SetActive(false);
+                    activeAbilityUIElements.SelectedIcons[i].SetActive(false);
             }
         }
         private void SetAbilitySelectedIndicator(int selectedIndicatorIndex) {
-            for (int i = 0; i < abilityUIElements.AbilitiesToSelect.Count; i++) {
+            for (int i = 0; i < activeAbilityUIElements.AbilitiesToSelect.Count; i++) {
                 if (i == selectedIndicatorIndex)
-                    abilityUIElements.AbilitiesToSelect[i].SelectedIndicator.SetActive(true);
+                    activeAbilityUIElements.AbilitiesToSelect[i].SelectedIndicator.SetActive(true);
                 else
-                    abilityUIElements.AbilitiesToSelect[i].SelectedIndicator.SetActive(false);
+                    activeAbilityUIElements.AbilitiesToSelect[i].SelectedIndicator.SetActive(false);
             }
         }
 
         private void SetTimerFilledImage(float fillValue) {
-            abilityUIElements.TimerFilledImage.fillAmount = fillValue;
+            activeAbilityUIElements.TimerFilledImage.fillAmount = fillValue;
         }
 
-        
+        private void SetSelectedText(int selectedIndex) {
+            switch (selectedIndex) {
+                case 0: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Boxes");
+                        break;
+
+                    }
+                case 1: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Rockets");
+                        break;
+
+                    }
+                case 2: {
+                        activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
+                        break;
+
+                    }
+                default: 
+                    break;
+            }
+        }
+
+        private void SetUsesLeftText(int usesLeft) {
+            if (usesLeft == -1) {
+                print("");
+            }
+            activeAbilityUIElements.UsesLeftText.SetText(usesLeft.ToString());
+        }
+
 
     }
 }

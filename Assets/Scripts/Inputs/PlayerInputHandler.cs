@@ -5,38 +5,59 @@ using UnityEngine.InputSystem;
 using CarTag.PlayerSpace;
 using CarTag.Abilities;
 
-namespace CarTag.Input
-{
-    public class PlayerInputHandler : MonoBehaviour
-    {
-        [SerializeField] Player thisPlayer;
+namespace CarTag.Input {
+    public class PlayerInputHandler : MonoBehaviour {
+        Player thisPlayer;
         [SerializeField] PlayerAbilityController abilityController;
 
         public InputManager InputManager { get; private set; }
 
         private void Start() {
             InputManager = GetComponent<InputManager>();
+            thisPlayer = GetComponent<Player>();
         }
 
         public void OnRespawn(InputAction.CallbackContext context) {
-            //print("Respawn");
-            if (context.started) {
-                //print("Respawn Started");
-                //--Start UI Respawn Display
-            }
-            if (context.performed) {
-                //print("Respawn Performed");
-                thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
+            if (Time.timeScale == 0) { return; }
+            if (thisPlayer.IsThisPlayerCurrentRunner()) { return; }
+            if (!thisPlayer.IsPlayerEnabled) { return; }
 
+
+            float holdTime = 0.4f;
+            if (context.started) {
+                //print("Started");
+                thisPlayer.PlayerUIController.CheckpointResetButtonUI.StartButtonHold(holdTime);
             }
             if (context.canceled) {
-                //print("Respawn Cancelled");
-                //--Stop UI Respawn Display
+                thisPlayer.PlayerUIController.CheckpointResetButtonUI.StopButtonHold();
+                //print("Canceled");
             }
-            
+            if (context.performed) {
+                thisPlayer.PlayerRespawn.RespawnAtCheckpoint();
+                thisPlayer.PlayerUIController.CheckpointResetButtonUI.StopButtonHold();
+            }
+        }
+        public void OnForfeit(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
+            if (thisPlayer.IsThisPlayerCurrentRunner()) { return; }
+            if (!thisPlayer.IsPlayerEnabled) { return; }
+
+            float holdTime = 2.0f;
+            if (context.started) {
+                thisPlayer.PlayerUIController.ForfeitButtonUI.StartButtonHold(holdTime);
+            }
+            if (context.canceled) {
+                thisPlayer.PlayerUIController.ForfeitButtonUI.StopButtonHold();
+            }
+            if (context.performed) {
+                GameManager.Instance.ScoreManager.GameForfeited();
+                GameManager.Instance.RoundManager.RoundWin();
+                thisPlayer.PlayerUIController.ForfeitButtonUI.StopButtonHold();
+            }
         }
 
         public void OnUseAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.OnAbilityInputStarted();
             }
@@ -46,11 +67,13 @@ namespace CarTag.Input
         }
 
         public void OnNextAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.NextAbility();
             }
         }
         public void OnPreviousAbility(InputAction.CallbackContext context) {
+            if (Time.timeScale == 0) { return; }
             if (context.started) {
                 abilityController.PreviousAbility();
             }
@@ -58,7 +81,6 @@ namespace CarTag.Input
 
         public void OnPauseMenu(InputAction.CallbackContext context) {
             if (context.started) {
-                print("Pause Menu");
                 InputManager.UIManager.LevelUI.DoPauseMenu();
             }
         }
