@@ -8,7 +8,7 @@ namespace CarTag.UI {
         [SerializeField] private AbilityUIElements runnerAbilityUIElements;
         [SerializeField] private AbilityUIElements chaserAbilityUIElements;
         public AbilityActiveTimerUI AbilityActiveTimerUI { get; set; }
-
+        public PlayerUIController PlayerUIController { get; private set; }
 
         //-- Private
         private AbilityUIElements activeAbilityUIElements;
@@ -16,8 +16,17 @@ namespace CarTag.UI {
 
         private void Awake() {
             AbilityActiveTimerUI = GetComponentInChildren<AbilityActiveTimerUI>();
+            PlayerUIController = GetComponentInParent<PlayerUIController>();
+
         }
 
+        private void Start() {
+            PlayerUIController.thisPlayer.PlayerEvents.AbilityEvents.currentAbilityChanged += ChangeAbilityUI;
+        }
+
+        private void OnDestroy() {
+            PlayerUIController.thisPlayer.PlayerEvents.AbilityEvents.currentAbilityChanged -= ChangeAbilityUI;
+        }
 
         public void InitialSetup(int initialUsesLeft, bool isRunner) {
             SetActiveAbilityElements(isRunner);

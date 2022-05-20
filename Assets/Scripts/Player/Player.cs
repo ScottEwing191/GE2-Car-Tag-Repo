@@ -9,6 +9,7 @@ using CarTag.PlayerSpace;
 using CarTag.Abilities;
 using CarTag.ScoreSystem;
 using CarTag.Checkpoints;
+using CarTag.Events;
 
 
 namespace CarTag {
@@ -20,6 +21,8 @@ namespace CarTag {
         public event Action playerDisabledEvent = delegate { };
 
         [SerializeField] private PlayerRoleEnum playerRoll = PlayerRoleEnum.Runner;
+        //private PlayerEvents _playerEvents = new PlayerEvents();
+        public PlayerEvents PlayerEvents { get; set; } = new PlayerEvents();
 
         // Auto-implemented properties
         public int PlayerListIndex { get; set; }                            // each player knows its own position in the PlayerManager's player list
@@ -56,6 +59,13 @@ namespace CarTag {
             }
             ChangePlayerCars = GetComponent<ChangePlayerCars>();
             PlayerManager = FindObjectOfType<PlayerManager>();
+            //PlayerEvents = new PlayerEvents();
+
+        }
+
+        public static Player GetThisPlayer(GameObject callingGameObject) {
+            Player player = callingGameObject.GetComponentInParent<Player>();
+            return player;
         }
 
         public void InitialSetup() {

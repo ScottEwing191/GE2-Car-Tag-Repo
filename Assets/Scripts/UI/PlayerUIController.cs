@@ -15,7 +15,8 @@ namespace CarTag.UI {
         [SerializeField] HoldButtonUI forfeitButtonUI;
 
 
-        private Player thisPlayer;          // used to gain acess to other controller script attached to the same player as this one
+        //private Player thisPlayer;          // used to gain acess to other controller script attached to the same player as this one
+        public Player thisPlayer { get; set; }
         
         //--Auto-Implemented Properties
         public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }

@@ -78,7 +78,8 @@ namespace CarTag.Abilities {
                 }
                 CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
-                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
+                //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
+                thisPlayer.PlayerEvents.AbilityEvents.OnCurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
             }
             //--If Can't Switch Ability
             else {
@@ -105,7 +106,9 @@ namespace CarTag.Abilities {
                 }
                 CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
-                thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
+                //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
+                thisPlayer.PlayerEvents.AbilityEvents.OnCurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
+
             }
             //--If Can't Switch Ability
             else {

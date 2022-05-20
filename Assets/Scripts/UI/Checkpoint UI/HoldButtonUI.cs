@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,14 @@ namespace CarTag.UI {
         private bool _isButtonHeld;
         private float _timer = 0.0f;
         private float _holdTime;
+
+        private void OnEnable() {
+            
+        }
+
+        private void OnDisable() {
+            
+        }
 
         public void StartButtonHold(float holdTime) {
             filledImage.gameObject.SetActive(true);

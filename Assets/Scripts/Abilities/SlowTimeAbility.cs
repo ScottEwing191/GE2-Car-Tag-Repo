@@ -61,7 +61,7 @@ namespace CarTag.Abilities {
             }
             if (slowTimeRoutine != null) {      // End Ability when the player clicks again
                 StopCoroutine(slowTimeRoutine);
-                AbilityUsed();                  // Disabling slow midway through will cound as a use
+                AbilityUsed();                  // Disabling slow midway through will count as a use
                 DisableSlowMo();
                 return;
             }
@@ -71,7 +71,8 @@ namespace CarTag.Abilities {
         private IEnumerator SlowTimeRoutine() {
             Time.timeScale = slowTimeScale;
             SetCarController(angularVelStrength, liniearVelStrength);
-            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Handling Increased", slowDuration);
+            //playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Handling Increased", slowDuration);
+            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.OnAbilityStarted("Slow Mo: Handling Increased", slowDuration);
             yield return new WaitForSeconds(slowDuration);
             AbilityUsed();
             DisableSlowMo();
@@ -86,7 +87,9 @@ namespace CarTag.Abilities {
         private void DisableSlowMo() {
             Time.timeScale = 1;
             SetCarController(originalAngularStrength, originalLinearStrength);
-            playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StopTimerUI();
+            //playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StopTimerUI();
+            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.OnAbilityStopped();
+
             //AbilityUsed();
             if (slowTimeRoutine !=null) {
                 StopCoroutine(slowTimeRoutine);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,34 @@ namespace CarTag.UI {
             AbilityActiveText = GetComponentInChildren<TextMeshProUGUI>();
             TimerSlider.gameObject.SetActive(false);
             AbilityActiveText.gameObject.SetActive(false);
+            
 
+        }
 
+        private void OnEnable() {
+            Player thisPlayer = Player.GetThisPlayer(this.gameObject);
+            if (thisPlayer == null) {
+                return;
+            }
+            thisPlayer.PlayerEvents.AbilityEvents.abilityStarted += StartTimerUI;
+            thisPlayer.PlayerEvents.AbilityEvents.abilityStopped += StopTimerUI;
+        }
+
+        private void OnDisable() {
+            Player thisPlayer = Player.GetThisPlayer(this.gameObject);
+            if (thisPlayer == null) {
+                return;
+            }
+            thisPlayer.PlayerEvents.AbilityEvents.abilityStarted -= StartTimerUI;
+            thisPlayer.PlayerEvents.AbilityEvents.abilityStopped -= StopTimerUI;
+        }
+
+        private void Start() {
+            
+        }
+
+        private void OnDestroy() {
+            
         }
 
         public void StartTimerUI(string text, float duration) {
