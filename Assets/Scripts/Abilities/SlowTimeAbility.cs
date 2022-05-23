@@ -72,7 +72,7 @@ namespace CarTag.Abilities {
             Time.timeScale = slowTimeScale;
             SetCarController(angularVelStrength, liniearVelStrength);
             //playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StartTimerUI("Slow Mo: Handling Increased", slowDuration);
-            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.OnAbilityStarted("Slow Mo: Handling Increased", slowDuration);
+            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.AbilityStarted("Slow Mo: Handling Increased", slowDuration);
             yield return new WaitForSeconds(slowDuration);
             AbilityUsed();
             DisableSlowMo();
@@ -88,7 +88,7 @@ namespace CarTag.Abilities {
             Time.timeScale = 1;
             SetCarController(originalAngularStrength, originalLinearStrength);
             //playerAbilityController.thisPlayer.PlayerUIController.AbilityUI.AbilityActiveTimerUI.StopTimerUI();
-            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.OnAbilityStopped();
+            playerAbilityController.thisPlayer.PlayerEvents.AbilityEvents.AbilityStopped();
 
             //AbilityUsed();
             if (slowTimeRoutine !=null) {

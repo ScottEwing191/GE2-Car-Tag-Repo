@@ -79,7 +79,7 @@ namespace CarTag.Abilities {
                 CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
                 //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
-                thisPlayer.PlayerEvents.AbilityEvents.OnCurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
+                thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
             }
             //--If Can't Switch Ability
             else {
@@ -107,7 +107,7 @@ namespace CarTag.Abilities {
                 CurrentAbility.ChangeToAbility();
                 int abilityCompatableIndex = GetAbilityCompatableIndex();
                 //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
-                thisPlayer.PlayerEvents.AbilityEvents.OnCurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
+                thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
 
             }
             //--If Can't Switch Ability
@@ -146,7 +146,8 @@ namespace CarTag.Abilities {
             }
             int abilityIndex = GetAbilityCompatableIndex();
 
-            thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
+            //thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
+            thisPlayer.PlayerEvents.AbilityEvents.ResetAbilities(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
             //-Reset use ability timer
             if (abilityTimerRoutine != null) {
                 StopCoroutine(abilityTimerRoutine);
@@ -170,7 +171,8 @@ namespace CarTag.Abilities {
 
         public void CurrentAbilityUsed(int usesLeft) {
             abilityTimerRoutine = StartCoroutine(AbilityCooldown());
-            thisPlayer.PlayerUIController.AbilityUI.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
+            //thisPlayer.PlayerUIController.AbilityUI.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
+            thisPlayer.PlayerEvents.AbilityEvents.AbilityUsed(timeBetweenAbilityUse, usesLeft);
             //--Update the player Ability telemetry for Games User Research module
             thisPlayer.PlayerScore.UpdateAbilityUsedTelemetry(CurrentAbility, timeElapsedSinceCooldownEnd);
 

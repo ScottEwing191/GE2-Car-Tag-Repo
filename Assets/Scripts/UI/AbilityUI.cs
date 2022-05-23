@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CarTag.UI {
-    public class AbilityUI : MonoBehaviour {
+namespace CarTag.UI{
+    public class AbilityUI : MonoBehaviour{
         [SerializeField] private AbilityUIElements runnerAbilityUIElements;
         [SerializeField] private AbilityUIElements chaserAbilityUIElements;
         public AbilityActiveTimerUI AbilityActiveTimerUI { get; set; }
@@ -13,19 +13,37 @@ namespace CarTag.UI {
         //-- Private
         private AbilityUIElements activeAbilityUIElements;
         private Coroutine abilityCooldownTimerUIRoutine;
+        private Player thisPlayer;
 
         private void Awake() {
             AbilityActiveTimerUI = GetComponentInChildren<AbilityActiveTimerUI>();
             PlayerUIController = GetComponentInParent<PlayerUIController>();
-
+            thisPlayer = Player.GetThisPlayer(this.gameObject);
         }
 
-        private void Start() {
-            PlayerUIController.thisPlayer.PlayerEvents.AbilityEvents.currentAbilityChanged += ChangeAbilityUI;
+        private void OnEnable() {
+            if (thisPlayer != null) {
+                //--Subscribe to Ability Events
+                thisPlayer.PlayerEvents.AbilityEvents.onCurrentAbilityChanged += ChangeAbilityUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onResetAbilities += ResetAbilityUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityUsed += UpdateAbilityUIOnUse;
+                
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityStarted += AbilityActiveTimerUI.StartTimerUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityStopped += AbilityActiveTimerUI.StopTimerUI;
+
+            }
         }
 
-        private void OnDestroy() {
-            PlayerUIController.thisPlayer.PlayerEvents.AbilityEvents.currentAbilityChanged -= ChangeAbilityUI;
+        private void OnDisable() {
+            //--Unsubscribe to Ability Events
+            if (thisPlayer != null) {
+                thisPlayer.PlayerEvents.AbilityEvents.onCurrentAbilityChanged -= ChangeAbilityUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onResetAbilities -= ResetAbilityUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityUsed -= UpdateAbilityUIOnUse;
+                
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityStarted -= AbilityActiveTimerUI.StartTimerUI;
+                thisPlayer.PlayerEvents.AbilityEvents.onAbilityStopped -= AbilityActiveTimerUI.StopTimerUI;
+            }
         }
 
         public void InitialSetup(int initialUsesLeft, bool isRunner) {
@@ -39,7 +57,6 @@ namespace CarTag.UI {
             SetAbilitySelectedIndicator(0);
         }
 
-        
 
         //--Called each time an ability is used. Will update the Indicaters which show how many uses of an ability are left
         //--Starts coroutine to display time until an ability can be used again
@@ -50,6 +67,7 @@ namespace CarTag.UI {
             SetUsesLeftIndicators(usesLeft);
             SetUsesLeftText(usesLeft);
         }
+
         private IEnumerator AbilityCooldownTimerUIRoutine(float cooldownTime) {
             float timeLeft = cooldownTime;
             while (timeLeft >= 0) {
@@ -60,7 +78,7 @@ namespace CarTag.UI {
         }
 
         //Changes the UI to Show the currently active Ability
-        internal void ChangeAbilityUI(int usesLeft, int selectedIndex) {
+        private void ChangeAbilityUI(int usesLeft, int selectedIndex) {
             SetUsesLeftIndicators(usesLeft);
             SetAbilitySelectedIndicator(selectedIndex);
             SetSelectedIcon(selectedIndex);
@@ -69,11 +87,14 @@ namespace CarTag.UI {
         }
 
 
-        public void ResetAbilityUI(int usesLeft, bool isRunner, int selectedAbilityIndex) {              // uses left will be the max number of uses for the current ability and may differ if the player
-            if (abilityCooldownTimerUIRoutine != null) {        // depending on if the player is the Runner or the Chaser
+        private void ResetAbilityUI(int usesLeft, bool isRunner, int selectedAbilityIndex) {
+            // uses left will be the max number of uses for the current ability and may differ if the player
+            if (abilityCooldownTimerUIRoutine != null) {
+                // depending on if the player is the Runner or the Chaser
                 StopCoroutine(abilityCooldownTimerUIRoutine);
                 abilityCooldownTimerUIRoutine = null;
             }
+
             SetActiveAbilityElements(isRunner);
             SetSelectedIcon(selectedAbilityIndex);
             SetAbilitySelectedIndicator(selectedAbilityIndex);
@@ -102,12 +123,13 @@ namespace CarTag.UI {
             for (int i = 0; i < 4; i++) {
                 activeAbilityUIElements.UsesLeftIndicators[i].SetActive(false);
             }
+
             int usesLeftAsIndex = usesLeft - 1;
             for (int i = 0; i < usesLeft; i++) {
                 activeAbilityUIElements.UsesLeftIndicators[i].SetActive(true);
             }
-
         }
+
         private void SetSelectedIcon(int selectedIconIndex) {
             for (int i = 0; i < activeAbilityUIElements.SelectedIcons.Count; i++) {
                 if (i == selectedIconIndex)
@@ -116,6 +138,7 @@ namespace CarTag.UI {
                     activeAbilityUIElements.SelectedIcons[i].SetActive(false);
             }
         }
+
         private void SetAbilitySelectedIndicator(int selectedIndicatorIndex) {
             for (int i = 0; i < activeAbilityUIElements.AbilitiesToSelect.Count; i++) {
                 if (i == selectedIndicatorIndex)
@@ -132,21 +155,18 @@ namespace CarTag.UI {
         private void SetSelectedText(int selectedIndex) {
             switch (selectedIndex) {
                 case 0: {
-                        activeAbilityUIElements.SelectedAbilityText.SetText("Boxes");
-                        break;
-
-                    }
+                    activeAbilityUIElements.SelectedAbilityText.SetText("Boxes");
+                    break;
+                }
                 case 1: {
-                        activeAbilityUIElements.SelectedAbilityText.SetText("Rockets");
-                        break;
-
-                    }
+                    activeAbilityUIElements.SelectedAbilityText.SetText("Rockets");
+                    break;
+                }
                 case 2: {
-                        activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
-                        break;
-
-                    }
-                default: 
+                    activeAbilityUIElements.SelectedAbilityText.SetText("Slow Mo");
+                    break;
+                }
+                default:
                     break;
             }
         }
@@ -155,9 +175,8 @@ namespace CarTag.UI {
             if (usesLeft == -1) {
                 print("");
             }
+
             activeAbilityUIElements.UsesLeftText.SetText(usesLeft.ToString());
         }
-
-
     }
 }
