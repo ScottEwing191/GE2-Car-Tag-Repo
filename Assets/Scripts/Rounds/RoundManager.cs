@@ -57,7 +57,7 @@ namespace CarTag.Rounds {
             StartCoroutine(PlayerManager.CurrentRunner.PlayerCollision.TurnOffCollisionWithDelay(0));       //Turn off Car Collision for the Runner
             UIManager.StartRunnerCountdown(runnerStartWaitTime);
             UIManager.StartChaserCountdown(runnerStartWaitTime + chaserStartWaitTime);
-            UIManager.UpdateRunnerDistanceTracker(0, DistanceToWin);        // set distance tracker UI to 0 on round tart
+            UIManager.UpdateDistanceTracker(0, DistanceToWin);        // set distance tracker UI to 0 on round tart
             yield return new WaitForSeconds(runnerStartWaitTime);           // wait till runner can start
             PlayerManager.EnableRunner();                                   // runner Enabled
             checkDistance = true;
@@ -70,7 +70,7 @@ namespace CarTag.Rounds {
         [SerializeField] float distanceTravelled;
         private void Update() {
             distanceTravelled = RoadManager.Distance.TotalDistance;
-            UIManager.UpdateRunnerDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
+            UIManager.UpdateDistanceTracker(distanceTravelled, DistanceToWin);  // update Runner Distance Tracker UI
             if (RoadManager.Distance.TotalDistance >= distanceToWin && !CheckIfShouldStartOvertime() && checkDistance) {
                 /*checkDistance = false;
                 RoadManager.DoFixedUpdate = false;

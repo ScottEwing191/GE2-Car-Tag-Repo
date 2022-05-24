@@ -37,9 +37,13 @@ namespace CarTag.Abilities {
             }
         }
 
-        public void ResetAbilities() {
-            foreach (var controller in PlayerAbilityControllers) {
-                controller.ResetAbilities();
+        public void ResetAbilities(Player newRunner) {
+            newRunner.PlayerAbilityController.ResetAbilities(true);
+            foreach (var c in PlayerAbilityControllers) {
+                if (c == newRunner.PlayerAbilityController) {
+                    continue;
+                }
+                c.ResetAbilities(false);
             }
         }
 

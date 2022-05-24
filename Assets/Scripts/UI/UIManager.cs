@@ -51,7 +51,7 @@ namespace CarTag.UI {
                 playerUIControllers.Add(PlayerManager.Players[i].GetComponentInChildren<PlayerUIController>());
                 playerUIControllers[i].InitialSetup();
             }
-            ResetUI();
+            ResetUI(PlayerManager.CurrentRunner);
             LevelUI.SetScoreboardText(ScoreManager.GetPlayerScoresInDisplayOrder(), false);
         }
 
@@ -164,28 +164,22 @@ namespace CarTag.UI {
         
         //=== ROLE/ROUND CHANGE ===
         public void RoleSwapReset(Player newRunner, Player newChaser) {
-            ResetUI();
+            ResetUI(newRunner);
 
         }
-        /*public void RoundSwapScreenFade(Player newRunner, Player newChaser) {
-            // Start
-        }*/
         internal void RoundStartReset() {
-            ResetUI();
+            ResetUI(PlayerManager.CurrentRunner);
         }
 
-        private void ResetUI() {
+        private void ResetUI(Player newRunner) {
+            newRunner.PlayerUIController.ResetUI(true);
             foreach (var p in playerUIControllers) {
-                p.SetCheckpointsAheadText(0);                       // reset runner's checkpoints ahead tracker
-                p.SetPlacedCheckpointTracker(0, 0);                 // reset runner's checkpoint placed slider
-                
-                p.ChaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
-                // Ability UI Is Reset from the PlayerAbilityController
-                p.SwitchToChaserUI();                               // switch all cars to chaser UI
-                p.EnablePlayerUI();                                 // make sure Player UI is on
+                if (p.thisPlayer == newRunner) 
+                    continue;                  
+                p.ResetUI(false);
             }
-            GetRunnerUIController().SwitchToRunnerUI();             // switch only the runner to Runner UI
         }
+        //=== ROLE/ROUND CHANGE END ===
 
         //--Disables the runner/ chaser/ player UI for all players in the game
         private void DisablePlayersUI() {
@@ -195,12 +189,9 @@ namespace CarTag.UI {
         }
 
         //=== UPDATE RUNNER DISTANCE TRAVELLED ===
-        public void UpdateRunnerDistanceTracker(float distanceTravelled, float targetDistance) {
-            GetRunnerUIController().SetDistanceTrackerUI(distanceTravelled, targetDistance);
+        public void UpdateDistanceTracker(float distanceTravelled, float targetDistance) {
             foreach (var p in playerUIControllers) {
-                if (p != GetRunnerUIController()) {
-                    p.SetDistanceTrackerChaserUI(distanceTravelled, targetDistance);
-                }
+                p.SetDistanceTrackerUI(distanceTravelled,targetDistance);
             }
         }
 

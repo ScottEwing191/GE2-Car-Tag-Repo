@@ -15,9 +15,9 @@ namespace CarTag.UI
         [Tooltip ("The Runner will drop the next checkpoint when the slider is full")]
         [SerializeField] private Slider placeCheckpointTracker;
         [SerializeField] private TextMeshProUGUI checkpointsAhead;
-        [Header("Distance Tracker")]
-        [SerializeField] private Slider distanceTrackerSider;
-        [SerializeField] private TextMeshProUGUI distanceTrackerText;
+        //[Header("Distance Tracker")]
+        //[SerializeField] private Slider distanceTrackerSider;
+        //[SerializeField] private TextMeshProUGUI distanceTrackerText;
 
 
 
@@ -33,13 +33,13 @@ namespace CarTag.UI
             get { return checkpointsAhead; }
             set { checkpointsAhead = value; }
         }
-        public Slider DistanceTrackerSlider {
+        /*public Slider DistanceTrackerSlider {
             get { return distanceTrackerSider; }
             set { distanceTrackerSider = value; }
         }
         public TextMeshProUGUI DistanceTrackerText {
             get { return distanceTrackerText; }
             set { distanceTrackerText = value; }
-        }
+        }*/
     }
 }

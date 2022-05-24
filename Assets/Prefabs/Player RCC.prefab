@@ -47054,8 +47054,6 @@ MonoBehaviour:
     runnerUIObject: {fileID: 8322927829698097601}
     placeCheckpointTracker: {fileID: 9136419688333766256}
     checkpointsAhead: {fileID: 9136419689265280837}
-    distanceTrackerSider: {fileID: 4406564692331811361}
-    distanceTrackerText: {fileID: 1935167106902151569}
   chaserUI:
     chaserUIObject: {fileID: 1420974013881892639}
     checkpointTracker:
@@ -47083,10 +47081,13 @@ MonoBehaviour:
       - {fileID: 922008534030451379}
       checkpointsLeftText: {fileID: 5883167095217804202}
       layoutGroup: {fileID: 5763190651336183322}
-    runnerDistanceTrackerSlider: {fileID: 2097200308768998911}
-    textMeshProUGUI: {fileID: 1999201361947410319}
-  checkpointResetButtonUI: {fileID: 3765109221929461103}
-  forfeitButtonUI: {fileID: 8780163783725290314}
+  runnerProgressTrackerUIElements:
+    <ProgressTrackerSliderForRunner>k__BackingField: {fileID: 4406564692331811361}
+    <ProgressTrackerSliderForChaser>k__BackingField: {fileID: 2097200308768998911}
+    <ProgressTrackerTextForRunner>k__BackingField: {fileID: 1935167106902151569}
+    <ProgressTrackerTextForChaser>k__BackingField: {fileID: 1999201361947410319}
+  <CheckpointResetButtonUI>k__BackingField: {fileID: 3765109221929461103}
+  <ForfeitButtonUI>k__BackingField: {fileID: 8780163783725290314}
 --- !u!1 &8031320243919170349
 GameObject:
   m_ObjectHideFlags: 0

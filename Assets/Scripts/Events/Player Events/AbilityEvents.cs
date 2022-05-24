@@ -10,7 +10,6 @@ namespace CarTag{
         /// Subscribers: AbilityUI.ChangeAbilityUI;
         /// </summary>
         public Action<int, int> onCurrentAbilityChanged = delegate { };
-
         public void CurrentAbilityChanged(int usesLeft, int selectedIndex) {
             if (onCurrentAbilityChanged != null) onCurrentAbilityChanged(usesLeft, selectedIndex);
         }

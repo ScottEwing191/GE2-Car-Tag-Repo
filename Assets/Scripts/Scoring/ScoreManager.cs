@@ -112,7 +112,7 @@ namespace CarTag.ScoreSystem {
                     score.Round_Data[score.Round_Data.Count - 1].Role_Swaps_Per_Round++;
                 }
                 else {
-                    Debug.Log("Trying to increment role swap couter before list contains Round Data");
+                    Debug.Log("Trying to increment role swap counter before list contains Round Data");
                 }
                 //--Record Duration of Role
                 score.SetRoleDuration();

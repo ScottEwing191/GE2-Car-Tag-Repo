@@ -49,7 +49,7 @@ namespace CarTag {
             RoadManager.InitialSetup(PlayerManager.CurrentRunner.RoadSpawnData); 
             CheckpointManager.InitialSetup(PlayerManager.Players.Count);
             ScoreManager.InitialSetup();                //must come before UI Manager
-            UIManager.InitalSetup();
+            UIManager.InitalSetup();                    // this need to come before PlayerManager
             AbilityManager.InitialSetup();              // was Before UI Manager. Dont remember if that was required for something. It now must be after the UI Manager due to...
                                                         //... PlayerAbilityController InitalSetup() Calling the UI System.
             RoundManager.InitalSetup();
@@ -63,12 +63,13 @@ namespace CarTag {
         /// <param name="newRunner">The Player Script on the new runner (old chaser)</param>
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
-            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Start Player Manager Role Swap Code
-            RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Start Road Manager Role Swap Code
-            CheckpointManager.ResetCheckpoints();
-            UIManager.RoleSwapReset(newRunner, newChaser);
-            ScoreManager.SetScoresOnRoleSwap();
-            AbilityManager.ResetAbilities();
+            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Needs To be first 
+            
+            RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Position Shouldnt matter??
+            CheckpointManager.ResetCheckpoints();                               // Position Shouldnt Matter
+            UIManager.RoleSwapReset(newRunner, newChaser);                      // Position Shouldn't Matter
+            ScoreManager.SetScoresOnRoleSwap();                                 // Position Shouldn't Matter
+            AbilityManager.ResetAbilities(newRunner);
         }
 
         public void ManageRoundOver() {
@@ -90,8 +91,8 @@ namespace CarTag {
             PlayerManager.ResetPlayersAfterRound();
             RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
             CheckpointManager.ResetCheckpoints();
-            UIManager.RoundStartReset();
-            AbilityManager.ResetAbilities();
+            UIManager.RoundStartReset();                                    // this need to come after PlayerManager
+            AbilityManager.ResetAbilities(PlayerManager.CurrentRunner);     // this need to come after PlayerManager
             ScoreManager.SetupScoresForNewRound();
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent

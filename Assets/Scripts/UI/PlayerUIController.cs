@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CarTag.UI.ProgressTracker;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 namespace CarTag.UI {
     public class PlayerUIController : MonoBehaviour {
@@ -11,31 +13,20 @@ namespace CarTag.UI {
         [SerializeField] PlayerUIElements playerUI;
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
-        [SerializeField] HoldButtonUI checkpointResetButtonUI;
-        [SerializeField] HoldButtonUI forfeitButtonUI;
+        [SerializeField] private RunnerProgressTrackerUIElements runnerProgressTrackerUIElements;
+        [field: SerializeField] public HoldButtonUI CheckpointResetButtonUI { get; set; }
+        [field: SerializeField] public HoldButtonUI ForfeitButtonUI { get; set; }
 
 
-        //private Player thisPlayer;          // used to gain acess to other controller script attached to the same player as this one
-        public Player thisPlayer { get; set; }
+        //--Private           
+        public Player thisPlayer { get; set; }  // used to gain acess to other controller script attached to the same player as this one
         
         //--Auto-Implemented Properties
+        public RunnerProgressTracker RunnerProgressTracker { get; private set; }
         public ChaserCheckpointTracker ChaserCheckpointTracker { get; set; }
         public AbilityUI AbilityUI { get; set; }
         public ScreenFadeUI ScreenFadeUI { get; set; }
         public CheckpointGuideUI CheckpointGuideUI { get; private set; }
-        //public HoldButtonUI CheckpointResetButtonUI { get; set; }
-
-        //--Properties
-
-        public HoldButtonUI CheckpointResetButtonUI {
-            get { return checkpointResetButtonUI; }
-            set { checkpointResetButtonUI = value; }
-        }
-        public HoldButtonUI ForfeitButtonUI {
-            get { return forfeitButtonUI; }
-            set { forfeitButtonUI = value; }
-        }
-
 
         private void Awake() {
             ChaserCheckpointTracker = new ChaserCheckpointTracker(chaserUI.CheckpointTracker);
@@ -44,6 +35,7 @@ namespace CarTag.UI {
             thisPlayer = GetComponentInParent<Player>();
             CheckpointGuideUI = GetComponentInChildren<CheckpointGuideUI>();
             //CheckpointResetButtonUI = GetComponentInChildren<HoldButtonUI>();
+            RunnerProgressTracker = new RunnerProgressTracker(runnerProgressTrackerUIElements);
         }
 
         public void InitialSetup() {
@@ -90,9 +82,22 @@ namespace CarTag.UI {
             chaserUI.ChaserUIObject.SetActive(false);
             runnerUI.RunnerUIObject.SetActive(false);
             playerUI.PlayerUIObject.SetActive(false);
-        } 
-        //=== RUNNER CONTROLS ===
+        }
 
+        public void ResetUI(bool isNewRunner) {
+            SetCheckpointsAheadText(0);                       // reset runner's checkpoints ahead tracker
+            SetPlacedCheckpointTracker(0, 0);                 // reset runner's checkpoint placed slider
+                
+            ChaserCheckpointTracker.ResetCpTracker();         // reset chaser's checkpoint tracker
+            // Ability UI Is Reset from the PlayerAbilityController
+            EnablePlayerUI();                                 // make sure Player UI is on
+            if (isNewRunner) 
+                SwitchToRunnerUI();
+            else 
+                SwitchToChaserUI();
+        }
+
+        //--Runner Checkpoint Placed UI 
         public void SetPlacedCheckpointTracker(float currentDst, float dstBetweenCheckpoint) {
             runnerUI.PlaceCheckpointTracker.maxValue = dstBetweenCheckpoint;
             runnerUI.PlaceCheckpointTracker.value = currentDst;
@@ -103,25 +108,11 @@ namespace CarTag.UI {
         }
 
         /// <summary>
-        /// Sets the distance tracker on the runner UI
+        /// Sets the distance tracker on the Player's UI
         /// </summary>
         public void SetDistanceTrackerUI(float distanceTravelled, float targetDistance) {
-            runnerUI.DistanceTrackerSlider.maxValue = targetDistance;
-            runnerUI.DistanceTrackerSlider.value = distanceTravelled;
-            runnerUI.DistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
+            RunnerProgressTracker.SetDistanceTrackerUI(distanceTravelled, targetDistance, thisPlayer.IsThisPlayerCurrentRunner());
         }
-        /// <summary>
-        /// Sets the distance tracker on the chaser UI
-        /// </summary>
-        public void SetDistanceTrackerChaserUI(float distanceTravelled, float targetDistance) {
-            chaserUI.RunnerDistanceTrackerSlider.maxValue = targetDistance;
-            chaserUI.RunnerDistanceTrackerSlider.value = distanceTravelled;
-            chaserUI.RunnerDistanceTrackerText.SetText(distanceTravelled.ToString("F0") + "/" + targetDistance.ToString("F0"));
-        }
-        //=== CHASER CONTROLS ===
-
         
-
-       
     }
 }
