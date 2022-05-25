@@ -14,6 +14,7 @@ namespace CarTag.UI {
         [SerializeField] RunnerUIElements runnerUI;
         [SerializeField] ChaserUIElements chaserUI;
         [SerializeField] private RunnerProgressTrackerUIElements runnerProgressTrackerUIElements;
+        private Coroutine _doCountdownTimerRoutine;
         [field: SerializeField] public HoldButtonUI CheckpointResetButtonUI { get; set; }
         [field: SerializeField] public HoldButtonUI ForfeitButtonUI { get; set; }
 
@@ -42,13 +43,21 @@ namespace CarTag.UI {
             AbilityUI.InitialSetup(thisPlayer.PlayerAbilityController.CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner());
         } 
         //--Methods
+        public void DoCountdownTimer(float startTime, float counterRate, float messageDisplayTime) {
+            if (_doCountdownTimerRoutine != null) {
+                StopCoroutine(_doCountdownTimerRoutine);
+            }
+            _doCountdownTimerRoutine = StartCoroutine(DoCountdownTimerRoutine(startTime, counterRate, messageDisplayTime));
+        }
+
+
         /// <summary>
         /// Start the countdown timer at the given time, When the timer reaches 0 display a message for the given time then hide the message
         /// </summary>
         /// <param name="startTime">The number of seconds the counter will take to get to zero</param>
         /// <param name="counterRate">The time inbetween the time being displayed</param>
         /// <param name="messageDisplayTime">The amount of time that the message that displays after the counter is done will be visable for</param>
-        public IEnumerator DoCountdownTimer(float startTime, float counterRate, float messageDisplayTime) {
+        private IEnumerator DoCountdownTimerRoutine(float startTime, float counterRate, float messageDisplayTime) {
             float time = startTime;
             playerUI.CountdownTimer.gameObject.SetActive(true);
             while (time > 0) {
@@ -61,7 +70,7 @@ namespace CarTag.UI {
             playerUI.CountdownTimer.SetText("GO");
             yield return new WaitForSeconds(messageDisplayTime);
             playerUI.CountdownTimer.gameObject.SetActive(false);
-
+            _doCountdownTimerRoutine = null;
         }
         //=== ENABLE/DISABLE RUNNER/ CHASER/ PLAYER UI===
 

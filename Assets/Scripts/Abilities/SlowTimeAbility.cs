@@ -28,11 +28,15 @@ namespace CarTag.Abilities {
         }
 
         private void OnEnable() {
-            thisPlayer.roleSwapEvent += TryDisableSloMo;
+            //thisPlayer.roleSwapEvent += TryDisableSloMo;
+            GameEvents.onRoleSwapNullary += TryDisableSloMo;
+            
             thisPlayer.roundEndEvent += TryDisableSloMo;
         }
         private void OnDisable() {
-            thisPlayer.roleSwapEvent -= TryDisableSloMo;
+            //thisPlayer.roleSwapEvent -= TryDisableSloMo;
+            GameEvents.onRoleSwapNullary -= TryDisableSloMo;
+
             thisPlayer.roundEndEvent -= TryDisableSloMo;
 
         }

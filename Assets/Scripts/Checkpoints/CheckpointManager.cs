@@ -31,6 +31,14 @@ namespace CarTag.Checkpoints {
             PlayerCheckpointsControllers = new List<PlayerCheckpointsController>();
         }
 
+        private void OnEnable() {
+            GameEvents.onRoleSwapNullary += ResetCheckpoints;
+        }
+
+        private void OnDisable() {
+            GameEvents.onRoleSwapNullary -= ResetCheckpoints;
+        }
+
         public void InitialSetup(int numberOfQueues) {
             UIManager = GameManager.Instance.UIManager;
             PlayerManager = GameManager.Instance.PlayerManager;

@@ -15,7 +15,7 @@ using CarTag.Events;
 namespace CarTag {
     public enum PlayerRoleEnum { Runner, Chaser }
     public class Player : MonoBehaviour {
-        public event Action roleSwapEvent = delegate { };
+        //public event Action roleSwapEvent = delegate { };
         public event Action roundEndEvent = delegate { };
         public event Action playerEnabledEvent = delegate { };
         public event Action playerDisabledEvent = delegate { };
@@ -83,9 +83,7 @@ namespace CarTag {
 
         }
 
-        public void InvokeRoleSwapEvent() {
-            roleSwapEvent?.Invoke();
-        }
+        
         public void InvokeRoundEndEvent() {
             roundEndEvent?.Invoke();
         }

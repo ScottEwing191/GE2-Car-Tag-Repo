@@ -6,19 +6,24 @@ using CarTag.Car;
 using CarTag.UI;
 using CarTag.Checkpoints;
 
-namespace CarTag.PlayerSpace {
-    public class PlayerManager : MonoBehaviour {
+namespace CarTag.PlayerSpace{
+    public class PlayerManager : MonoBehaviour{
         [SerializeField] private List<GameObject> playerObjects_ = new List<GameObject>();
         private List<Player> players_ = new List<Player>();
         [SerializeField] private float chaserRoleSwapStartWaitTime_ = 5.0f;
+
         [Tooltip("This is the time that the chaser has to wait after a Role Swap occurs before they can begin driving again")]
         private float chaserRoleSwapWaitTime_ = 5.0f;
-        [Tooltip("The time the chaser has to wait after a role swap get higher each time. This is the amount the time increases by each time")]
-        [SerializeField] private float increaseChaserWaitTimeBy_ = 1;
+
+        [Tooltip(
+            "The time the chaser has to wait after a role swap get higher each time. This is the amount the time increases by each time")]
+        [SerializeField]
+        private float increaseChaserWaitTimeBy_ = 1;
+
         [SerializeField] private int defaultPlayersInGame_ = 2;
 
-        private CarStatsController carStatsController_;
-        private Player runnerAtRoundStart_;
+        private CarStatsController _carStatsController;
+        private Player _runnerAtRoundStart;
 
         //--Auto Implemented Properties
         public Player CurrentRunner { get; set; }
@@ -26,14 +31,17 @@ namespace CarTag.PlayerSpace {
         public CheckpointManager CheckpointManager { get; set; }
 
 
-
         //--Properties
-        public List<Player> Players { get { return players_; } }
+        public List<Player> Players {
+            get { return players_; }
+        }
+
         //=== JUST REQUIRED FOR TELEMETRY ===
         public float ChaserRoleSwapStartWaitTime {
             get { return chaserRoleSwapStartWaitTime_; }
             set { chaserRoleSwapStartWaitTime_ = value; }
         }
+
         public float ChaserRoleSwapWaitTime_ {
             get { return chaserRoleSwapWaitTime_; }
             set { chaserRoleSwapWaitTime_ = value; }
@@ -42,8 +50,19 @@ namespace CarTag.PlayerSpace {
         //=== SET UP START ===
 
         public void Awake() {
-            carStatsController_ = GetComponent<CarStatsController>();
+            _carStatsController = GetComponent<CarStatsController>();
             SetupPlayersList();
+        }
+
+        private void OnEnable() {
+            GameEvents.onRoleSwapEarly += ControlPlayerRoleSwap;
+            GameEvents.onRoundResetEarly += ResetPlayersAfterRound;
+        }
+
+        private void OnDisable() {
+            GameEvents.onRoleSwapEarly -= ControlPlayerRoleSwap;
+            GameEvents.onRoundResetEarly += ResetPlayersAfterRound;
+
         }
 
         public void InitialSetup() {
@@ -52,7 +71,7 @@ namespace CarTag.PlayerSpace {
             //playerInputManager = GetComponent<PlayerInputManager>();
             SetupPlayers();
             FindCurrentRunner();
-            runnerAtRoundStart_ = CurrentRunner;
+            _runnerAtRoundStart = CurrentRunner;
             //AssignCarStats();
             ChangeAllCars();
             chaserRoleSwapWaitTime_ = chaserRoleSwapStartWaitTime_;
@@ -64,6 +83,7 @@ namespace CarTag.PlayerSpace {
             for (int i = 0; i < playerObjects_.Count; i++) {
                 playerObjects_[i].SetActive(false);
             }
+
             //--Add the desired number of players list enable those players
             for (int i = 0; i < playersInGame; i++) {
                 players_.Add(playerObjects_[i].GetComponent<Player>());
@@ -78,27 +98,29 @@ namespace CarTag.PlayerSpace {
                 playersInGame = playersPlaying.NumberOfPlayers;
                 Destroy(playersPlaying.gameObject);
             }
+
             return playersInGame;
         }
 
-       
+
         private void SetupPlayers() {
             for (int i = 0; i < players_.Count; i++) {
                 players_[i].InitialSetup();
-                players_[i].PlayerListIndex = i;             // tell each player its position in the list
+                players_[i].PlayerListIndex = i; // tell each player its position in the list
             }
         }
 
         /// Finds which one of the players in the scene is the current runner
         private void FindCurrentRunner() {
             // Gets the current Runner 
-            int runners = 0;        // counts the number of runners to make sure there is only one
+            int runners = 0; // counts the number of runners to make sure there is only one
             foreach (var player in players_) {
                 if (player.PlayerRoll == PlayerRoleEnum.Runner) {
                     CurrentRunner = player;
                     runners++;
                 }
             }
+
             if (runners > 1) {
                 Debug.LogError("There are more than one Runners in the scene");
             }
@@ -114,13 +136,17 @@ namespace CarTag.PlayerSpace {
         /// </summary>
         public Player GetPlayerFromGameObject(GameObject gameObject) {
             Player playerScript = gameObject.GetComponentInParent<Player>();
-            if (playerScript != null) { return playerScript; }
-            else { return null; }
+            if (playerScript != null) {
+                return playerScript;
+            }
+            else {
+                return null;
+            }
         }
 
         //=== ROLE SWAP START ===
         public void ControlPlayerRoleSwap(Player newRunner, Player newChaser) {
-            InvokeRoleSwapEvents();
+            //InvokeRoleSwapEvents();
             SwapRoles(newRunner, newChaser);
             RespawnChasers(newRunner, newChaser);
             SwapCars(newRunner, newChaser);
@@ -128,19 +154,18 @@ namespace CarTag.PlayerSpace {
             StartCoroutine(newRunner.PlayerCollision.TurnOnCarCollision(chaserRoleSwapWaitTime_));
             UIManager.StartChaserCountdown(chaserRoleSwapWaitTime_);
             StartCoroutine(StartChasersAfterRoleSwapWait());
-            chaserRoleSwapWaitTime_ += increaseChaserWaitTimeBy_;         // increase the time the chaser will have to wait for the next role swap
+            chaserRoleSwapWaitTime_ += increaseChaserWaitTimeBy_; // increase the time the chaser will have to wait for the next role swap
         }
 
-        private void InvokeRoleSwapEvents() {
+        /*private void InvokeRoleSwapEvents() {
             foreach (var p in players_) {
                 p.InvokeRoleSwapEvent();
             }
-        }
+        }*/
 
         private void SwapCars(Player newRunner, Player newChaser) {
             newRunner.ChangePlayerCars.ChangeCar(true);
             newChaser.ChangePlayerCars.ChangeCar(false);
-
         }
 
         private void ChangeAllCars() {
@@ -169,19 +194,21 @@ namespace CarTag.PlayerSpace {
             Quaternion respawnRot = newChaser.RCC_CarController.transform.rotation;
 
             for (int i = 0; i < players_.Count; i++) {
-                if (players_[i] == newRunner ) {                                             // dont need to respawn runner
-                    players_[i].PlayerRespawn.SetRespawnLocation(respawnPos, respawnRot);    // set respawn Location of Runner and chaser without
-                    continue;                                                               // ...actually respawning them
+                if (players_[i] == newRunner) {
+                    // dont need to respawn runner
+                    players_[i].PlayerRespawn
+                        .SetRespawnLocation(respawnPos, respawnRot); // set respawn Location of Runner and chaser without
+                    continue; // ...actually respawning them
                 }
                 else {
-                    players_[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot);  // respawn chasers at new chaser pos & rot
-
+                    players_[i].PlayerRespawn.RespawnAfterRoleSwap(respawnPos, respawnRot); // respawn chasers at new chaser pos & rot
                 }
             }
         }
+
         private void SwapCarStats(Player newRunner, Player newChaser) {
-            carStatsController_.AssignStats(newRunner.CarController, carStatsController_.RunnerStats);
-            carStatsController_.AssignStats(newChaser.CarController, carStatsController_.ChaserStats);
+            _carStatsController.AssignStats(newRunner.CarController, _carStatsController.RunnerStats);
+            _carStatsController.AssignStats(newChaser.CarController, _carStatsController.ChaserStats);
         }
 
         //=== ROLE SWAP END ===
@@ -192,6 +219,7 @@ namespace CarTag.PlayerSpace {
                 p.DisablePlayer();
             }
         }
+
         private void DisableChasers() {
             foreach (Player p in players_) {
                 if (p != CurrentRunner) {
@@ -203,6 +231,7 @@ namespace CarTag.PlayerSpace {
         public void EnableRunner() {
             CurrentRunner.EnablePlayer();
         }
+
         public void EnableChasers() {
             foreach (Player p in players_) {
                 if (p != CurrentRunner) {
@@ -215,25 +244,27 @@ namespace CarTag.PlayerSpace {
         public void ResetPlayersAfterRound() {
             foreach (var p in players_) {
                 p.PlayerRespawn.RespawnAfterRound();
-                p.InvokeRoundEndEvent();                    // tell player to invoke the round end event
+                p.InvokeRoundEndEvent(); // tell player to invoke the round end event
             }
+
             ResetRolesAfterRound();
             ChangeAllCars();
             chaserRoleSwapWaitTime_ = chaserRoleSwapStartWaitTime_;
         }
+
         /// <summary>
         /// Sets the player who will be the runner at the start of the next rond.
         /// The players take turns at being the runner in the order that they appear in the player List.
         /// The winner of the previous round has no effect on the start runner of the next round 
         /// </summary>
         private void ResetRolesAfterRound() {
-            if (runnerAtRoundStart_.PlayerListIndex == players_.Count - 1) {
-                runnerAtRoundStart_ = players_[0];
-            }
-            else {
-                runnerAtRoundStart_ = players_[(runnerAtRoundStart_.PlayerListIndex + 1)];
-            }
-            SwapRoles(runnerAtRoundStart_, CurrentRunner);
+            _runnerAtRoundStart = GetNextRoundRunner();
+            SwapRoles(_runnerAtRoundStart, CurrentRunner);
+        }
+
+        //--Returns the player which will be the runner at the start of the next round
+        public Player GetNextRoundRunner() {
+            return (_runnerAtRoundStart.PlayerListIndex == players_.Count - 1) ? players_[0] : players_[(_runnerAtRoundStart.PlayerListIndex + 1)];
         }
 
         /// <summary>
@@ -248,13 +279,12 @@ namespace CarTag.PlayerSpace {
         /// <summary>
         /// Update dates the guide arrow for each player
         /// </summary>
-       /* public void UpdateCheckpointGuides() {
-            foreach (Player player in Players) {
-                print("Need to redo Checkpoint Guide Here too");
-                
-                //player.CheckpointGuide.UpdateGuide();
-            }
-        }*/
-
+        /* public void UpdateCheckpointGuides() {
+             foreach (Player player in Players) {
+                 print("Need to redo Checkpoint Guide Here too");
+                 
+                 //player.CheckpointGuide.UpdateGuide();
+             }
+         }*/
     }
 }

@@ -19,13 +19,13 @@ namespace CarTag.Road {
         public bool DoFixedUpdate { get; set; }                 // controlled by Round Manager True when round starts False when runner reaches target distance
 
         //-- Private
-        private Distance distance = new Distance();
-        private RoadRemoval roadRemoval = new RoadRemoval();
-        private bool InitialSetupDone = false;
+        private Distance _distance = new Distance();
+        private RoadRemoval _roadRemoval = new RoadRemoval();
+        private bool _initialSetupDone = false;
 
 
         //--Properties
-        public Distance Distance { get { return distance; } }
+        public Distance Distance { get { return _distance; } }
 
 
         public void InitialSetup(RoadSpawnData initialRoadSpawnData) {
@@ -34,13 +34,22 @@ namespace CarTag.Road {
             checkpointManager = FindObjectOfType<CheckpointManager>();
             //RoadSpawnData = initialRoadSpawnData;                           // Setup Road Generation
             RoadGenerator.InitialSetup(initialRoadSpawnData);
-            InitialSetupDone = true;
+            _initialSetupDone = true;
 
+        }
+
+        private void OnEnable() {
+            GameEvents.onRoleSwapNullary += ResetRoad;
+        }
+
+        private void OnDisable() {
+            GameEvents.onRoleSwapNullary -= ResetRoad;
+            
         }
 
         private void FixedUpdate() {
 
-            if (!InitialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
+            if (!_initialSetupDone) {                        // make sure that fixed update does not run until initial setup has been done (Added now that inital setup
                 return;                                     // does ot get done on Start() anymore
             }
             if (DoFixedUpdate) {
@@ -53,14 +62,14 @@ namespace CarTag.Road {
 
                     }
                     Vector3 newestPointInSpline = RoadGenerator.SplineComputer.GetPoint(RoadGenerator.SplineComputer.pointCount - 1).position;
-                    distance.SetNewPointAddedDistance(newestPointInSpline);
+                    _distance.SetNewPointAddedDistance(newestPointInSpline);
                 }
                 else {      // no new points were added to spline
                             //--uses the same values as used in road generator but will not add distance while car is in air.
                             //--uses different values as used in road generator so may be less acuurate but add distance while car is in air
                     
                     //distance.SetNoPointAddedDistance(RoadSpawnData.transform.position);
-                    distance.SetNoPointAddedDistance(roadSpawnData.transform.position);
+                    _distance.SetNoPointAddedDistance(roadSpawnData.transform.position);
 
                 }
             }
@@ -71,16 +80,16 @@ namespace CarTag.Road {
         /// </summary>
         /// <param name="cpPosition"></param>
         public void RemoveRoad(Vector3 cpPosition) {
-            SplinePoint[] newSplinePoints = roadRemoval.RemovePoints(RoadGenerator.SplineComputer.GetPoints(), cpPosition);
+            SplinePoint[] newSplinePoints = _roadRemoval.RemovePoints(RoadGenerator.SplineComputer.GetPoints(), cpPosition);
             RoadGenerator.SplineComputer.SetPoints(newSplinePoints);
         }
         /// <summary>
         /// Removes all points from the spline, Sets the new RoadSpawnData and Resets the distance travelled
         /// </summary>
-        public void ResetRoad(RoadSpawnData newRoadSpawnData) {
+        public void ResetRoad() {
             StartCoroutine(RoleSwapRoutine());
             //RoadSpawnData = newRoadSpawnData;    // Update RoadManager RoadSpawnData
-            distance.ResetDistanceTravelled();
+            _distance.ResetDistanceTravelled();
             SplinePoint[] emptySplinePoints = new SplinePoint[0];
             RoadGenerator.SplineComputer.SetPoints(emptySplinePoints);
             //isResetting = true;

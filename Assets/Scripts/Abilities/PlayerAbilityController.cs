@@ -64,86 +64,43 @@ namespace CarTag.Abilities{
         public void OnAbilityInputCancelled() {
             CurrentAbility.OnAbilityButtonReleased("");
         }
-        //--Called from input handler. Will set the the current ability ti the next ability in the list. If next ability is incompatable with player role it will move onto the...
-        //--one after that and so on. Will also loop back to the start of the list.
-        /*public void NextAbility(bool recursiveCall = false) {
-            //--If Can Switch Ability
-            if (CurrentAbility.CanSwitchFrom()) {
-                int currentIndex = GetCurrentAbilityIndex();
-                int newIndex = currentIndex + 1;
-                if (newIndex >= abilities.Count) {      // loop the ability selection back around to the start of the list
-                    newIndex = 0;
-                }
-                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
-                //--to call ChangeFromAbility on those abilities.
-                if (!recursiveCall) {
-                    CurrentAbility.ChangeFromAbility(); 
-                }
-                CurrentAbility = abilities[newIndex];
-                //--Check if the new CUrrent ability will work with the player current role
-                if (!IsAbilityCompatibleWithPlayerRole()) {
-                    NextAbility(true);
-                    return;                 // makes sure the UI is not set for each ability which is not compatable
-                }
-                CurrentAbility.ChangeToAbility();
-                int abilityCompatableIndex = GetAbilityCompatableIndex();
-                //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
-                thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
-            }
-            //--If Can't Switch Ability
-            else {
-
-            }
-        }*/
-
-        public void NextAbility(bool recursiveCall = false) {
-            //ChangeAbility(1, 0);
-            //--If Can Switch Ability
-            if (!CurrentAbility.CanSwitchFrom()) {
-                return;
-            }
-            do {
-                int currentIndex = GetCurrentAbilityIndex();
-                int newIndex = currentIndex + 1;
-                if (newIndex >= abilities.Count) {
-                    // loop the ability selection back around to the start of the list
-                    newIndex = 0;
-                }
-                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
-                //--to call ChangeFromAbility on those abilities.
-                if (!recursiveCall) {
-                    CurrentAbility.ChangeFromAbility();
-                    recursiveCall = true;
-                }
-                CurrentAbility = abilities[newIndex];
-                //--Check if the new CUrrent ability will work with the player current role
-            } while (!IsAbilityCompatibleWithPlayerRole());
-
-            CurrentAbility.ChangeToAbility();
-            int abilityCompatableIndex = GetAbilityCompatableIndex();
-            //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
-            thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
+        //--Called from input handler. Will set the the current ability to the next/previous ability in the list. If next/previous ability is incompatible with player role it will move onto the...
+        //--one after that and so on. Will also loop back to the start/end of the list.
+        public void NextAbility() {
+            ChangeAbility(true);
         }
-        public void ChangeAbility(int iterateValue,int indexToLoopTo) {
+
+        public void PreviousAbility() {
+            ChangeAbility(false);
+        }
+
+        private void ChangeAbility(bool goToNext) {
             //--If Can Switch Ability
             if (!CurrentAbility.CanSwitchFrom()) {
                 return;
             }
-
-            bool alreadyChangedFrom = false;                    // set to true once ChangeFromAbility method called. stops the method from running while cycling through abilities which are not compatible with the player's role 
+            // set to true once ChangeFromAbility method called. stops the method from running while cycling through abilities which are not compatible with the player's role
+            bool alreadyChangedFrom = false;
+            int iterateValue = (goToNext) ? 1 : -1;         // controls whether the method increments/decrements to the next or previous index in the list
             do {
                 int currentIndex = GetCurrentAbilityIndex();
                 int newIndex = currentIndex + iterateValue;
-                if (newIndex >= abilities.Count) {
-                    // loop the ability selection back around to the start of the list
-                    newIndex = indexToLoopTo;
+                
+                //--Controls whether the index loops back to the start or end of the list
+                if (goToNext && newIndex >= abilities.Count) {
+                    newIndex = 0;                       // loop the ability selection back around to the start of the list
                 }
-                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
-                //--to call ChangeFromAbility on those abilities.
+                if (!goToNext && newIndex < 0) {
+                    newIndex = abilities.Count - 1;     // loop the ability selection back around to the end of the list
+                }
+
+                //--We only need to run this method for the original ability. If the new ability is not compatable with the player role we
+                //-- don't need to run the method when going round the loop again. Since the new ability cannot have been activated
                 if (!alreadyChangedFrom) {
                     CurrentAbility.ChangeFromAbility();
                     alreadyChangedFrom = true;
                 }
+
                 CurrentAbility = abilities[newIndex];
                 //--Check if the new CUrrent ability will work with the player current role
             } while (!IsAbilityCompatibleWithPlayerRole());
@@ -154,39 +111,6 @@ namespace CarTag.Abilities{
             thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
         }
 
-
-        public void PreviousAbility(bool recursiveCall = false) {
-            //ChangeAbility(-1, abilities.Count - 1);
-            //--If Can Switch Ability
-            if (CurrentAbility.CanSwitchFrom()) {
-                int currentIndex = GetCurrentAbilityIndex();
-                int newIndex = currentIndex - 1;
-                if (newIndex < 0) {
-                    // loop the ability selection back around to the end of the list
-                    newIndex = abilities.Count - 1;
-                }
-
-                //--Method is called recursively when skipping through abilities which are incompatable with the player role. We dont want to 
-                //--to call ChangeFromAbility on those abilities.
-                if (!recursiveCall) {
-                    CurrentAbility.ChangeFromAbility();
-                }
-
-                CurrentAbility = abilities[newIndex];
-                if (!IsAbilityCompatibleWithPlayerRole()) {
-                    PreviousAbility();
-                    return;
-                }
-
-                CurrentAbility.ChangeToAbility();
-                int abilityCompatableIndex = GetAbilityCompatableIndex();
-                //thisPlayer.PlayerUIController.AbilityUI.ChangeAbilityUI(CurrentAbility.UsesLeft, abilityCompatableIndex);     // update the UI
-                thisPlayer.PlayerEvents.AbilityEvents.CurrentAbilityChanged(CurrentAbility.UsesLeft, abilityCompatableIndex);
-            }
-            //--If Can't Switch Ability
-            else {
-            }
-        }
 
         //--Returns True if the current ability is compatable with the players current role
         private bool IsAbilityCompatibleWithPlayerRole() {
@@ -220,15 +144,14 @@ namespace CarTag.Abilities{
             }
 
             if (!IsAbilityCompatibleWithPlayerRole()) {
-                // if the player has an ability selected which is not compatable with current role then move onto next ability
+                // if the player has an ability selected which is not compatible with current role then move onto next ability
                 NextAbility();
             }
 
             int abilityIndex = GetAbilityCompatableIndex();
 
             //thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
-            thisPlayer.PlayerEvents.AbilityEvents.ResetAbilities(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(),
-                abilityIndex);
+            thisPlayer.PlayerEvents.AbilityEvents.ResetAbilities(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
             //-Reset use ability timer
             if (abilityTimerRoutine != null) {
                 StopCoroutine(abilityTimerRoutine);
@@ -239,7 +162,7 @@ namespace CarTag.Abilities{
             timeElapsedSinceCooldownEnd = 0; //Reset 
         }
 
-        //--Get the index of the current ability but only out of the Abilities which are compatable with the current runner
+        //--Get the index of the current ability but only out of the Abilities which are compatible with the current runner
         private int GetAbilityCompatableIndex() {
             int index = -1;
             if (thisPlayer.IsThisPlayerCurrentRunner()) {
@@ -248,7 +171,6 @@ namespace CarTag.Abilities{
             else {
                 index = abilities.Where(i => i.isChaserAbility).ToList().FindIndex(a => a == CurrentAbility);
             }
-
             return index;
         }
 
@@ -257,7 +179,7 @@ namespace CarTag.Abilities{
             //thisPlayer.PlayerUIController.AbilityUI.UpdateAbilityUIOnUse(timeBetweenAbilityUse, usesLeft);
             thisPlayer.PlayerEvents.AbilityEvents.AbilityUsed(timeBetweenAbilityUse, usesLeft);
             //--Update the player Ability telemetry for Games User Research module
-            thisPlayer.PlayerScore.UpdateAbilityUsedTelemetry(CurrentAbility, timeElapsedSinceCooldownEnd);
+            //thisPlayer.PlayerScore.UpdateAbilityUsedTelemetry(CurrentAbility, timeElapsedSinceCooldownEnd);
         }
 
         public IEnumerator AbilityCooldown() {
@@ -269,9 +191,9 @@ namespace CarTag.Abilities{
 
         private void Update() {
             //AbilityManager.RoundManager.IsRoundRunning;
-            if (thisPlayer.IsPlayerEnabled) {
+            /*if (thisPlayer.IsPlayerEnabled) {
                 timeElapsedSinceCooldownEnd += Time.deltaTime;
-            }
+            }*/
         }
     }
 }

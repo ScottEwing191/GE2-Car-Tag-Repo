@@ -55,6 +55,14 @@ namespace CarTag.UI {
             LevelUI.SetScoreboardText(ScoreManager.GetPlayerScoresInDisplayOrder(), false);
         }
 
+        private void OnEnable() {
+            GameEvents.onRoleSwap += RoleSwapReset;
+        }
+
+        private void OnDisable() {
+            GameEvents.onRoleSwap -= RoleSwapReset;
+        }
+
         // === SCOREBOARD ===
         public void ShowScores(bool isGameOver) {
             DisablePlayersUI();
@@ -83,7 +91,9 @@ namespace CarTag.UI {
         /// </summary>
         public void StartRunnerCountdown(float startTime) {
             PlayerUIController runnerUI = playerUIControllers[PlayerManager.CurrentRunner.PlayerListIndex];
-            StartCoroutine(runnerUI.DoCountdownTimer(startTime, counterRate, 1));
+            //StartCoroutine(runnerUI.DoCountdownTimerRoutine(startTime, counterRate, 1));
+            runnerUI.DoCountdownTimer(startTime, counterRate, 1);
+
         }
 
         /// <summary>
@@ -92,7 +102,8 @@ namespace CarTag.UI {
         public void StartChaserCountdown(float startTime) {
             for (int i = 0; i < playerUIControllers.Count; i++) {
                 if (i != PlayerManager.CurrentRunner.PlayerListIndex) {
-                    StartCoroutine(playerUIControllers[i].DoCountdownTimer(startTime, counterRate, 2));
+                    //StartCoroutine(playerUIControllers[i].DoCountdownTimerRoutine(startTime, counterRate, 2));
+                    playerUIControllers[i].DoCountdownTimer(startTime, counterRate, 2);
                 }
             }
         }

@@ -63,13 +63,13 @@ namespace CarTag {
         /// <param name="newRunner">The Player Script on the new runner (old chaser)</param>
         /// <param name="newChaser">The Player Script on the new chaser (old runner)</param>
         internal void ManageRoleSwap(Player newRunner, Player newChaser) {
-            PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Needs To be first 
-            
-            RoadManager.ResetRoad(newRunner.RoadSpawnData);                     // Position Shouldnt matter??
-            CheckpointManager.ResetCheckpoints();                               // Position Shouldnt Matter
-            UIManager.RoleSwapReset(newRunner, newChaser);                      // Position Shouldn't Matter
-            ScoreManager.SetScoresOnRoleSwap();                                 // Position Shouldn't Matter
-            AbilityManager.ResetAbilities(newRunner);
+            GameEvents.RoleSwap(newRunner, newChaser);
+            //PlayerManager.ControlPlayerRoleSwap(newRunner, newChaser);          // Needs To be first 
+            //RoadManager.ResetRoad();                                            // Position Shouldnt matter??
+            //CheckpointManager.ResetCheckpoints();                               // Position Shouldnt Matter
+            //UIManager.RoleSwapReset(newRunner, newChaser);                      // Position Shouldn't Matter
+            //ScoreManager.SetScoresOnRoleSwap();                                 // Position Shouldn't Matter
+            //AbilityManager.ResetAbilities(newRunner);                           // Needs to come after Player. Accesses player.IsThisPlayerCurrentRunner()
         }
 
         public void ManageRoundOver() {
@@ -86,14 +86,16 @@ namespace CarTag {
 
         private IEnumerator StartNewRoundRoutine() {
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(0, 1, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to black
-
+            GameEvents.RoundReset(PlayerManager.GetNextRoundRunner());
             //--Reset Managers For New Round
-            PlayerManager.ResetPlayersAfterRound();
-            RoadManager.ResetRoad(PlayerManager.CurrentRunner.RoadSpawnData);
+            //PlayerManager.ResetPlayersAfterRound();
+            
+            RoadManager.ResetRoad();
             CheckpointManager.ResetCheckpoints();
             UIManager.RoundStartReset();                                    // this need to come after PlayerManager
             AbilityManager.ResetAbilities(PlayerManager.CurrentRunner);     // this need to come after PlayerManager
             ScoreManager.SetupScoresForNewRound();
+            
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent
             StartCoroutine(RoundManager.RoundStart());

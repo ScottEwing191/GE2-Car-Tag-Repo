@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,15 @@ namespace CarTag.Abilities {
             }
         }
 
-        public void ResetAbilities(Player newRunner) {
+        private void OnEnable() {
+            GameEvents.onRoleSwap += ResetAbilities;
+        }
+
+        private void OnDisable() {
+            GameEvents.onRoleSwap -= ResetAbilities;
+        }
+
+        public void ResetAbilities(Player newRunner, Player unusedNewChaser = null) {
             newRunner.PlayerAbilityController.ResetAbilities(true);
             foreach (var c in PlayerAbilityControllers) {
                 if (c == newRunner.PlayerAbilityController) {
@@ -47,7 +56,7 @@ namespace CarTag.Abilities {
             }
         }
 
-
+        
 
         public bool IsControllerAttachedToRunner(PlayerAbilityController controller) {
             if (controller == GetRunnerAbilityController()) {
