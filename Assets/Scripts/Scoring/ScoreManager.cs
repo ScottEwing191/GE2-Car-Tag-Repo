@@ -34,10 +34,13 @@ namespace CarTag.ScoreSystem {
 
         private void OnEnable() {
             GameEvents.onRoleSwapNullary += SetScoresOnRoleSwap;
+            GameEvents.onRoundResetNullary += SetupScoresForNewRound;
         }
 
         private void OnDisable() {
             GameEvents.onRoleSwapNullary -= SetScoresOnRoleSwap;
+            GameEvents.onRoundResetNullary -= SetupScoresForNewRound;
+
         }
 
         private void SetABTestingValues(string testType) {

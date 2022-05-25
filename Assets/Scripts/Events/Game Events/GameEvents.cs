@@ -12,7 +12,7 @@ namespace CarTag
         /// Subscribers:
         ///     RoleSwapEarly: PlayerManager.ControlPlayerRoleSwap, 
         ///     RoleSwap: UIManager.RoleSwapReset
-        ///     RoleSwapNullary Subscribers: SlowTimeAbility.TryDisableSloMo, RoadManager.ResetRoad, 
+        ///     RoleSwapNullary Subscribers: SlowTimeAbility.TryDisableSloMo, RoadManager.ResetRoad, CheckpointManager.ResetCheckpoints
         /// </summary>
         public static Action<Player, Player> onRoleSwapEarly = delegate { };
         public static Action<Player, Player> onRoleSwap = delegate { };
@@ -27,9 +27,9 @@ namespace CarTag
         /// <summary>
         /// Players Have Swapped Roles
         /// Subscribers:
-        ///     RoundResetEarly: PlayerManager., 
-        ///     RoundSwap: UIManager.RoleSwapReset
-        ///     RoundResetNullary Subscribers: SlowTimeAbility.TryDisableSloMo, RoadManager.ResetRoad, 
+        ///     RoundResetEarly: PlayerManager.ResetPlayersAfterRound, 
+        ///     RoundSwap: UIManager.RoundEndReset
+        ///     RoundResetNullary Subscribers: RoadManager.ResetRoad, CheckpointManager.ResetCheckpoints 
         /// </summary>
         public static Action onRoundResetEarly = delegate { };
         public static Action<Player> onRoundReset = delegate { };     

@@ -61,7 +61,7 @@ namespace CarTag.PlayerSpace{
 
         private void OnDisable() {
             GameEvents.onRoleSwapEarly -= ControlPlayerRoleSwap;
-            GameEvents.onRoundResetEarly += ResetPlayersAfterRound;
+            GameEvents.onRoundResetEarly -= ResetPlayersAfterRound;
 
         }
 

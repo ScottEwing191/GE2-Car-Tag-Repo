@@ -33,10 +33,14 @@ namespace CarTag.Checkpoints {
 
         private void OnEnable() {
             GameEvents.onRoleSwapNullary += ResetCheckpoints;
+            GameEvents.onRoundResetNullary += ResetCheckpoints;
+
         }
 
         private void OnDisable() {
             GameEvents.onRoleSwapNullary -= ResetCheckpoints;
+            GameEvents.onRoundResetNullary -= ResetCheckpoints;
+
         }
 
         public void InitialSetup(int numberOfQueues) {

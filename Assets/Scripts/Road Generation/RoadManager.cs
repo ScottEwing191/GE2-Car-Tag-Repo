@@ -40,11 +40,14 @@ namespace CarTag.Road {
 
         private void OnEnable() {
             GameEvents.onRoleSwapNullary += ResetRoad;
+            GameEvents.onRoundResetNullary += ResetRoad;
+
         }
 
         private void OnDisable() {
             GameEvents.onRoleSwapNullary -= ResetRoad;
-            
+            GameEvents.onRoundResetNullary -= ResetRoad;
+
         }
 
         private void FixedUpdate() {

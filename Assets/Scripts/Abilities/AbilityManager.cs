@@ -40,13 +40,20 @@ namespace CarTag.Abilities {
 
         private void OnEnable() {
             GameEvents.onRoleSwap += ResetAbilities;
+            //GameEvents.onRoundReset += OnRoundReset;
+
         }
 
         private void OnDisable() {
             GameEvents.onRoleSwap -= ResetAbilities;
+            //GameEvents.onRoundReset -= OnRoundReset;
+
         }
 
-        public void ResetAbilities(Player newRunner, Player unusedNewChaser = null) {
+        //--Done this way since cannot subscribe Reset Abilities to onRoundReset directly as signatures no not match
+        private void OnRoundReset(Player newRunner) => ResetAbilities(newRunner);
+
+        public void ResetAbilities(Player newRunner, Player unused = null) {
             newRunner.PlayerAbilityController.ResetAbilities(true);
             foreach (var c in PlayerAbilityControllers) {
                 if (c == newRunner.PlayerAbilityController) {
@@ -56,14 +63,6 @@ namespace CarTag.Abilities {
             }
         }
 
-        
-
-        public bool IsControllerAttachedToRunner(PlayerAbilityController controller) {
-            if (controller == GetRunnerAbilityController()) {
-                return true;
-            }
-            return false;
-        }
         //=== PRIVATE METHODS ===
         public PlayerAbilityController GetRunnerAbilityController() {
             return PlayerAbilityControllers[PlayerManager.CurrentRunner.PlayerListIndex];

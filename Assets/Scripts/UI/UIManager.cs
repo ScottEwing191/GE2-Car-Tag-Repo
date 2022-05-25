@@ -57,10 +57,14 @@ namespace CarTag.UI {
 
         private void OnEnable() {
             GameEvents.onRoleSwap += RoleSwapReset;
+            //GameEvents.onRoundReset += RoundEndReset;
+
         }
 
         private void OnDisable() {
             GameEvents.onRoleSwap -= RoleSwapReset;
+            //GameEvents.onRoundReset -= RoundEndReset;
+
         }
 
         // === SCOREBOARD ===
@@ -178,8 +182,8 @@ namespace CarTag.UI {
             ResetUI(newRunner);
 
         }
-        internal void RoundStartReset() {
-            ResetUI(PlayerManager.CurrentRunner);
+        internal void RoundEndReset(Player newRunner) {
+            ResetUI(newRunner);
         }
 
         private void ResetUI(Player newRunner) {

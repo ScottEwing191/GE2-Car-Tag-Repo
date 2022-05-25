@@ -153,7 +153,7 @@ namespace CarTag.Abilities{
             //thisPlayer.PlayerUIController.AbilityUI.ResetAbilityUI(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
             thisPlayer.PlayerEvents.AbilityEvents.ResetAbilities(CurrentAbility.UsesLeft, thisPlayer.IsThisPlayerCurrentRunner(), abilityIndex);
             //-Reset use ability timer
-            if (abilityTimerRoutine != null) {
+             if (abilityTimerRoutine != null) {
                 StopCoroutine(abilityTimerRoutine);
                 abilityTimerRoutine = null;
                 cooldownOver = true;

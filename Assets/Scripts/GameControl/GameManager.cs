@@ -90,11 +90,11 @@ namespace CarTag {
             //--Reset Managers For New Round
             //PlayerManager.ResetPlayersAfterRound();
             
-            RoadManager.ResetRoad();
-            CheckpointManager.ResetCheckpoints();
-            UIManager.RoundStartReset();                                    // this need to come after PlayerManager
+            //RoadManager.ResetRoad();
+            //CheckpointManager.ResetCheckpoints();
+            UIManager.RoundEndReset(PlayerManager.CurrentRunner);            // this need to come after PlayerManager, UI Manager Need to come before Ability Manager
             AbilityManager.ResetAbilities(PlayerManager.CurrentRunner);     // this need to come after PlayerManager
-            ScoreManager.SetupScoresForNewRound();
+            //ScoreManager.SetupScoresForNewRound();                          // this need to come after PlayerManager
             
             yield return new WaitForSeconds(0.5f);                                                                      // Pause on black screen 
             yield return StartCoroutine(UIManager.ScreenFadeOnAllPlayers(1, 0, ScreenFadeUI.DEFAULT_FADE_TIME));        // Return when screen has faded to translucent
